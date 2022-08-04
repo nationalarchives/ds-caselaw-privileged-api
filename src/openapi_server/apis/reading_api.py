@@ -23,7 +23,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/judgment/{judgmentUri}",
+    "/judgment/{judgmentUri:path}",
     responses={
         200: {"description": "A single judgment document, in Akoma Ntoso XML"},
     },
@@ -42,7 +42,7 @@ async def get_document_by_uri(
 
 
 @router.get(
-    "/judgment/{judgmentUri}/metadata",
+    "/judgment/{judgmentUri:path}/metadata",
     responses={
         200: {"description": "OK"},
     },
