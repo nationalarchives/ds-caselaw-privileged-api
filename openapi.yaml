@@ -1,0 +1,277 @@
+openapi: 3.0.2
+info:
+  title: Case Law Privileged API
+  version: 0.1.2
+servers:
+- url: "https://{environment}.caselaw.nationalarchives.gov.uk/v1"
+  variables:
+    environment:
+      default: api
+      enum:
+      - api
+      - api.staging
+tags:
+- description: Verify the operational state of the API
+  name: Status
+- description: Operations for reading document content and metadata
+  name: Reading
+- description: Operations for writing document content and metadata
+  name: Writing
+paths:
+  /status:
+    get:
+      description: "A test endpoint that can be used by clients to verify service\
+        \ availability, and to verify valid authentication credentials.\nAuthentication\
+        \ is not required, but if it is provided, it will be checked for validity.\n"
+      responses:
+        "200":
+          description: "The service is available, and if authentication was provided,\
+            \ the authentication is valid."
+        "401":
+          description: "The service is available, but the provided authentication\
+            \ was not valid."
+      security:
+      - {}
+      - basic: []
+      summary: Health check
+      tags:
+      - Status
+  /{judgmentUri}:
+    get:
+      description: "Unless the client has `read_unpublished_documents` permission,\
+        \ then only published documents are accessible."
+      operationId: getDocumentByUri
+      parameters:
+      - explode: false
+        in: path
+        name: judgmentUri
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: "A single judgment document, in Akoma Ntoso XML"
+          headers:
+            ETag:
+              description: The version number of the document
+              example: "1"
+              explode: false
+              schema:
+                type: string
+              style: simple
+            X-Lock-State:
+              description: Included if the client has the `write_documents` role;
+                specifies if the document is currently locked for editing.
+              example: true
+              explode: false
+              schema:
+                type: boolean
+              style: simple
+      security:
+      - basic:
+        - read_documents
+        - read_unpublished_documents
+      summary: "Read a judgment or decision, given its URI"
+      tags:
+      - Reading
+    put:
+      description: "Write a complete new version of the document to the database,\
+        \ and release any client lock."
+      parameters:
+      - explode: false
+        in: path
+        name: judgmentUri
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The last known version number of the document
+        example: "1"
+        explode: false
+        in: header
+        name: If-Match
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: The document was updated successfully and any client lock released
+          headers:
+            ETag:
+              description: The new version number of the document
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          description: "The request was malformed, and the document was not modified"
+        "412":
+          description: "The document was not updated, as it has changed since the\
+            \ version number specified If-Match. To avoid this, the client should\
+            \ lock the document before making any changes to it."
+      security:
+      - basic:
+        - write_documents
+      summary: Update a judgment
+      tags:
+      - Writing
+  /{judgmentUri}/lock:
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: judgmentUri
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Lock state included in header
+          headers:
+            X-Lock-State:
+              description: Included if the client has edit permissions; specifies
+                if the document is currently locked for editing.
+              explode: false
+              schema:
+                type: boolean
+              style: simple
+      security:
+      - basic:
+        - write_documents
+      summary: Query lock status for a document
+      tags:
+      - Writing
+    put:
+      description: "Locks edit access for a document for the current client. Returns\
+        \ the latest version of the locked document, alohg with the new lock state."
+      parameters:
+      - explode: false
+        in: path
+        name: judgmentUri
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "201":
+          description: "A single judgment document, in Akoma Ntoso XML"
+          headers:
+            ETag:
+              description: The version number of the document
+              example: "1"
+              explode: false
+              schema:
+                type: string
+              style: simple
+            X-Lock-State:
+              description: Included if the client has the `write_documents` role;
+                specifies if the document is currently locked for editing.
+              example: true
+              explode: false
+              schema:
+                type: boolean
+              style: simple
+        "403":
+          description: The document was already locked by another client
+          headers:
+            X-Lock-State:
+              description: Included if the client has edit permissions; specifies
+                if the document is currently locked for editing.
+              explode: false
+              schema:
+                type: boolean
+              style: simple
+      security:
+      - basic:
+        - write_documents
+      summary: Lock access to a document
+      tags:
+      - Writing
+  /{judgmentUri}/metadata:
+    get:
+      description: "Unless the client has `read_unpublished_documents` permission,\
+        \ then only metadata for published documents are accessible."
+      parameters:
+      - explode: false
+        in: path
+        name: judgmentUri
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      security:
+      - basic:
+        - read_documents
+        - read_unpublished_documents
+      summary: Gets the document's metadata
+      tags:
+      - Reading
+    patch:
+      parameters:
+      - explode: false
+        in: path
+        name: judgmentUri
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: OK
+      security:
+      - basic:
+        - write_documents
+      summary: Set document properties
+      tags:
+      - Writing
+components:
+  parameters:
+    judgmentUri:
+      explode: false
+      in: path
+      name: judgmentUri
+      required: true
+      schema:
+        type: string
+      style: simple
+    ifMatch:
+      description: The last known version number of the document
+      example: "1"
+      explode: false
+      in: header
+      name: If-Match
+      required: true
+      schema:
+        type: string
+      style: simple
+  responses:
+    judgment:
+      description: "A single judgment document, in Akoma Ntoso XML"
+      headers:
+        ETag:
+          description: The version number of the document
+          example: "1"
+          explode: false
+          schema:
+            type: string
+          style: simple
+        X-Lock-State:
+          description: Included if the client has the `write_documents` role; specifies
+            if the document is currently locked for editing.
+          example: true
+          explode: false
+          schema:
+            type: boolean
+          style: simple
+  schemas: {}
+  securitySchemes:
+    basic:
+      description: HTTP Basic Authentication
+      scheme: basic
+      type: http
