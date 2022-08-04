@@ -2,6 +2,10 @@
 
 from typing import Dict, List  # noqa: F401
 from openapi_server.connect import client_for_basic_auth
+from caselawclient.Client import (
+    MarklogicResourceLockedError,
+    MarklogicResourceUnmanagedError,
+)
 
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -59,9 +63,16 @@ async def judgment_uri_lock_put(
     ),
 ) -> None:
     """Locks edit access for a document for the current client. Returns the latest version of the locked document, along with the new lock state."""
+    # Will allow a second lock if you already have it
+    # Won't steal locks off other people
     client = client_for_basic_auth(token_basic)
-    response = client.checkout_judgment(judgment_uri=judgmentUri, annotation="Locked by API")
-    print(response)
+    try:
+        response = client.checkout_judgment(judgment_uri=judgmentUri, annotation=f"Locked by {token_basic.username}")
+    except MarklogicResourceLockedError:
+        return "locked by someone else..."
+    except MarklogicResourceUnmanagedError:
+        return "document isn't managed (and probably doesn't exist)"
+    print(response.content)
     return "OK"
 
 
