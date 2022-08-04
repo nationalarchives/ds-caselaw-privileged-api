@@ -5,7 +5,7 @@ from openapi_server.security_api import get_token_basic
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 
 environ.Env.read_env("../.env") # TODO this is hideous
-MARKLOGIC_HOST = os.environ['MARKLOGIC_HOST']
+MARKLOGIC_HOST = os.environ.get('MARKLOGIC_HOST')
 
 from caselawclient.Client import MarklogicApiClient
 
