@@ -39,12 +39,12 @@ async def status_get(
     token_basic: TokenModel = Security(
         get_token_basic
     ),
-) -> None:
+) -> str:
     """A test endpoint that can be used by clients to verify service availability, and to verify valid authentication credentials. Authentication is not required, but if it is provided, it will be checked for validity. """
     client = client_for_basic_auth(token_basic)
-
+    print (client)
     try:
         search_response = client.advanced_search(only_unpublished=True)
     except MarklogicUnauthorizedError:
-        raise HTTPException(status_code=401, detail="/status: {token_basic.username} Unauthorised")
-    return "/status: {token_basic.username} Authorised"
+        raise HTTPException(status_code=401, detail=f"/status: {token_basic.username} Unauthorised")
+    return f"/status: {token_basic.username} Authorised"

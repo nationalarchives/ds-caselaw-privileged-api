@@ -11,6 +11,8 @@ from caselawclient.Client import MarklogicApiClient
 
 
 def client_for_basic_auth(token_basic: TokenModel = Security(get_token_basic),):
+    breakpoint()
+    print("Actual Client")
     return MarklogicApiClient(
       host=MARKLOGIC_HOST,
       username=token_basic.username,
