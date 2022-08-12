@@ -40,12 +40,15 @@ router = APIRouter()
 )
 async def judgment_uri_lock_get(
     judgmentUri: str = Path(None, description=""),
-    token_basic: TokenModel = Security(
+    _token_basic: TokenModel = Security(
         get_token_basic
     ),
-) -> None:
+):
     client = client_for_basic_auth(token_basic)
-    raise NotImplementedError
+    try:
+        return client.get_judgment_checkout_status_message(judgmentUri)
+    except MarklogicResourceUnmanagedError as e:
+        return f"Unable to find judgment, {e}"
 
 
 @router.put(
