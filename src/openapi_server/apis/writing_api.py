@@ -24,6 +24,8 @@ from fastapi import (  # noqa: F401
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
 
+from caselawclient.Client import api_client, MarklogicResourceLockedError, MarklogicResourceUnmanagedError
+
 router = APIRouter()
 
 
@@ -61,17 +63,15 @@ async def judgment_uri_lock_put(
     token_basic: TokenModel = Security(
         get_token_basic
     ),
-) -> None:
+):
     """Locks edit access for a document for the current client. Returns the latest version of the locked document, along with the new lock state."""
-    # Will allow a second lock if you already have it
-    # Won't steal locks off other people
     client = client_for_basic_auth(token_basic)
+    annotation = f"Judgment locked for editing by {token_basic.username}"
     try:
-        response = client.checkout_judgment(judgment_uri=judgmentUri, annotation=f"Locked by {token_basic.username}")
-    except MarklogicResourceLockedError:
-        return "locked by someone else..."
-    except MarklogicResourceUnmanagedError:
-        return "document isn't managed (and probably doesn't exist)"
+        response = client.checkout_judgment(judgmentUri, annotation)
+        judgment = api_client.get_judgment_xml(judgmentUri)
+    except (MarklogicResourceLockedError, MarklogicResourceUnmanagedError) as e:
+        return f"Failed to lock judgment, {e}"
     print(response.content)
     return "OK"
 
