@@ -11,16 +11,13 @@ Python >= 3.7
 
 ## Installation & Usage
 
-To run the server, please execute the following from the root directory:
+To run the server, run `script/server`; open `http://localhost:8080/` in a browser
 
-```bash
-pip3 install -r requirements.txt
-uvicorn main:app --host 0.0.0.0 --port 8080
-```
+## Documentation
 
-and open your browser at `http://localhost:8080/docs/` to see the docs.
+Run the server and check `http://localhost:8080/docs/`
 
-## Running with Docker
+## Running with Docker (untested)
 
 To run the server on a Docker container, please execute the following from the root directory:
 
@@ -30,9 +27,8 @@ docker-compose up --build
 
 ## Tests
 
-To run the tests:
+Run `script/test`
 
-```bash
-pip3 install pytest
-PYTHONPATH=src pytest tests
-```
+## Linting
+
+Run `pre-commit install` to set up linting, and/or copy the `pre-push.sample` file to `.github/hooks/pre-push`
