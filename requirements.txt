@@ -2,7 +2,7 @@ aiofiles==0.8.0
 aniso8601==7.0.0
 async-exit-stack==1.0.1
 async-generator==1.10
-chardet==4.0.0
+chardet==5.0.0
 click==7.1.2
 dnspython==2.1.0
 email-validator==1.1.2
