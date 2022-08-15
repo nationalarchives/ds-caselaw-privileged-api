@@ -1,7 +1,4 @@
 # coding: utf-8
-
-from typing import List
-
 from fastapi import Depends, Security  # noqa: F401
 from fastapi.openapi.models import OAuthFlowImplicit, OAuthFlows  # noqa: F401
 from fastapi.security import (  # noqa: F401

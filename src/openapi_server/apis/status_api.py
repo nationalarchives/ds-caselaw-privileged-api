@@ -42,11 +42,13 @@ router = APIRouter()
 async def status_get(
     token_basic: TokenModel = Security(get_token_basic),
 ) -> str:
-    """A test endpoint that can be used by clients to verify service availability, and to verify valid authentication credentials. Authentication is not required, but if it is provided, it will be checked for validity."""
+    """A test endpoint that can be used by clients to verify service availability,
+    and to verify valid authentication credentials. Authentication is not required,
+    but if it is provided, it will be checked for validity."""
     client = client_for_basic_auth(token_basic)
 
     try:
-        search_response = client.advanced_search(only_unpublished=True)
+        search_response = client.advanced_search(only_unpublished=True)  # noqa: F841
     except MarklogicUnauthorizedError:
         raise HTTPException(
             status_code=401, detail="/status: {token_basic.username} Unauthorised"
