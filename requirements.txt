@@ -27,7 +27,7 @@ starlette==0.14.2
 typing-extensions==3.10.0.0
 ujson==4.0.2
 uvicorn==0.13.4
-uvloop==0.14.0
+uvloop==0.16.0
 watchgod==0.7
 websockets==8.1
 pytest==7.1.2
