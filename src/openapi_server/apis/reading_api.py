@@ -33,7 +33,7 @@ router = APIRouter()
 async def get_document_by_uri(
     judgmentUri: str = Path(None, description=""),
     token_basic: TokenModel = Security(get_token_basic),
-) -> None:
+) -> str:
     """Unless the client has &#x60;read_unpublished_documents&#x60; permission, then only published documents are accessible."""
     return "jqqzdwd"
 
