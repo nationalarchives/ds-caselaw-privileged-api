@@ -3,8 +3,6 @@
 from fastapi.testclient import TestClient
 
 
-
-
 def test_judgment_uri_lock_get(client: TestClient):
     """Test case for judgment_uri_lock_get
 
@@ -16,12 +14,12 @@ def test_judgment_uri_lock_get(client: TestClient):
     }
     response = client.request(
         "GET",
-        "/{judgmentUri}/lock".format(judgmentUri='judgment_uri_example'),
+        "/{judgmentUri}/lock".format(judgmentUri="judgment_uri_example"),
         headers=headers,
     )
 
     # uncomment below to assert the status code of the HTTP response
-    #assert response.status_code == 200
+    # assert response.status_code == 200
 
 
 def test_judgment_uri_lock_put(client: TestClient):
@@ -35,12 +33,12 @@ def test_judgment_uri_lock_put(client: TestClient):
     }
     response = client.request(
         "PUT",
-        "/{judgmentUri}/lock".format(judgmentUri='judgment_uri_example'),
+        "/{judgmentUri}/lock".format(judgmentUri="judgment_uri_example"),
         headers=headers,
     )
 
     # uncomment below to assert the status code of the HTTP response
-    #assert response.status_code == 200
+    # assert response.status_code == 200
 
 
 def test_judgment_uri_metadata_patch(client: TestClient):
@@ -54,12 +52,12 @@ def test_judgment_uri_metadata_patch(client: TestClient):
     }
     response = client.request(
         "PATCH",
-        "/{judgmentUri}/metadata".format(judgmentUri='judgment_uri_example'),
+        "/{judgmentUri}/metadata".format(judgmentUri="judgment_uri_example"),
         headers=headers,
     )
 
     # uncomment below to assert the status code of the HTTP response
-    #assert response.status_code == 200
+    # assert response.status_code == 200
 
 
 def test_judgment_uri_put(client: TestClient):
@@ -69,15 +67,14 @@ def test_judgment_uri_put(client: TestClient):
     """
 
     headers = {
-        "if_match": '1',
+        "if_match": "1",
         "Authorization": "BasicZm9vOmJhcg==",
     }
     response = client.request(
         "PUT",
-        "/{judgmentUri}".format(judgmentUri='judgment_uri_example'),
+        "/{judgmentUri}".format(judgmentUri="judgment_uri_example"),
         headers=headers,
     )
 
     # uncomment below to assert the status code of the HTTP response
-    #assert response.status_code == 200
-
+    # assert response.status_code == 200

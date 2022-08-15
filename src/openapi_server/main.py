@@ -11,7 +11,6 @@
 
 
 from fastapi import FastAPI
-
 from openapi_server.apis.reading_api import router as ReadingApiRouter
 from openapi_server.apis.status_api import router as StatusApiRouter
 from openapi_server.apis.writing_api import router as WritingApiRouter
