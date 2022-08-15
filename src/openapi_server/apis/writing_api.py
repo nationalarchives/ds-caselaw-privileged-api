@@ -73,17 +73,19 @@ async def judgment_uri_lock_get(
     response_model_by_alias=True,
 )
 async def judgment_uri_lock_put(
+    response: Response,
     judgmentUri: str = Path(None, description=""),
     token_basic: TokenModel = Security(
         get_token_basic
     ),
-    response: Response = None,
+    expires="0",
 ):
     """Locks edit access for a document for the current client. Returns the latest version of the locked document, along with the new lock state."""
     client = client_for_basic_auth(token_basic)
     annotation = f"Judgment locked for editing by {token_basic.username}"
+    expires = bool(int(expires)) # If expires is True then the lock will expire at midnight, otherwise the lock is permanent
     try:
-        _ml_response = client.checkout_judgment(judgmentUri, annotation)
+        _ml_response = client.checkout_judgment(judgmentUri, annotation, expires)
         judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
     except MarklogicResourceLockedError:
         response.status_code=403
