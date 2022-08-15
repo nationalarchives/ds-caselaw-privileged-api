@@ -28,7 +28,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/judgment/{judgmentUri:path}/lock",
+    "/lock/{judgmentUri:path}",
     responses={
         204: {"description": "Lock state included in header"},
     },
@@ -47,7 +47,7 @@ async def judgment_uri_lock_get(
 
 
 @router.put(
-    "/judgment/{judgmentUri:path}/lock",
+    "/lock/{judgmentUri:path}",
     responses={
         201: {"description": "A single judgment document, in Akoma Ntoso XML"},
         403: {"description": "The document was already locked by another client"},
@@ -78,7 +78,7 @@ async def judgment_uri_lock_put(
 
 
 @router.patch(
-    "/judgment/{judgmentUri:path}/metadata",
+    "/metadata/{judgmentUri:path}",
     responses={
         200: {"description": "OK"},
     },

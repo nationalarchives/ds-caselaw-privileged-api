@@ -42,7 +42,7 @@ async def get_document_by_uri(
 
 
 @router.get(
-    "/judgment/{judgmentUri:path}/metadata",
+    "/metadata/{judgmentUri:path}",
     responses={
         200: {"description": "OK"},
     },
