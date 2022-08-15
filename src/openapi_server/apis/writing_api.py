@@ -1,6 +1,11 @@
 # coding: utf-8
 
 from typing import Dict, List  # noqa: F401
+from openapi_server.connect import client_for_basic_auth
+from caselawclient.Client import (
+    MarklogicResourceLockedError,
+    MarklogicResourceUnmanagedError,
+)
 
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -23,7 +28,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/{judgmentUri}/lock",
+    "/judgment/{judgmentUri:path}/lock",
     responses={
         204: {"description": "Lock state included in header"},
     },
@@ -37,11 +42,12 @@ async def judgment_uri_lock_get(
         get_token_basic
     ),
 ) -> None:
-    ...
+    client = client_for_basic_auth(token_basic)
+    raise NotImplementedError
 
 
 @router.put(
-    "/{judgmentUri}/lock",
+    "/judgment/{judgmentUri:path}/lock",
     responses={
         201: {"description": "A single judgment document, in Akoma Ntoso XML"},
         403: {"description": "The document was already locked by another client"},
@@ -56,12 +62,23 @@ async def judgment_uri_lock_put(
         get_token_basic
     ),
 ) -> None:
-    """Locks edit access for a document for the current client. Returns the latest version of the locked document, alohg with the new lock state."""
-    ...
+    """Locks edit access for a document for the current client. Returns the latest version of the locked document, along with the new lock state."""
+    # Will allow a second lock if you already have it
+    # Won't steal locks off other people
+    client = client_for_basic_auth(token_basic)
+    try:
+        response = client.checkout_judgment(judgment_uri=judgmentUri, annotation=f"Locked by {token_basic.username}")
+    except MarklogicResourceLockedError:
+        return "locked by someone else..."
+    except MarklogicResourceUnmanagedError:
+        return "document isn't managed (and probably doesn't exist)"
+    print(response.content)
+    return "OK"
+
 
 
 @router.patch(
-    "/{judgmentUri}/metadata",
+    "/judgment/{judgmentUri:path}/metadata",
     responses={
         200: {"description": "OK"},
     },
@@ -79,7 +96,7 @@ async def judgment_uri_metadata_patch(
 
 
 @router.put(
-    "/{judgmentUri}",
+    "/judgment/{judgmentUri:path}",
     responses={
         204: {"description": "The document was updated successfully and any client lock released"},
         400: {"description": "The request was malformed, and the document was not modified"},

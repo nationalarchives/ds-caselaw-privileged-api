@@ -32,6 +32,5 @@ def get_token_basic(
     :type credentials: HTTPBasicCredentials
     :rtype: TokenModel | None
     """
-
-    ...
-
+    # we pass the problem upstream -- auth is a MarkLogic problem
+    return credentials

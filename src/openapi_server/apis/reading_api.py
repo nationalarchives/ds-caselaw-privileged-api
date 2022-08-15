@@ -23,7 +23,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/{judgmentUri}",
+    "/judgment/{judgmentUri:path}",
     responses={
         200: {"description": "A single judgment document, in Akoma Ntoso XML"},
     },
@@ -38,11 +38,11 @@ async def get_document_by_uri(
     ),
 ) -> None:
     """Unless the client has &#x60;read_unpublished_documents&#x60; permission, then only published documents are accessible."""
-    ...
+    return "jqqzdwd"
 
 
 @router.get(
-    "/{judgmentUri}/metadata",
+    "/judgment/{judgmentUri:path}/metadata",
     responses={
         200: {"description": "OK"},
     },

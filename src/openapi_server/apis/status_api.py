@@ -1,6 +1,8 @@
 # coding: utf-8
 
 from typing import Dict, List  # noqa: F401
+from openapi_server.connect import client_for_basic_auth
+from caselawclient.Client import MarklogicUnauthorizedError
 
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -14,6 +16,7 @@ from fastapi import (  # noqa: F401
     Response,
     Security,
     status,
+    HTTPException
 )
 
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
@@ -38,4 +41,10 @@ async def status_get(
     ),
 ) -> None:
     """A test endpoint that can be used by clients to verify service availability, and to verify valid authentication credentials. Authentication is not required, but if it is provided, it will be checked for validity. """
-    ...
+    client = client_for_basic_auth(token_basic)
+
+    try:
+        search_response = client.advanced_search(only_unpublished=True)
+    except MarklogicUnauthorizedError:
+        raise HTTPException(status_code=401, detail="/status: {token_basic.username} Unauthorised")
+    return "/status: {token_basic.username} Authorised"
