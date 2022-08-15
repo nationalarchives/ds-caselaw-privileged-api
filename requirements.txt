@@ -31,7 +31,7 @@ uvloop==0.14.0
 watchgod==0.7
 websockets==8.1
 
-ds-caselaw-marklogic-api-client>=4.7.1
+ds-caselaw-marklogic-api-client>=4.9.0
 # ../ds-caselaw-custom-api-client
 certifi==2021.10.8
 charset-normalizer==2.0.12
@@ -40,3 +40,4 @@ idna==3.3
 requests==2.27.1
 requests-toolbelt==0.9.1
 urllib3==1.26.8
+

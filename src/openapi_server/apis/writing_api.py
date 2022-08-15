@@ -7,6 +7,7 @@ from caselawclient.Client import (
     MarklogicResourceUnmanagedError,
 )
 
+import requests
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -20,6 +21,7 @@ from fastapi import (  # noqa: F401
     Security,
     status,
 )
+from fastapi.responses import JSONResponse
 
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
@@ -43,12 +45,15 @@ async def judgment_uri_lock_get(
     _token_basic: TokenModel = Security(
         get_token_basic
     ),
-):
+) -> requests.Response:
     client = client_for_basic_auth(token_basic)
     try:
-        return client.get_judgment_checkout_status_message(judgmentUri)
+        message = client.get_judgment_checkout_status_message(judgmentUri)
+        content = { "message": message }
     except MarklogicResourceUnmanagedError as e:
-        return f"Unable to find judgment, {e}"
+        content = { "message": f"Unable to find judgment, {e}" }
+    headers = {"X-Cat-Dog": "alone in the world", "Content-Language": "en-US"}
+    return JSONResponse(content=content, headers=headers)
 
 
 @router.put(
@@ -77,7 +82,6 @@ async def judgment_uri_lock_put(
         return f"Failed to lock judgment, {e}"
     print(response.content)
     return "OK"
-
 
 
 @router.patch(
