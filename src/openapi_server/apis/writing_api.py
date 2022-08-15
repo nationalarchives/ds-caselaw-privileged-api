@@ -24,8 +24,9 @@ from fastapi import (  # noqa: F401
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
 
-router = APIRouter()
+from caselawclient.Client import MarklogicResourceLockedError, MarklogicResourceUnmanagedError
 
+router = APIRouter()
 
 @router.get(
     "/lock/{judgmentUri:path}",
@@ -37,13 +38,28 @@ router = APIRouter()
     response_model_by_alias=True,
 )
 async def judgment_uri_lock_get(
+    response: Response,
     judgmentUri: str = Path(None, description=""),
     token_basic: TokenModel = Security(
         get_token_basic
     ),
-) -> None:
+):
     client = client_for_basic_auth(token_basic)
-    raise NotImplementedError
+    try:
+        message = client.get_judgment_checkout_status_message(judgmentUri)
+        if message is None:
+            response.status_code=200
+            response.headers['X-Locked'] = "0"
+            return { "status": "Not locked" }
+
+    except MarklogicResourceUnmanagedError as e:
+        response.status_code = 404
+        return { "status": f"Resource unmanaged, may not exist" }
+
+    response.status_code = 200
+    response.headers['X-Lock-Annotation'] = message
+    response.headers['X-Locked'] = "1"
+    return { "status": "Locked", "annotation": message }
 
 
 @router.put(
@@ -61,20 +77,21 @@ async def judgment_uri_lock_put(
     token_basic: TokenModel = Security(
         get_token_basic
     ),
-) -> None:
+    response: Response = None,
+):
     """Locks edit access for a document for the current client. Returns the latest version of the locked document, along with the new lock state."""
-    # Will allow a second lock if you already have it
-    # Won't steal locks off other people
     client = client_for_basic_auth(token_basic)
+    annotation = f"Judgment locked for editing by {token_basic.username}"
     try:
-        response = client.checkout_judgment(judgment_uri=judgmentUri, annotation=f"Locked by {token_basic.username}")
-    except MarklogicResourceLockedError:
-        return "locked by someone else..."
-    except MarklogicResourceUnmanagedError:
-        return "document isn't managed (and probably doesn't exist)"
-    print(response.content)
-    return "OK"
-
+        ml_response = client.checkout_judgment(judgmentUri, annotation)
+        judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
+    except MarklogicResourceLockedError as e:
+        response.status_code=403
+        return f"Resource already locked by another user."
+    except MarklogicResourceUnmanagedError as e:
+        response.status_code=404
+        return f"Resource unmanaged: may not exist."
+    return Response(status_code=201, content=judgment, media_type="application/xml")
 
 
 @router.patch(
