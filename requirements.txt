@@ -15,7 +15,7 @@ httptools==0.1.2
 itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==2.0.1
-orjson==3.5.2
+orjson==3.7.12
 promise==2.3
 pydantic==1.8.2
 python-dotenv==0.17.1
