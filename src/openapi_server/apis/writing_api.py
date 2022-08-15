@@ -50,9 +50,9 @@ async def judgment_uri_lock_get(
             response.headers["X-Locked"] = "0"
             return {"status": "Not locked"}
 
-    except MarklogicResourceUnmanagedError as e:
+    except MarklogicResourceUnmanagedError:
         response.status_code = 404
-        return {"status": f"Resource unmanaged, may not exist"}
+        return {"status": "Resource unmanaged, may not exist"}
 
     response.status_code = 200
     response.headers["X-Lock-Annotation"] = message
@@ -76,14 +76,17 @@ async def judgment_uri_lock_put(
     token_basic: TokenModel = Security(get_token_basic),
     expires="0",
 ):
-    """Locks edit access for a document for the current client. Returns the latest version of the locked document, along with the new lock state."""
+    """Locks edit access for a document for the current client. Returns the latest
+    version of the locked document, along with the new lock state."""
     client = client_for_basic_auth(token_basic)
     annotation = f"Judgment locked for editing by {token_basic.username}"
     expires = bool(
         int(expires)
     )  # If expires is True then the lock will expire at midnight, otherwise the lock is permanent
     try:
-        _ml_response = client.checkout_judgment(judgmentUri, annotation, expires)
+        _ml_response = client.checkout_judgment(  # noqa: F841
+            judgmentUri, annotation, expires
+        )
         judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
     except MarklogicResourceLockedError:
         response.status_code = 403
@@ -123,7 +126,9 @@ async def judgment_uri_metadata_patch(
             "description": "The request was malformed, and the document was not modified"
         },
         412: {
-            "description": "The document was not updated, as it has changed since the version number specified If-Match. To avoid this, the client should lock the document before making any changes to it."
+            "description": """The document was not updated, as it has changed since
+            the version number specified If-Match. To avoid this, the client should
+            lock the document before making any changes to it."""
         },
     },
     tags=["Writing"],
@@ -137,5 +142,6 @@ async def judgment_uri_put(
     ),
     token_basic: TokenModel = Security(get_token_basic),
 ) -> None:
-    """Write a complete new version of the document to the database, and release any client lock."""
+    """Write a complete new version of the document to the database,
+    and release any client lock."""
     ...
