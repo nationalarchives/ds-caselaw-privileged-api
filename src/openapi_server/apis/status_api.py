@@ -51,6 +51,6 @@ async def status_get(
         search_response = client.advanced_search(only_unpublished=True)  # noqa: F841
     except MarklogicUnauthorizedError:
         raise HTTPException(
-            status_code=401, detail="/status: {token_basic.username} Unauthorised"
+            status_code=401, detail=f"/status: {token_basic.username} Unauthorised"
         )
-    return "/status: {token_basic.username} Authorised"
+    return f"/status: {token_basic.username} Authorised"

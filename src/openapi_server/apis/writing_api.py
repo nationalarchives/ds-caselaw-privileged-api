@@ -6,6 +6,7 @@ from caselawclient.Client import (
     MarklogicNotPermittedError,
     MarklogicResourceLockedError,
     MarklogicResourceUnmanagedError,
+    MarklogicUnauthorizedError,
 )
 
 from fastapi import (  # noqa: F401
@@ -53,6 +54,9 @@ async def judgment_uri_lock_get(
     except MarklogicResourceUnmanagedError:
         response.status_code = 404
         return {"status": "Resource unmanaged, may not exist"}
+    except MarklogicUnauthorizedError:
+        response.status_code = 401
+        return {"status": "Credentials not recognised"}
 
     response.status_code = 200
     response.headers["X-Lock-Annotation"] = message
