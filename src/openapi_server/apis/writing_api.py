@@ -4,7 +4,7 @@ from typing import Dict, List  # noqa: F401
 from openapi_server.connect import client_for_basic_auth
 from caselawclient.Client import (
     MarklogicResourceLockedError,
-    MarklogicResourceUnmanagedError,
+    MarklogicResourceUnmanagedError, MarklogicNotPermittedError,
 )
 
 from fastapi import (  # noqa: F401
@@ -24,11 +24,12 @@ from fastapi import (  # noqa: F401
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
 
+from caselawclient.Client import MarklogicResourceLockedError, MarklogicResourceUnmanagedError
+
 router = APIRouter()
 
-
 @router.get(
-    "/judgment/{judgmentUri:path}/lock",
+    "/lock/{judgmentUri:path}",
     responses={
         204: {"description": "Lock state included in header"},
     },
@@ -37,17 +38,32 @@ router = APIRouter()
     response_model_by_alias=True,
 )
 async def judgment_uri_lock_get(
+    response: Response,
     judgmentUri: str = Path(None, description=""),
     token_basic: TokenModel = Security(
         get_token_basic
     ),
-) -> None:
+):
     client = client_for_basic_auth(token_basic)
-    raise NotImplementedError
+    try:
+        message = client.get_judgment_checkout_status_message(judgmentUri)
+        if message is None:
+            response.status_code=200
+            response.headers['X-Locked'] = "0"
+            return { "status": "Not locked" }
+
+    except MarklogicResourceUnmanagedError as e:
+        response.status_code = 404
+        return { "status": f"Resource unmanaged, may not exist" }
+
+    response.status_code = 200
+    response.headers['X-Lock-Annotation'] = message
+    response.headers['X-Locked'] = "1"
+    return { "status": "Locked", "annotation": message }
 
 
 @router.put(
-    "/judgment/{judgmentUri:path}/lock",
+    "/lock/{judgmentUri:path}",
     responses={
         201: {"description": "A single judgment document, in Akoma Ntoso XML"},
         403: {"description": "The document was already locked by another client"},
@@ -57,28 +73,34 @@ async def judgment_uri_lock_get(
     response_model_by_alias=True,
 )
 async def judgment_uri_lock_put(
+    response: Response,
     judgmentUri: str = Path(None, description=""),
     token_basic: TokenModel = Security(
         get_token_basic
     ),
-) -> None:
+    expires="0",
+):
     """Locks edit access for a document for the current client. Returns the latest version of the locked document, along with the new lock state."""
-    # Will allow a second lock if you already have it
-    # Won't steal locks off other people
     client = client_for_basic_auth(token_basic)
+    annotation = f"Judgment locked for editing by {token_basic.username}"
+    expires = bool(int(expires)) # If expires is True then the lock will expire at midnight, otherwise the lock is permanent
     try:
-        response = client.checkout_judgment(judgment_uri=judgmentUri, annotation=f"Locked by {token_basic.username}")
+        _ml_response = client.checkout_judgment(judgmentUri, annotation, expires)
+        judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
     except MarklogicResourceLockedError:
-        return "locked by someone else..."
+        response.status_code=403
+        return "Resource already locked by another user."
     except MarklogicResourceUnmanagedError:
-        return "document isn't managed (and probably doesn't exist)"
-    print(response.content)
-    return "OK"
-
+        response.status_code=404
+        return "Resource unmanaged: may not exist."
+    except MarklogicNotPermittedError:
+        response.status_code=403
+        return "Resource not published."
+    return Response(status_code=201, content=judgment, media_type="application/xml")
 
 
 @router.patch(
-    "/judgment/{judgmentUri:path}/metadata",
+    "/metadata/{judgmentUri:path}",
     responses={
         200: {"description": "OK"},
     },
