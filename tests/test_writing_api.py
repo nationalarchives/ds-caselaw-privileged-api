@@ -1,10 +1,11 @@
 # coding: utf-8
 
+import pytest
+
 from fastapi.testclient import TestClient
 
 
-
-
+@pytest.mark.xfail(reason="Test is TODO")
 def test_judgment_uri_lock_get(client: TestClient):
     """Test case for judgment_uri_lock_get
 
@@ -16,14 +17,15 @@ def test_judgment_uri_lock_get(client: TestClient):
     }
     response = client.request(
         "GET",
-        "/{judgmentUri}/lock".format(judgmentUri='judgment_uri_example'),
+        "/{judgmentUri}/lock".format(judgmentUri="judgment_uri_example"),
         headers=headers,
     )
 
     # uncomment below to assert the status code of the HTTP response
-    #assert response.status_code == 200
+    assert response.status_code == 200
 
 
+@pytest.mark.xfail(reason="Test is TODO")
 def test_judgment_uri_lock_put(client: TestClient):
     """Test case for judgment_uri_lock_put
 
@@ -35,14 +37,15 @@ def test_judgment_uri_lock_put(client: TestClient):
     }
     response = client.request(
         "PUT",
-        "/{judgmentUri}/lock".format(judgmentUri='judgment_uri_example'),
+        "/{judgmentUri}/lock".format(judgmentUri="judgment_uri_example"),
         headers=headers,
     )
 
     # uncomment below to assert the status code of the HTTP response
-    #assert response.status_code == 200
+    assert response.status_code == 200
 
 
+@pytest.mark.xfail(reason="Test is TODO")
 def test_judgment_uri_metadata_patch(client: TestClient):
     """Test case for judgment_uri_metadata_patch
 
@@ -54,14 +57,15 @@ def test_judgment_uri_metadata_patch(client: TestClient):
     }
     response = client.request(
         "PATCH",
-        "/{judgmentUri}/metadata".format(judgmentUri='judgment_uri_example'),
+        "/{judgmentUri}/metadata".format(judgmentUri="judgment_uri_example"),
         headers=headers,
     )
 
     # uncomment below to assert the status code of the HTTP response
-    #assert response.status_code == 200
+    assert response.status_code == 200
 
 
+@pytest.mark.xfail(reason="Test is TODO")
 def test_judgment_uri_put(client: TestClient):
     """Test case for judgment_uri_put
 
@@ -69,15 +73,14 @@ def test_judgment_uri_put(client: TestClient):
     """
 
     headers = {
-        "if_match": '1',
+        "if_match": "1",
         "Authorization": "BasicZm9vOmJhcg==",
     }
     response = client.request(
         "PUT",
-        "/{judgmentUri}".format(judgmentUri='judgment_uri_example'),
+        "/{judgmentUri}".format(judgmentUri="judgment_uri_example"),
         headers=headers,
     )
 
     # uncomment below to assert the status code of the HTTP response
-    #assert response.status_code == 200
-
+    assert response.status_code == 200

@@ -15,7 +15,6 @@ from fastapi import (  # noqa: F401
     Security,
     status,
 )
-
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
 
@@ -33,11 +32,10 @@ router = APIRouter()
 )
 async def get_document_by_uri(
     judgmentUri: str = Path(None, description=""),
-    token_basic: TokenModel = Security(
-        get_token_basic
-    ),
-) -> None:
-    """Unless the client has &#x60;read_unpublished_documents&#x60; permission, then only published documents are accessible."""
+    token_basic: TokenModel = Security(get_token_basic),
+) -> str:
+    """Unless the client has `read_unpublished_documents` permission,
+    then only published documents are accessible."""
     return "jqqzdwd"
 
 
@@ -52,9 +50,8 @@ async def get_document_by_uri(
 )
 async def judgment_uri_metadata_get(
     judgmentUri: str = Path(None, description=""),
-    token_basic: TokenModel = Security(
-        get_token_basic
-    ),
+    token_basic: TokenModel = Security(get_token_basic),
 ) -> None:
-    """Unless the client has &#x60;read_unpublished_documents&#x60; permission, then only metadata for published documents are accessible."""
+    """Unless the client has `read_unpublished_documents` permission,
+    then only metadata for published documents are accessible."""
     ...
