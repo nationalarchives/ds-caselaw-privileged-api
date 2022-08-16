@@ -7,7 +7,6 @@ from caselawclient.Client import (
     MarklogicResourceLockedError,
     MarklogicResourceUnmanagedError,
 )
-
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -21,6 +20,7 @@ from fastapi import (  # noqa: F401
     Security,
     status,
 )
+
 from openapi_server.connect import client_for_basic_auth
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic

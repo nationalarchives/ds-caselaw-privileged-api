@@ -16,6 +16,7 @@ from fastapi.security.api_key import (  # noqa: F401
     APIKeyHeader,
     APIKeyQuery,
 )
+
 from openapi_server.models.extra_models import TokenModel
 
 basic_auth = HTTPBasic()

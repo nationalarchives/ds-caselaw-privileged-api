@@ -2,8 +2,8 @@ import os
 
 import environ
 from caselawclient.Client import MarklogicApiClient
-
 from fastapi import Security
+
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
 
