@@ -3,7 +3,7 @@ aniso8601==9.0.1
 async-exit-stack==1.0.1
 async-generator==1.10
 click==7.1.2
-dnspython==2.1.0
+dnspython==2.2.1
 email-validator==1.1.2
 fastapi==0.65.1
 graphene==3.1
