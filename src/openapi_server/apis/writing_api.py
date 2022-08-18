@@ -2,14 +2,7 @@
 
 from typing import Dict, List, Optional  # noqa: F401
 
-from caselawclient.Client import (
-    MarklogicNotPermittedError,
-    MarklogicResourceLockedError,
-    MarklogicResourceUnmanagedError,
-    MarklogicResourceNotCheckedOutError,
-    MarklogicUnauthorizedError,
-    MarklogicCheckoutConflictError,
-)
+from caselawclient.Client import MarklogicAPIError
 
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -53,14 +46,8 @@ async def judgment_uri_lock_get(
             response.status_code = 200
             response.headers["X-Locked"] = "0"
             return {"status": "Not locked"}
-
-    except MarklogicResourceUnmanagedError:
-        response.status_code = 404
-        return {"status": "Resource unmanaged, may not exist"}
-    except MarklogicUnauthorizedError:
-        response.status_code = 401
-        return {"status": "Credentials not recognised"}
-
+    except MarklogicAPIError as e:
+        return Response(e.default_message, status_code=e.status_code)
     response.status_code = 200
     response.headers["X-Lock-Annotation"] = message
     response.headers["X-Locked"] = "1"
@@ -95,15 +82,8 @@ async def judgment_uri_lock_put(
             judgmentUri, annotation, expires
         )
         judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
-    except MarklogicResourceLockedError:
-        response.status_code = 403
-        return "Resource already locked by another user."
-    except MarklogicResourceUnmanagedError:
-        response.status_code = 404
-        return "Resource unmanaged: may not exist."
-    except MarklogicNotPermittedError:
-        response.status_code = 403
-        return "Resource not published."
+    except MarklogicAPIError as e:
+        return Response(e.default_message, status_code=e.status_code)
     return Response(status_code=201, content=judgment, media_type="application/xml")
 
 
@@ -125,21 +105,8 @@ async def judgment_uri_lock_delete(
     client = client_for_basic_auth(token_basic)
     try:
         client.checkin_judgment(judgment_uri=judgmentUri)
-    except MarklogicResourceLockedError:
-        response.status_code = 403
-        return "D? Resource already locked by another user."
-    except MarklogicResourceUnmanagedError:
-        response.status_code = 404
-        return "D? Resource unmanaged: may not exist."
-    except MarklogicNotPermittedError:
-        response.status_code = 403
-        return "D? Resource not published."
-    except MarklogicResourceNotCheckedOutError:
-        response.status_code = 409
-        return "D? Resource not checked out"
-    except MarklogicCheckoutConflictError:
-        response.status_code = 409
-        return "D? Checkout conflict"
+    except MarklogicAPIError as e:
+        return Response(e.default_message, status_code=e.status_code)
 
     response.status_code = 200
     return "unlocked"
@@ -198,7 +165,6 @@ async def judgment_uri_patch(
 
     client = client_for_basic_auth(token_basic)
     bytes_body = await request.body()
-    breakpoint()
     try:
         _ml_response = client.save_locked_judgment_xml(  # noqa: F841
             # judgment_uri=judgmentUri,
@@ -209,18 +175,8 @@ async def judgment_uri_patch(
             annotation,
         )
     # not idea which of these can occur, copied whcolesale
-    except MarklogicResourceLockedError:
-        response.status_code = 403
-        return "B? Resource already locked by another user."
-    except MarklogicResourceUnmanagedError:
-        response.status_code = 404
-        return "B? Resource unmanaged: may not exist."
-    except MarklogicNotPermittedError:
-        response.status_code = 403
-        return "B? Resource not published."
-    except MarklogicResourceNotCheckedOutError:
-        response.status_code = 409
-        return "B? Resource not checked out by anyone"
+    except MarklogicAPIError as e:
+        return Response(e.default_message, status_code=e.status_code)
 
     if not unlock:
         response.status_code = 200
@@ -228,15 +184,8 @@ async def judgment_uri_patch(
 
     try:
         _ml_response = client.checkin_judgment(judgment_uri=judgmentUri)  # noqa: F841
-    except MarklogicResourceLockedError:
-        response.status_code = 403
-        return "D? Resource already locked by another user."
-    except MarklogicResourceUnmanagedError:
-        response.status_code = 404
-        return "D? Resource unmanaged: may not exist."
-    except MarklogicNotPermittedError:
-        response.status_code = 403
-        return "D? Resource not published."
+    except MarklogicAPIError as e:
+        return Response(e.default_message, status_code=e.status_code)
 
     response.status_code = 200
     return "Uploaded and unlocked."
