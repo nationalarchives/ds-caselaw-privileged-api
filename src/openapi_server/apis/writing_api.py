@@ -83,6 +83,15 @@ async def judgment_uri_lock_put(
     """Locks edit access for a document for the current client. Returns the latest
     version of the locked document, along with the new lock state."""
     client = client_for_basic_auth(token_basic)
+    user_can_view_unpublished = client.user_can_view_unpublished_judgments(
+        token_basic.username
+    )
+    judgment_is_published = client.get_published(judgmentUri)
+
+    if not judgment_is_published and not user_can_view_unpublished:
+        response.status_code = 403
+        return "Resource not published. Locking not permitted."
+
     annotation = f"Judgment locked for editing by {token_basic.username}"
     expires = bool(
         int(expires)
@@ -91,7 +100,9 @@ async def judgment_uri_lock_put(
         _ml_response = client.checkout_judgment(  # noqa: F841
             judgmentUri, annotation, expires
         )
-        judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
+        judgment = client.get_judgment_xml(
+            judgmentUri, show_unpublished=user_can_view_unpublished
+        )
     except MarklogicResourceLockedError:
         response.status_code = 403
         return "Resource already locked by another user."
