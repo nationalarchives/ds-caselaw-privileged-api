@@ -19,7 +19,7 @@ from fastapi import (  # noqa: F401
     status,
 )
 from openapi_server.connect import client_for_basic_auth
-from openapi_server.models.extra_models import TokenModel  # noqa: F401
+from openapi_server.models.extra_models import TokenModel
 from openapi_server.security_api import get_token_basic
 
 router = APIRouter()
@@ -28,7 +28,9 @@ router = APIRouter()
 @router.get(
     "/lock/{judgmentUri:path}",
     responses={
-        204: {"description": "Lock state included in header"},
+        200: {
+            "description": "Lock state included in X-Locked header; annotating in X-Lock-Annotation header."
+        },
     },
     tags=["Writing"],
     summary="Query lock status for a document",
@@ -56,8 +58,12 @@ async def judgment_uri_lock_get(
 
 @router.put(
     "/lock/{judgmentUri:path}",
+    status_code=201,
     responses={
-        201: {"description": "A single judgment document, in Akoma Ntoso XML"},
+        201: {
+            "description": "The lock has been created. Returns the locked judgment's Akoma Ntoso XML",
+            "content": {"application/xml": {}},
+        },
         403: {"description": "The document was already locked by another client"},
     },
     tags=["Writing"],
@@ -133,14 +139,14 @@ async def judgment_uri_metadata_patch(
 @router.patch(
     "/judgment/{judgmentUri:path}",
     responses={
-        204: {
-            "description": "The document was updated successfully and any client lock released"
+        200: {
+            "description": "The document was updated successfully and the lock released if `unlock` is true"
         },
         400: {
             "description": "The request was malformed, and the document was not modified"
         },
         412: {
-            "description": """The document was not updated, as it has changed since
+            "description": """Not yet implemented: The document was not updated, as it has changed since
             the version number specified If-Match. To avoid this, the client should
             lock the document before making any changes to it."""
         },
