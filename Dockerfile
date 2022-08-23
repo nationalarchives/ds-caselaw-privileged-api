@@ -8,7 +8,7 @@ ENV PATH="/venv/bin:$PATH"
 RUN pip install --upgrade pip
 
 COPY . .
-RUN pip install --no-cache-dir .
+RUN pip install -r requirements.txt --no-cache-dir .
 
 
 FROM python:3.7 AS test_runner
