@@ -6,6 +6,11 @@ from openapi_server.main import app
 from caselawclient.Client import MarklogicUnauthorizedError
 
 
+def test_get_status_no_auth():
+    response = TestClient(app).request("GET", "/status", auth=("", ""))
+    assert response.status_code == 200
+
+
 @patch("openapi_server.apis.status_api.client_for_basic_auth")
 def test_get_status_unauthorised(mocked_client=None):
     mocked_client.return_value.advanced_search.side_effect = Mock(

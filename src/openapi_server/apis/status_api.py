@@ -45,6 +45,9 @@ async def status_get(
     """A test endpoint that can be used by clients to verify service availability,
     and to verify valid authentication credentials. Authentication is not required,
     but if it is provided, it will be checked for validity."""
+
+    if not token_basic.username:
+        return "/status: no username"
     client = client_for_basic_auth(token_basic)
 
     try:
