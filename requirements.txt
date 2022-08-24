@@ -27,7 +27,7 @@ typing-extensions==3.10.0.0
 ujson==5.4.0
 uvicorn==0.13.4
 uvloop==0.16.0
-watchgod==0.7
+watchgod==0.8.2
 websockets==8.1
 
 ds-caselaw-marklogic-api-client>=4.9.2
