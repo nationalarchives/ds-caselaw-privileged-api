@@ -29,7 +29,18 @@ router = APIRouter()
     "/lock/{judgmentUri:path}",
     responses={
         200: {
-            "description": "Lock state included in X-Locked header; annotating in X-Lock-Annotation header."
+            "description": "Lock state included in X-Locked header; annotation in X-Lock-Annotation header.",
+            "headers": {
+                "X-Locked": {
+                    "description": "Is the document locked?",
+                    "schema": {"type": "boolean string", "format": "0|1"},
+                },
+                "X-Lock-Annotation": {
+                    "description": """If locked, the message left when the document was locked.
+                    Usually contains who has locked it""",
+                    "schema": {"type": "string"},
+                },
+            },
         },
     },
     tags=["Writing"],
@@ -62,7 +73,7 @@ async def judgment_uri_lock_get(
     responses={
         201: {
             "description": "The lock has been created. Returns the locked judgment's Akoma Ntoso XML",
-            "content": {"application/xml": {}},
+            "content": {"application/akn+xml ": {}},
         },
         403: {"description": "The document was already locked by another client"},
     },
