@@ -2,7 +2,7 @@
 
 from typing import Dict, List  # noqa: F401
 
-from caselawclient.Client import MarklogicUnauthorizedError
+from caselawclient.Client import MarklogicUnauthorizedError, MarklogicAPIError
 
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -18,11 +18,34 @@ from fastapi import (  # noqa: F401
     Security,
     status,
 )
+from fastapi.security import HTTPBasicCredentials
 from openapi_server.connect import client_for_basic_auth
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
 
 router = APIRouter()
+
+
+@router.get(
+    "/healthcheck",
+    responses={
+        200: {"description": "The service is available, and we can see Marklogic"},
+    },
+    tags=["Status"],
+    summary="Health check",
+    response_model_by_alias=True,
+)
+async def healthcheck_get() -> str:
+    """A test endpoint that checks Marklogic is present"""
+    client = client_for_basic_auth(HTTPBasicCredentials(username="", password=""))
+    try:
+        client.user_can_view_unpublished_judgments("")
+    except MarklogicUnauthorizedError:
+        pass
+    except MarklogicAPIError as e:
+        return Response(e.default_message, status_code=e.status_code)
+
+    return "/healthcheck: Marklogic OK"
 
 
 @router.get(
