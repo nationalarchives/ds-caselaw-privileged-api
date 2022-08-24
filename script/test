@@ -1,2 +1,2 @@
 export $(cat .env|xargs)
-PYTHONPATH=src pytest tests
+PYTHONPATH=src pytest tests $*

@@ -1,25 +1,28 @@
 # coding: utf-8
 
-import pytest
-
+from unittest.mock import patch, Mock
 from fastapi.testclient import TestClient
+from openapi_server.main import app
+from caselawclient.Client import MarklogicUnauthorizedError
 
 
-@pytest.mark.xfail(reason="Test is TODO")
-def test_status_get(client: TestClient):
-    """Test case for status_get
-
-    Health check
-    """
-
-    headers = {
-        "Authorization": "BasicZm9vOmJhcg==",
-    }
-    response = client.request(
-        "GET",
-        "/status",
-        headers=headers,
+@patch("openapi_server.apis.status_api.client_for_basic_auth")
+def test_get_status_unauthorised(mocked_client=None):
+    mocked_client.return_value.advanced_search.side_effect = Mock(
+        side_effect=MarklogicUnauthorizedError()
     )
+    response = TestClient(app).request("GET", "/status", auth=("user", "pass"))
+    assert response.status_code == 401
+    assert response.content == b'{"detail":"/status: user Unauthorised"}'
+    mocked_client.return_value.advanced_search.assert_called_with(only_unpublished=True)
+    # TODO: This will break when only_published becomes silently false.
 
-    # uncomment below to assert the status code of the HTTP response
+
+@patch("openapi_server.apis.status_api.client_for_basic_auth")
+def test_get_status_authorised(mocked_client):
+    mocked_client.return_value.advanced_search.return_value = "Not an error"
+
+    response = TestClient(app).request("GET", "/status", auth=("user", "pass"))
     assert response.status_code == 200
+    assert response.content == b'"/status: user Authorised"'
+    mocked_client.return_value.advanced_search.assert_called_with(only_unpublished=True)
