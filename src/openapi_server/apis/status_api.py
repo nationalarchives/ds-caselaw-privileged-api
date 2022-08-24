@@ -50,9 +50,9 @@ async def status_get(
     if not username:
         return "/status: no username"
     client = client_for_basic_auth(token_basic)
-
     try:
-        client.user_can_view_unpublished_judgments(username)
+        view_unpublished = client.user_can_view_unpublished_judgments(username)
     except MarklogicUnauthorizedError:
         raise HTTPException(status_code=401, detail=f"/status: {username} Unauthorised")
-    return f"/status: {username} Authorised"
+
+    return f"/status: {username} Authorised, and can{'not' if not view_unpublished else ''} view unpublished judgments"

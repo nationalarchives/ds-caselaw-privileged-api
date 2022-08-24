@@ -31,7 +31,7 @@ def test_get_status_authorised(mocked_client):
 
     response = TestClient(app).request("GET", "/status", auth=("user", "pass"))
     assert response.status_code == 200
-    assert response.content == b'"/status: user Authorised"'
+    assert "/status: user Authorised, and can view" in response.text
     mocked_client.return_value.user_can_view_unpublished_judgments.assert_called_with(
         "user"
     )
@@ -43,7 +43,7 @@ def test_get_status_less_authorised(mocked_client):
 
     response = TestClient(app).request("GET", "/status", auth=("user", "pass"))
     assert response.status_code == 200
-    assert response.content == b'"/status: user Authorised"'
+    assert "/status: user Authorised, and cannot view" in response.text
     mocked_client.return_value.user_can_view_unpublished_judgments.assert_called_with(
         "user"
     )
