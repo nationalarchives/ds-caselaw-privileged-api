@@ -52,7 +52,8 @@ async def healthcheck_get() -> str:
     "/status",
     responses={
         200: {
-            "description": "The service is available, and if authentication was provided, the authentication is valid."
+            "description": """The service is available, and if authentication was provided, the authentication is valid.
+            X-Read-Unpublished will be 1 if the user can read unpublished, 0 otherwise"""
         },
         401: {
             "description": "The service is available, but the provided authentication was not valid."
@@ -63,6 +64,7 @@ async def healthcheck_get() -> str:
     response_model_by_alias=True,
 )
 async def status_get(
+    response: Response,
     token_basic: TokenModel = Security(get_token_basic),
 ) -> str:
     """A test endpoint that can be used by clients to verify service availability,
@@ -77,5 +79,7 @@ async def status_get(
         view_unpublished = client.user_can_view_unpublished_judgments(username)
     except MarklogicUnauthorizedError:
         raise HTTPException(status_code=401, detail=f"/status: {username} Unauthorised")
+
+    response.headers["X-Read-Unpublished"] = "1" if view_unpublished else "0"
 
     return f"/status: {username} Authorised, and can{'not' if not view_unpublished else ''} view unpublished judgments"
