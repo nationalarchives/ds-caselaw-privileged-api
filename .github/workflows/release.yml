@@ -1,0 +1,18 @@
+name: Release latest code for production deploy
+on:
+  release:
+    types: [published]
+
+jobs:
+  run:
+    name: Run local action
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@master
+      - name: Run latest-tag
+        uses: dxw/latest-tag@force-branch
+        with:
+          tag-name: production
+          force-branch: true
