@@ -3,9 +3,9 @@ aniso8601==9.0.1
 async-exit-stack==1.0.1
 async-generator==1.10
 click==7.1.2
-dnspython==2.1.0
+dnspython==2.2.1
 email-validator==1.1.2
-fastapi==0.65.1
+fastapi==0.81.0
 graphene==3.1
 graphql-core==3.2.0
 graphql-relay==3.2.0
@@ -14,7 +14,7 @@ httptools==0.1.2
 itsdangerous==2.1.2
 Jinja2==2.11.3
 MarkupSafe==2.0.1
-orjson==3.7.12
+orjson==3.8.0
 promise==2.3
 pydantic==1.8.2
 python-dotenv==0.17.1
@@ -22,13 +22,13 @@ python-multipart==0.0.5
 PyYAML==6.0.0
 Rx==1.6.1
 six==1.16.0
-starlette==0.14.2
+starlette==0.19.1
 typing-extensions==3.10.0.0
 ujson==5.4.0
 uvicorn==0.13.4
 uvloop==0.16.0
-watchgod==0.7
-websockets==8.1
+watchgod==0.8.2
+websockets==10.3
 
 ds-caselaw-marklogic-api-client>=4.9.2
 # ../ds-caselaw-custom-api-client
@@ -36,7 +36,7 @@ certifi==2021.10.8
 # charset-normalizer==2.1.0
 django-environ==0.8.1
 idna==3.3
-requests[use_chardet_on_py3]==2.27.1
+requests[use_chardet_on_py3]==2.28.1
 requests-toolbelt==0.9.1
 urllib3==1.26.8
 
