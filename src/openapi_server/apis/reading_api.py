@@ -54,7 +54,7 @@ async def get_document_by_uri(
         200: {"description": "OK"},
     },
     tags=["Reading"],
-    summary="Gets the document&#39;s metadata",
+    summary="Gets the document's metadata",
     response_model_by_alias=True,
 )
 async def judgment_uri_metadata_get(
