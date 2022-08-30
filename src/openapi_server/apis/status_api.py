@@ -35,7 +35,7 @@ router = APIRouter()
     summary="Health check",
     response_model_by_alias=True,
 )
-async def healthcheck_get() -> str:
+async def healthcheck_get() -> Dict[str, str]:
     """A test endpoint that checks Marklogic is present"""
     client = client_for_basic_auth(HTTPBasicCredentials(username="", password=""))
     try:
@@ -45,7 +45,7 @@ async def healthcheck_get() -> str:
     except MarklogicAPIError as e:
         return Response(e.default_message, status_code=e.status_code)
 
-    return "/healthcheck: Marklogic OK"
+    return {"status": "/healthcheck: Marklogic OK"}
 
 
 @router.get(
@@ -66,14 +66,14 @@ async def healthcheck_get() -> str:
 async def status_get(
     response: Response,
     token_basic: TokenModel = Security(get_token_basic),
-) -> str:
+) -> Dict[str, str]:
     """A test endpoint that can be used by clients to verify service availability,
     and to verify valid authentication credentials. Authentication is not required,
     but if it is provided, it will be checked for validity."""
     username = token_basic.username
 
     if not username:
-        return "/status: no username"
+        return {"status": "/status: no username"}
     client = client_for_basic_auth(token_basic)
     try:
         view_unpublished = client.user_can_view_unpublished_judgments(username)
@@ -82,4 +82,8 @@ async def status_get(
 
     response.headers["X-Read-Unpublished"] = "1" if view_unpublished else "0"
 
-    return f"/status: {username} Authorised, and can{'not' if not view_unpublished else ''} view unpublished judgments"
+    can_cannot = f"can{'not' if not view_unpublished else ''}"
+
+    return {
+        "status": f"/status: {username} Authorised, and {can_cannot} view unpublished judgments"
+    }

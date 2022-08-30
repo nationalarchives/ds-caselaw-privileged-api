@@ -126,7 +126,7 @@ async def judgment_uri_lock_delete(
         return Response(e.default_message, status_code=e.status_code)
 
     response.status_code = 200
-    return "unlocked"
+    return {"status": "unlocked"}
 
 
 @router.patch(
@@ -158,14 +158,14 @@ async def judgment_uri_patch(
     token_basic: TokenModel = Security(get_token_basic),
     annotation: str = "",
     unlock: bool = False,
-) -> str:
+) -> Dict[str, str]:
     """Write a complete new version of the document to the database,
     and release any client lock."""
 
     client = client_for_basic_auth(token_basic)
     bytes_body = await request.body()
     try:
-        _ml_response = client.save_locked_judgment_xml(  # noqa: F841
+        client.save_locked_judgment_xml(
             # judgment_uri=judgmentUri,
             # judgment_xml=body,
             # annotation=annotation,
@@ -173,13 +173,12 @@ async def judgment_uri_patch(
             bytes_body,
             annotation,
         )
-    # not idea which of these can occur, copied whcolesale
     except MarklogicAPIError as e:
         return Response(e.default_message, status_code=e.status_code)
 
     if not unlock:
         response.status_code = 200
-        return "Uploaded (not unlocked)"
+        return {"status": "Uploaded (not unlocked)."}
 
     try:
         _ml_response = client.checkin_judgment(judgment_uri=judgmentUri)  # noqa: F841
@@ -187,4 +186,4 @@ async def judgment_uri_patch(
         return Response(e.default_message, status_code=e.status_code)
 
     response.status_code = 200
-    return "Uploaded and unlocked."
+    return {"status": "Uploaded and unlocked."}
