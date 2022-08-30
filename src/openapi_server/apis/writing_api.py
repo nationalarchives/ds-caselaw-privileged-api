@@ -119,24 +119,6 @@ async def judgment_uri_lock_delete(
 
 
 @router.patch(
-    "/metadata/{judgmentUri:path}",
-    responses={
-        200: {"description": "OK"},
-    },
-    tags=["Writing"],
-    summary="Set document properties",
-    response_model_by_alias=True,
-)
-async def judgment_uri_metadata_patch(
-    judgmentUri: str = Path(None, description=""),
-    token_basic: TokenModel = Security(get_token_basic),
-    annotation: Optional[str] = None,
-    unlock: bool = False,
-) -> None:
-    ...
-
-
-@router.patch(
     "/judgment/{judgmentUri:path}",
     responses={
         200: {
