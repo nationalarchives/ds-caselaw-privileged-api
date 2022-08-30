@@ -75,7 +75,7 @@ async def judgment_uri_lock_get(
             "description": "The lock has been created. Returns the locked judgment's Akoma Ntoso XML",
             "content": {"application/akn+xml ": {}},
         },
-        403: {"description": "The document was already locked by another client"},
+        409: {"description": "The document was already locked by another client"},
     },
     tags=["Writing"],
     summary="Lock access to a document",
@@ -107,8 +107,8 @@ async def judgment_uri_lock_put(
 @router.delete(
     "/lock/{judgmentUri:path}",
     responses={
-        200: {"description": "Judgment deleted"},
-        403: {"description": "The document was already locked by another client"},
+        200: {"description": "Lock removed from judgment"},
+        409: {"description": "The document was already locked by different user"},
     },
     tags=["Writing"],
     summary="Unlock access to a document",
