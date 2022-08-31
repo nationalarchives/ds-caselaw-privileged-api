@@ -66,6 +66,7 @@ async def get_document_by_uri(
         return "Resource not found."
     return Response(status_code=200, content=judgment, media_type="application/xml")
 
+
 @router.get(
     "/list/unpublished",
     responses={
@@ -112,7 +113,7 @@ async def list_unpublished_get_get(
     for result in root.xpath("//search:result", namespaces=namespaces):
         data = {}
         data["raw_uri"] = unpack_list(result.xpath("./@uri"))
-        data["uri"] = data['raw_uri'].partition('.xml')[0]
+        data["uri"] = data["raw_uri"].partition(".xml")[0]
         data["date"] = unpack_list(
             result.xpath(".//akn:FRBRdate/@date", namespaces=namespaces)
         )
