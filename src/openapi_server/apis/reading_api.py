@@ -46,21 +46,3 @@ async def get_document_by_uri(
         response.status_code = 404
         return "Resource not found."
     return Response(status_code=200, content=judgment, media_type="application/xml")
-
-
-@router.get(
-    "/metadata/{judgmentUri:path}",
-    responses={
-        200: {"description": "OK"},
-    },
-    tags=["Reading"],
-    summary="Gets the document's metadata",
-    response_model_by_alias=True,
-)
-async def judgment_uri_metadata_get(
-    judgmentUri: str = Path(None, description=""),
-    token_basic: TokenModel = Security(get_token_basic),
-) -> None:
-    """Unless the client has `read_unpublished_documents` permission,
-    then only metadata for published documents are accessible."""
-    ...
