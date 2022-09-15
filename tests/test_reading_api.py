@@ -46,6 +46,9 @@ def test_get_list_unpublished_bad_auth(mocked_client):
     )
     assert response.status_code == 403
     assert "Not allowed" in response.text
+    mocked_client.return_value.user_can_view_unpublished_judgments.assert_called_with(
+        "user"
+    )
 
 
 @patch("openapi_server.apis.reading_api.client_for_basic_auth")
@@ -65,6 +68,9 @@ def test_get_list_unpublished(mocked_client):
         page=1,
         show_unpublished=True,
         only_unpublished=True,
+    )
+    mocked_client.return_value.user_can_view_unpublished_judgments.assert_called_with(
+        "user"
     )
     assert response.status_code == 200
     assert "ok" in response.text
@@ -96,6 +102,9 @@ def test_get_list_unpublished_xml(mocked_client):
         page=6,
         show_unpublished=True,
         only_unpublished=True,
+    )
+    mocked_client.return_value.user_can_view_unpublished_judgments.assert_called_with(
+        "user"
     )
     assert response.status_code == 200
     assert "whatever" in response.text
