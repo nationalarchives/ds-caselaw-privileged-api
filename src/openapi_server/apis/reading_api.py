@@ -85,7 +85,7 @@ async def list_unpublished_get_get(
     """Unless the client has `read_unpublished_documents` permission,
     then only metadata for published documents are accessible."""
     client = client_for_basic_auth(token_basic)
-    if not client.user_can_view_unpublished_judgments():
+    if not client.user_can_view_unpublished_judgments(token_basic.username):
         response.status_code = 403
         return {"status": "Not allowed to see unpublished documents"}
 
