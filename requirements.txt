@@ -7,7 +7,7 @@ dnspython==2.2.1
 email-validator==1.1.2
 fastapi==0.81.0
 graphene==3.1
-graphql-core==3.2.0
+graphql-core==3.2.3
 graphql-relay==3.2.0
 h11==0.13.0
 httptools==0.1.2
