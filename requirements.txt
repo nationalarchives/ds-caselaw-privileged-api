@@ -17,7 +17,7 @@ MarkupSafe==2.1.1
 orjson==3.8.2
 promise==2.3
 pydantic==1.8.2
-python-dotenv==0.17.1
+python-dotenv==0.21.0
 python-multipart==0.0.5
 PyYAML==6.0.0
 Rx==1.6.1
