@@ -28,7 +28,7 @@ ujson==5.6.0
 uvicorn==0.20.0
 uvloop==0.16.0
 watchgod==0.8.2
-websockets==10.3
+websockets==10.4
 
 ds-caselaw-marklogic-api-client>=4.10.0
 certifi==2022.12.7
