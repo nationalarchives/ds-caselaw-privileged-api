@@ -44,7 +44,7 @@ The `main` branch is automatically deployed with each commit. The deployed API S
 
 To deploy to production:
 
-1. Create a [new release](https://github.com/nationalarchives/ds-caselaw-pprivileged-api/releases).
+1. Create a [new release](https://github.com/nationalarchives/ds-caselaw-privileged-api/releases).
 2. Set the tag and release name to `vX.Y.Z`, following semantic versioning.
 3. Publish the release.
 4. Automated workflow will then force-push that release to the `production` branch, which will then be deployed to the
