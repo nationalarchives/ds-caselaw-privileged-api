@@ -11,6 +11,11 @@ Python >= 3.8
 
 ## Installation & Usage
 
+Ensure that the MARKLOGIC_API_CLIENT_HOST environment is set to point at the Marklogic server.
+
+Consider using a virtual environment via ```virtualenv -p `which python` ```
+Consider importing prerequisites via `pip install -r requirements.txt`
+
 To run the server, run `script/server`; open `http://localhost:8080/` in a browser
 
 ## Documentation
