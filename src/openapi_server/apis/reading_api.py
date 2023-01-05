@@ -36,7 +36,9 @@ def decode_multipart_response(response):
 def unpack_list(xpath_list):
     # XPath expressions are often lists; often they should only have one value, or none.
     # Break if there are multiple values, or unpack the list.
-    assert len(xpath_list) <= 1
+    assert (
+        len(xpath_list) <= 1
+    ), f"There should only be one response, but there were {len(xpath_list)}: \n {xpath_list}"
     if xpath_list:
         return xpath_list[0]
     else:
@@ -115,7 +117,9 @@ async def list_unpublished_get_get(
         data["raw_uri"] = unpack_list(result.xpath("./@uri"))
         data["uri"] = data["raw_uri"].partition(".xml")[0]
         data["date"] = unpack_list(
-            result.xpath(".//akn:FRBRdate/@date", namespaces=namespaces)
+            result.xpath(
+                ".//akn:FRBRdate[@name='judgment']/@date", namespaces=namespaces
+            )
         )
         data["name"] = unpack_list(
             result.xpath(".//akn:FRBRname/@value", namespaces=namespaces)
