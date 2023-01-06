@@ -3,7 +3,6 @@
 import lxml.etree
 from typing import Dict, List, Any  # noqa: F401
 
-from caselawclient.Client import MarklogicAPIError
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -24,6 +23,8 @@ from openapi_server.security_api import get_token_basic
 from openapi_server.connect import client_for_basic_auth
 
 from requests_toolbelt.multipart import decoder
+
+from .utils import error_handling
 
 router = APIRouter()
 
@@ -60,12 +61,9 @@ async def get_document_by_uri(
     judgmentUri: str = Path(None, description=""),
     token_basic: TokenModel = Security(get_token_basic),
 ):
-    try:
+    with error_handling():
         client = client_for_basic_auth(token_basic)
         judgment = client.get_judgment_xml(judgmentUri)
-    except MarklogicAPIError:
-        response.status_code = 404
-        return "Resource not found."
     return Response(status_code=200, content=judgment, media_type="application/xml")
 
 
