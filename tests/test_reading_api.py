@@ -35,7 +35,7 @@ def test_get_not_found(mocked_client):
     )
     mocked_client.return_value.get_judgment_xml.assert_called_with("bad_uri")
     assert response.status_code == 404
-    assert "Resource not found." in response.text
+    assert "No resource with that name" in response.text
 
 
 @patch("openapi_server.apis.reading_api.client_for_basic_auth")

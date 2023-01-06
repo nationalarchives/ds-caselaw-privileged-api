@@ -18,7 +18,10 @@ def test_get_status_no_such_user(mocked_client=None):
     )
     response = TestClient(app).request("GET", "/status", auth=("user", "pass"))
     assert response.status_code == 401
-    assert response.content == b'{"detail":"/status: user Unauthorised"}'
+    assert (
+        response.content
+        == b'{"detail":"Your credentials are not valid, or you did not provide any by basic authentication"}'
+    )
     mocked_client.return_value.user_can_view_unpublished_judgments.assert_called_with(
         "user"
     )
