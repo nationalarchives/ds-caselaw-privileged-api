@@ -8,6 +8,7 @@ from caselawclient.Client import (
     MarklogicResourceLockedError,
     MarklogicCheckoutConflictError,
     MarklogicResourceNotCheckedOutError,
+    MarklogicValidationFailedError,
 )
 
 # Read Lock Status (GET /lock/...)
@@ -199,4 +200,29 @@ def test_update_judgment_fail(mocked_client):
         "is-a-judgment/uri", b"<judgment></judgment>", ""
     )
     assert response.status_code == 409
-    assert "request needed a checkout first" in response.text
+    assert (
+        response.text
+        == '{"detail":"The resource is not checked out by anyone, but that request needed a checkout first."}'
+    )
+
+
+@patch("openapi_server.apis.writing_api.client_for_basic_auth")
+def test_judgment_validation_fail(mocked_client):
+    # Checkout Judgment fails with an error or returns None
+    mocked_client.return_value.save_locked_judgment_xml.side_effect = Mock(
+        side_effect=MarklogicValidationFailedError()
+    )
+    response = TestClient(app).request(
+        "PATCH",
+        "/judgment/is-a-judgment/uri",
+        auth=("user", "pass"),
+        data="<judgment></judgment>",
+    )
+    mocked_client.return_value.save_locked_judgment_xml.assert_called_with(
+        "is-a-judgment/uri", b"<judgment></judgment>", ""
+    )
+    assert response.status_code == 422
+    assert (
+        response.text
+        == '{"detail":"The XML document did not validate according to the schema"}'
+    )
