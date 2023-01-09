@@ -223,6 +223,6 @@ def test_judgment_validation_fail(mocked_client):
     )
     assert response.status_code == 422
     assert (
-        response.text
-        == '{"detail":"The XML document did not validate according to the schema"}'
+        response.json()["detail"]
+        == "The XML document did not validate according to the schema"
     )
