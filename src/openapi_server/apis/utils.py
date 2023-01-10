@@ -1,7 +1,8 @@
 from fastapi import HTTPException
 from contextlib import contextmanager
-from caselawclient.Client import MarklogicValidationFailedError
+from caselawclient.Client import MarklogicValidationFailedError, MarklogicAPIError
 import lxml.etree
+import traceback
 
 
 @contextmanager
@@ -16,6 +17,9 @@ def error_handling():
 
 def error_response(e):
     """provide a uniform error Response"""
+    print("### Error contents:")
+    print(e)
+    print("### End of error")
 
     if isinstance(e, MarklogicValidationFailedError):
         root = lxml.etree.fromstring(e.response.content)
@@ -23,9 +27,14 @@ def error_response(e):
             "//mlerror:message/text()",
             namespaces={"mlerror": "http://marklogic.com/xdmp/error"},
         )[0]
+        raise HTTPException(status_code=e.status_code, detail=error_message)
+    elif isinstance(e, MarklogicAPIError):
+        raise HTTPException(status_code=e.status_code, detail=e.default_message)
     else:
-        error_message = e.default_message
-
-    print(e)
-    # If the Exception one about validation, output the entire failure message, otherwise don't.
-    raise HTTPException(status_code=e.status_code, detail=error_message)
+        # presumably a Python error, not a Marklogic one
+        print("### Traceback")
+        traceback.print_exc()
+        print("### End traceback")
+        raise HTTPException(
+            status_code=500, detail="An unknown error occurred outside of Marklogic."
+        )
