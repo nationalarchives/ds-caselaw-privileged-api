@@ -2,7 +2,7 @@
 
 from typing import Dict, List  # noqa: F401
 
-from caselawclient.Client import MarklogicUnauthorizedError, MarklogicAPIError
+from caselawclient.Client import MarklogicUnauthorizedError
 
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -23,6 +23,8 @@ from openapi_server.connect import client_for_basic_auth
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
 
+from .utils import error_handling
+
 router = APIRouter()
 
 
@@ -38,13 +40,11 @@ router = APIRouter()
 async def healthcheck_get() -> Dict[str, str]:
     """A test endpoint that checks Marklogic is present"""
     client = client_for_basic_auth(HTTPBasicCredentials(username="", password=""))
-    try:
-        client.user_can_view_unpublished_judgments("")
-    except MarklogicUnauthorizedError:
-        pass
-    except MarklogicAPIError as e:
-        return Response(e.default_message, status_code=e.status_code)
-
+    with error_handling():
+        try:
+            client.user_can_view_unpublished_judgments("")
+        except MarklogicUnauthorizedError:  # expected error
+            pass
     return {"status": "/healthcheck: Marklogic OK"}
 
 
@@ -75,10 +75,8 @@ async def status_get(
     if not username:
         return {"status": "/status: no username"}
     client = client_for_basic_auth(token_basic)
-    try:
+    with error_handling():
         view_unpublished = client.user_can_view_unpublished_judgments(username)
-    except MarklogicUnauthorizedError:
-        raise HTTPException(status_code=401, detail=f"/status: {username} Unauthorised")
 
     response.headers["X-Read-Unpublished"] = "1" if view_unpublished else "0"
 
