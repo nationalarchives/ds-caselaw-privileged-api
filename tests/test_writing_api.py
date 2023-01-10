@@ -208,9 +208,12 @@ def test_update_judgment_fail(mocked_client):
 
 @patch("openapi_server.apis.writing_api.client_for_basic_auth")
 def test_judgment_validation_fail(mocked_client):
+    error = MarklogicValidationFailedError()
+    error.response = Mock()
+    error.response.content = b'<error-response xmlns="http://marklogic.com/xdmp/error"><message>a message</message></error-response>'  # noqa:E501
     # Checkout Judgment fails with an error or returns None
     mocked_client.return_value.save_locked_judgment_xml.side_effect = Mock(
-        side_effect=MarklogicValidationFailedError()
+        side_effect=error
     )
     response = TestClient(app).request(
         "PATCH",
@@ -222,7 +225,4 @@ def test_judgment_validation_fail(mocked_client):
         "is-a-judgment/uri", b"<judgment></judgment>", ""
     )
     assert response.status_code == 422
-    assert (
-        response.json()["detail"]
-        == "The XML document did not validate according to the schema"
-    )
+    assert response.json()["detail"] == "a message"
