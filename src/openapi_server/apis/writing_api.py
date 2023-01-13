@@ -2,8 +2,6 @@
 
 from typing import Dict, List, Optional  # noqa: F401
 
-from caselawclient.Client import MarklogicAPIError
-
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -21,6 +19,8 @@ from fastapi import (  # noqa: F401
 from openapi_server.connect import client_for_basic_auth
 from openapi_server.models.extra_models import TokenModel
 from openapi_server.security_api import get_token_basic
+
+from .utils import error_handling
 
 router = APIRouter()
 
@@ -53,14 +53,12 @@ async def judgment_uri_lock_get(
     token_basic: TokenModel = Security(get_token_basic),
 ):
     client = client_for_basic_auth(token_basic)
-    try:
+    with error_handling():
         message = client.get_judgment_checkout_status_message(judgmentUri)
         if message is None:
             response.status_code = 200
             response.headers["X-Locked"] = "0"
             return {"status": "Not locked"}
-    except MarklogicAPIError as e:
-        return Response(e.default_message, status_code=e.status_code)
     response.status_code = 200
     response.headers["X-Lock-Annotation"] = message
     response.headers["X-Locked"] = "1"
@@ -94,13 +92,11 @@ async def judgment_uri_lock_put(
     expires = bool(
         int(expires)
     )  # If expires is True then the lock will expire at midnight, otherwise the lock is permanent
-    try:
+    with error_handling():
         _ml_response = client.checkout_judgment(  # noqa: F841
             judgmentUri, annotation, expires
         )
         judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
-    except MarklogicAPIError as e:
-        return Response(e.default_message, status_code=e.status_code)
     return Response(status_code=201, content=judgment, media_type="application/xml")
 
 
@@ -120,10 +116,9 @@ async def judgment_uri_lock_delete(
     token_basic: TokenModel = Security(get_token_basic),
 ):
     client = client_for_basic_auth(token_basic)
-    try:
+
+    with error_handling():
         client.checkin_judgment(judgment_uri=judgmentUri)
-    except MarklogicAPIError as e:
-        return Response(e.default_message, status_code=e.status_code)
 
     response.status_code = 200
     return {"status": "unlocked"}
@@ -164,7 +159,8 @@ async def judgment_uri_patch(
 
     client = client_for_basic_auth(token_basic)
     bytes_body = await request.body()
-    try:
+
+    with error_handling():
         client.save_locked_judgment_xml(
             # judgment_uri=judgmentUri,
             # judgment_xml=body,
@@ -173,17 +169,13 @@ async def judgment_uri_patch(
             bytes_body,
             annotation,
         )
-    except MarklogicAPIError as e:
-        return Response(e.default_message, status_code=e.status_code)
 
     if not unlock:
         response.status_code = 200
         return {"status": "Uploaded (not unlocked)."}
 
-    try:
+    with error_handling():
         _ml_response = client.checkin_judgment(judgment_uri=judgmentUri)  # noqa: F841
-    except MarklogicAPIError as e:
-        return Response(e.default_message, status_code=e.status_code)
 
     response.status_code = 200
     return {"status": "Uploaded and unlocked."}
