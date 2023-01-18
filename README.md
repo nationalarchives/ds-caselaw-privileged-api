@@ -13,10 +13,16 @@ Python >= 3.8
 
 Ensure that the `MARKLOGIC_API_CLIENT_HOST` environment is set to point at the Marklogic server.
 
+(Note that the URI will depend on whether you're on the dxw VPN (starts with `caselaw`) or the
+Amazon VPN (starts with `internal`).
+
 Consider using a virtual environment via ```virtualenv -p `which python` ```
 Consider importing prerequisites via `pip install -r requirements.txt`
 
 To run the server, run `script/server`; open `http://localhost:8080/` in a browser
+
+You may want to start localstack from the ingester (`docker-compose start`) and run
+`script/setup-localstack` if interested in saving invalid XML to s3 locally.
 
 ## Documentation
 

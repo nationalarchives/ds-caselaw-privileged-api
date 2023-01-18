@@ -19,6 +19,8 @@ from fastapi import (  # noqa: F401
 from openapi_server.connect import client_for_basic_auth
 from openapi_server.models.extra_models import TokenModel
 from openapi_server.security_api import get_token_basic
+from caselawclient.Client import MarklogicValidationFailedError
+from s3 import upload_to_invalid_bucket
 
 from .utils import error_handling
 
@@ -158,17 +160,21 @@ async def judgment_uri_patch(
     and release any client lock."""
 
     client = client_for_basic_auth(token_basic)
-    bytes_body = await request.body()
+    xml_content = await request.body()
 
     with error_handling():
-        client.save_locked_judgment_xml(
-            # judgment_uri=judgmentUri,
-            # judgment_xml=body,
-            # annotation=annotation,
-            judgmentUri,
-            bytes_body,
-            annotation,
-        )
+        try:
+            client.save_locked_judgment_xml(
+                # judgment_uri=judgmentUri,
+                # judgment_xml=body,
+                # annotation=annotation,
+                judgmentUri,
+                xml_content,
+                annotation,
+            )
+        except MarklogicValidationFailedError as ex:
+            upload_to_invalid_bucket(judgmentUri, xml_content, ex.response.content)
+            raise
 
     if not unlock:
         response.status_code = 200
