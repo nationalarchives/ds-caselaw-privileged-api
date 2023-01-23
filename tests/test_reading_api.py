@@ -19,8 +19,11 @@ def test_unpack_list():
 @patch("openapi_server.apis.reading_api.client_for_basic_auth")
 def test_get_success(mocked_client):
     mocked_client.return_value.get_judgment_xml.return_value = b"<judgment></judgment>"
+    mocked_client.return_value.user_can_view_unpublished_judgments.return_value = True
     response = TestClient(app).request("GET", "/judgment/uri", auth=("user", "pass"))
-    mocked_client.return_value.get_judgment_xml.assert_called_with("uri")
+    mocked_client.return_value.get_judgment_xml.assert_called_with(
+        "uri", show_unpublished=True
+    )
     assert response.status_code == 200
     assert "<judgment>" in response.text
 
@@ -30,10 +33,13 @@ def test_get_not_found(mocked_client):
     mocked_client.return_value.get_judgment_xml.side_effect = Mock(
         side_effect=MarklogicResourceNotFoundError()
     )
+    mocked_client.return_value.user_can_view_unpublished_judgments.return_value = True
     response = TestClient(app).request(
         "GET", "/judgment/bad_uri", auth=("user", "pass")
     )
-    mocked_client.return_value.get_judgment_xml.assert_called_with("bad_uri")
+    mocked_client.return_value.get_judgment_xml.assert_called_with(
+        "bad_uri", show_unpublished=True
+    )
     assert response.status_code == 404
     assert "No resource with that name" in response.text
 

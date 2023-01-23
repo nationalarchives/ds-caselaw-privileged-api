@@ -63,7 +63,12 @@ async def get_document_by_uri(
 ):
     with error_handling():
         client = client_for_basic_auth(token_basic)
-        judgment = client.get_judgment_xml(judgmentUri)
+        can_view_unpublished = client.user_can_view_unpublished_judgments(
+            token_basic.username
+        )
+        judgment = client.get_judgment_xml(
+            judgmentUri, show_unpublished=can_view_unpublished
+        )
     return Response(status_code=200, content=judgment, media_type="application/xml")
 
 
