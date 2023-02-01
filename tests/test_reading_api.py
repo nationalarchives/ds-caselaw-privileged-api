@@ -18,6 +18,10 @@ def test_unpack_list():
 
 @patch("openapi_server.apis.reading_api.client_for_basic_auth")
 def test_get_success(mocked_client):
+    """Given that the user is allowed to see unpublished judgments
+    When the user requests a judgment
+    Then Marklogic is informed that they can see unpublished judgments
+      and the judgment is returned"""
     mocked_client.return_value.get_judgment_xml.return_value = b"<judgment></judgment>"
     mocked_client.return_value.user_can_view_unpublished_judgments.return_value = True
     response = TestClient(app).request("GET", "/judgment/uri", auth=("user", "pass"))
@@ -26,6 +30,19 @@ def test_get_success(mocked_client):
     )
     assert response.status_code == 200
     assert "<judgment>" in response.text
+
+
+@patch("openapi_server.apis.reading_api.client_for_basic_auth")
+def test_passes_unpublished_if_true(mocked_client):
+    """Given that the user is not allowed to see unpublished judgments
+    When the user requests a judgment
+    Then Marklogic is informed that they cannot see unpublished judgments"""
+    mocked_client.return_value.get_judgment_xml.return_value = b"<judgment></judgment>"
+    mocked_client.return_value.user_can_view_unpublished_judgments.return_value = False
+    _ = TestClient(app).request("GET", "/judgment/uri", auth=("user", "pass"))
+    mocked_client.return_value.get_judgment_xml.assert_called_with(
+        "uri", show_unpublished=False
+    )
 
 
 @patch("openapi_server.apis.reading_api.client_for_basic_auth")
