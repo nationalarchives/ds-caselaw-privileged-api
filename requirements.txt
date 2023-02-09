@@ -1,4 +1,4 @@
-aiofiles==22.1.0
+aiofiles==23.1.0
 aniso8601==9.0.1
 async-exit-stack==1.0.1
 async-generator==1.10
