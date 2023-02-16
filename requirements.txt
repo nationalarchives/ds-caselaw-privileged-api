@@ -17,7 +17,7 @@ Jinja2==3.1.2
 MarkupSafe==2.1.2
 orjson==3.8.5
 promise==2.3
-pydantic==1.10.4
+pydantic==1.10.5
 python-dotenv==0.21.1
 python-multipart==0.0.5
 PyYAML==6.0.0
