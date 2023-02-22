@@ -10,7 +10,7 @@
 """
 
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from openapi_server.apis.reading_api import router as ReadingApiRouter
 from openapi_server.apis.status_api import router as StatusApiRouter
 from openapi_server.apis.writing_api import router as WritingApiRouter
@@ -24,3 +24,12 @@ app = FastAPI(
 app.include_router(ReadingApiRouter)
 app.include_router(StatusApiRouter)
 app.include_router(WritingApiRouter)
+
+
+@app.middleware("http")
+async def add_cache_control_header(request: Request, call_next):
+    """Do not cache the API, to avoid clients saving stale data.
+    Code based on https://fastapi.tiangolo.com/tutorial/middleware/"""
+    response = await call_next(request)
+    response.headers["Cache-Control"] = "no-store"
+    return response
