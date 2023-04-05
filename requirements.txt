@@ -19,7 +19,7 @@ orjson==3.8.6
 promise==2.3
 pydantic==1.10.5
 python-dotenv==0.21.1
-python-multipart==0.0.5
+python-multipart==0.0.6
 PyYAML==6.0.0
 Rx==3.2.0
 six==1.16.0
