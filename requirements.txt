@@ -10,7 +10,7 @@ graphene==3.2.2
 graphql-core==3.2.3
 graphql-relay==3.2.0
 h11==0.14.0
-httptools==0.5.0
+httptools==0.6.0
 httpx==0.24.1
 itsdangerous==2.1.2
 Jinja2==3.1.2
