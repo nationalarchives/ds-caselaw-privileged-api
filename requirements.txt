@@ -20,7 +20,7 @@ promise==2.3
 pydantic==1.10.11
 python-dotenv==1.0.0
 python-multipart==0.0.6
-PyYAML==6.0.0
+PyYAML==6.0.1
 Rx==3.2.0
 six==1.16.0
 typing-extensions==4.7.1
