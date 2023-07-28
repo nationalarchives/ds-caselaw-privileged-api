@@ -6,7 +6,7 @@ click==8.1.6
 dnspython==2.4.1
 email-validator==2.0.0.post2
 fastapi==0.93.0
-graphene==3.2.2
+graphene==3.3
 graphql-core==3.2.3
 graphql-relay==3.2.0
 h11==0.14.0
