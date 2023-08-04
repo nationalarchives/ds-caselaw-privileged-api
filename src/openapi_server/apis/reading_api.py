@@ -58,7 +58,7 @@ def unpack_list(xpath_list):
 )
 async def get_document_by_uri(
     response: Response,
-    judgmentUri: str = Path(None, description=""),
+    judgmentUri: str,
     token_basic: TokenModel = Security(get_token_basic),
 ):
     with error_handling():
