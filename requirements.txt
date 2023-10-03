@@ -37,7 +37,7 @@ django-environ==0.11.2
 idna==3.4
 requests[use_chardet_on_py3]==2.31.0
 requests-toolbelt==1.0.0
-urllib3==2.0.5
+urllib3==2.0.6
 
 pytest==7.4.2
 lxml==4.9.3
