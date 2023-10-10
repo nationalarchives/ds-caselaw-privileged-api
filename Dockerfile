@@ -1,30 +1,36 @@
-FROM python:3.12 AS builder
+FROM python:3.12 as builder
 
-WORKDIR /usr/src/app
+RUN pip install poetry==1.6.1
 
-RUN python3 -m venv /venv
-ENV PATH="/venv/bin:$PATH"
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
 
-RUN pip install --upgrade pip
+WORKDIR /app
 
-COPY . .
-RUN pip install -r requirements.txt --no-cache-dir .
+COPY pyproject.toml poetry.lock ./
+RUN touch README.md
 
+RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root
 
-FROM python:3.12 AS test_runner
-WORKDIR /tmp
-COPY --from=builder /venv /venv
-COPY --from=builder /usr/src/app/tests tests
-ENV PATH=/venv/bin:$PATH
+FROM python:3.12 as test_runner
 
-# install test dependencies
-RUN pip install pytest
+ENV VIRTUAL_ENV=/app/.venv \
+    PATH="/app/.venv/bin:$PATH"
+
+COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+COPY src ./tests
+COPY tests ./tests
+
+WORKDIR tests
 
 # run tests
-RUN pytest tests
+RUN /app/.venv/bin/pytest .
 
+FROM python:3.12 as service
 
-FROM python:3.12 AS service
-WORKDIR /root/app/site-packages
-COPY --from=test_runner /venv /venv
-ENV PATH=/venv/bin:$PATH
+ENV VIRTUAL_ENV=/app/.venv \
+    PATH="/app/.venv/bin:$PATH"
+COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+COPY src .
