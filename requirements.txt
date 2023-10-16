@@ -26,7 +26,7 @@ six==1.16.0
 typing-extensions==4.8.0
 ujson==5.8.0
 uvicorn==0.23.2
-uvloop==0.17.0
+uvloop==0.18.0
 watchgod==0.8.2
 websockets==11.0.3
 
