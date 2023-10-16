@@ -1,4 +1,4 @@
-FROM python:3.11 AS builder
+FROM python:3.12 AS builder
 
 WORKDIR /usr/src/app
 
@@ -11,7 +11,7 @@ COPY . .
 RUN pip install -r requirements.txt --no-cache-dir .
 
 
-FROM python:3.11 AS test_runner
+FROM python:3.12 AS test_runner
 WORKDIR /tmp
 COPY --from=builder /venv /venv
 COPY --from=builder /usr/src/app/tests tests
@@ -24,7 +24,7 @@ RUN pip install pytest
 RUN pytest tests
 
 
-FROM python:3.11 AS service
+FROM python:3.12 AS service
 WORKDIR /root/app/site-packages
 COPY --from=test_runner /venv /venv
 ENV PATH=/venv/bin:$PATH
