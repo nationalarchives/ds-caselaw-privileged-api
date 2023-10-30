@@ -7,7 +7,7 @@ Exposing an API to archived case law.
 
 ## Requirements.
 
-Python >= 3.8
+Python >= 3.10
 
 ## Installation & Usage
 

@@ -43,14 +43,12 @@ ds-caselaw-marklogic-api-client = ">=5.2.0"
 django-environ = ">=0.11.2"
 requests = {extras = ["use-chardet-on-py3"], version = ">=2.31.0"}
 requests-toolbelt = ">=1.0.0"
-pytest = ">=7.4.2"
 lxml = ">= 4.9.3"
 httpx = ">= 0.25.0"
 uvicorn = ">= 0.23.2"
 
 [tool.poetry.group.dev.dependencies]
-
-
+pytest = "^7.4.3"
 
 [build-system]
 requires = ["poetry-core"]

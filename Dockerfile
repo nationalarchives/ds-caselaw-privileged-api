@@ -12,7 +12,7 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN touch README.md
 
-RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root
+RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --with dev --no-root
 
 FROM python:3.12 as test_runner
 
@@ -26,7 +26,7 @@ COPY tests ./tests
 WORKDIR tests
 
 # run tests
-RUN /app/.venv/bin/pytest .
+RUN poetry run pytest .
 
 FROM python:3.12 as service
 
