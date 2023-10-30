@@ -1,2 +1,4 @@
+#! /bin/bash
+
 export $(cat .env|xargs)
 PYTHONPATH=src pytest tests $*

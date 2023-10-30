@@ -7,14 +7,13 @@ Exposing an API to archived case law.
 
 ## Requirements.
 
-Python >= 3.8
+Python >= 3.12
 
 ## Installation & Usage
 
 Ensure that the `MARKLOGIC_API_CLIENT_HOST` environment is set to point at the Marklogic server.
 
-Consider using a virtual environment via ```virtualenv -p `which python` ```
-Consider importing prerequisites via `pip install -r requirements.txt`
+This project uses [Poetry](https://python-poetry.org/) to manage dependencies. You can install them with `poetry install`, and access a virtual environment with `poetry shell`.
 
 To run the server, run `script/server`; open `http://localhost:8080/` in a browser
 
