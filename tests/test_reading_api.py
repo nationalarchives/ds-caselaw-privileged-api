@@ -3,7 +3,7 @@ from unittest.mock import patch, Mock
 from unittest import TestCase
 
 from caselawclient.Client import MarklogicResourceNotFoundError
-
+from caselawclient.search_parameters import SearchParameters
 from fastapi.testclient import TestClient
 from openapi_server.main import app
 from openapi_server.apis.reading_api import unpack_list
@@ -88,9 +88,11 @@ def test_get_list_unpublished(mocked_client):
         "GET", "/list/unpublished", auth=("user", "pass")
     )
     mocked_client.return_value.advanced_search.assert_called_with(
-        page=1,
-        show_unpublished=True,
-        only_unpublished=True,
+        SearchParameters(
+            page=1,
+            show_unpublished=True,
+            only_unpublished=True,
+        )
     )
     mocked_client.return_value.user_can_view_unpublished_judgments.assert_called_with(
         "user"
@@ -122,9 +124,11 @@ def test_get_list_unpublished_xml(mocked_client):
         headers={"Content-Type": "application/xml"},
     )
     mocked_client.return_value.advanced_search.assert_called_with(
-        page=6,
-        show_unpublished=True,
-        only_unpublished=True,
+        SearchParameters(
+            page=6,
+            show_unpublished=True,
+            only_unpublished=True,
+        )
     )
     mocked_client.return_value.user_can_view_unpublished_judgments.assert_called_with(
         "user"

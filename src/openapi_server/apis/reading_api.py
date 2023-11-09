@@ -2,7 +2,7 @@
 
 import lxml.etree
 from typing import Dict, List, Any  # noqa: F401
-
+from caselawclient.models.documents import DocumentURIString
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -19,7 +19,7 @@ from fastapi import (  # noqa: F401
 )
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
-
+from caselawclient.search_parameters import SearchParameters
 from openapi_server.connect import client_for_basic_auth
 
 from requests_toolbelt.multipart import decoder
@@ -58,7 +58,7 @@ def unpack_list(xpath_list):
 )
 async def get_document_by_uri(
     response: Response,
-    judgmentUri: str,
+    judgmentUri: DocumentURIString,
     token_basic: TokenModel = Security(get_token_basic),
 ):
     with error_handling():
@@ -95,9 +95,11 @@ async def list_unpublished_get_get(
         return {"status": "Not allowed to see unpublished documents"}
 
     response = client.advanced_search(
-        page=page,
-        show_unpublished=True,
-        only_unpublished=True,
+        SearchParameters(
+            page=page,
+            show_unpublished=True,
+            only_unpublished=True,
+        )
     )
 
     xml = decode_multipart_response(response)

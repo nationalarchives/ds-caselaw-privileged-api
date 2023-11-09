@@ -2,6 +2,8 @@
 
 from typing import Dict, List, Optional  # noqa: F401
 
+from caselawclient.models.documents import DocumentURIString
+from caselawclient.client_helpers import VersionAnnotation, VersionType
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -49,7 +51,7 @@ router = APIRouter()
 )
 async def judgment_uri_lock_get(
     response: Response,
-    judgmentUri: str,
+    judgmentUri: DocumentURIString,
     token_basic: TokenModel = Security(get_token_basic),
 ):
     client = client_for_basic_auth(token_basic)
@@ -81,7 +83,7 @@ async def judgment_uri_lock_get(
 )
 async def judgment_uri_lock_put(
     response: Response,
-    judgmentUri: str,
+    judgmentUri: DocumentURIString,
     token_basic: TokenModel = Security(get_token_basic),
     expires="0",
 ):
@@ -112,7 +114,7 @@ async def judgment_uri_lock_put(
 )
 async def judgment_uri_lock_delete(
     response: Response,
-    judgmentUri: str,
+    judgmentUri: DocumentURIString,
     token_basic: TokenModel = Security(get_token_basic),
 ):
     client = client_for_basic_auth(token_basic)
@@ -146,12 +148,12 @@ async def judgment_uri_lock_delete(
 async def judgment_uri_patch(
     request: Request,
     response: Response,
-    judgmentUri: str,
+    judgmentUri: DocumentURIString,
+    annotation: str = "",
     if_match: str = Header(
         None, description="The last known version number of the document"
     ),
     token_basic: TokenModel = Security(get_token_basic),
-    annotation: str = "",
     unlock: bool = False,
 ) -> Dict[str, str]:
     """Write a complete new version of the document to the database,
@@ -160,14 +162,17 @@ async def judgment_uri_patch(
     client = client_for_basic_auth(token_basic)
     bytes_body = await request.body()
 
+    rich_annotation = VersionAnnotation(
+        version_type=VersionType.ENRICHMENT,
+        automated=True,
+        message=annotation if annotation else None,
+    )
+
     with error_handling():
         client.save_locked_judgment_xml(
-            # judgment_uri=judgmentUri,
-            # judgment_xml=body,
-            # annotation=annotation,
-            judgmentUri,
-            bytes_body,
-            annotation,
+            judgment_uri=judgmentUri,
+            judgment_xml=bytes_body,
+            annotation=rich_annotation,
         )
 
     if not unlock:
