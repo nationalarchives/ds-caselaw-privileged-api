@@ -8,7 +8,7 @@ from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
 
 environ.Env.read_env("../.env")  # TODO this is hideous
-MARKLOGIC_HOST = os.environ.get("MARKLOGIC_API_CLIENT_HOST")
+MARKLOGIC_HOST = os.environ["MARKLOGIC_API_CLIENT_HOST"]
 
 
 def client_for_basic_auth(
