@@ -2,6 +2,8 @@
 
 from typing import Dict, List, Optional  # noqa: F401
 
+from caselawclient.models.documents import DocumentURIString
+
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -49,7 +51,7 @@ router = APIRouter()
 )
 async def judgment_uri_lock_get(
     response: Response,
-    judgmentUri: str,
+    judgmentUri: DocumentURIString,
     token_basic: TokenModel = Security(get_token_basic),
 ):
     client = client_for_basic_auth(token_basic)
@@ -81,7 +83,7 @@ async def judgment_uri_lock_get(
 )
 async def judgment_uri_lock_put(
     response: Response,
-    judgmentUri: str,
+    judgmentUri: DocumentURIString,
     token_basic: TokenModel = Security(get_token_basic),
     expires="0",
 ):
@@ -112,7 +114,7 @@ async def judgment_uri_lock_put(
 )
 async def judgment_uri_lock_delete(
     response: Response,
-    judgmentUri: str,
+    judgmentUri: DocumentURIString,
     token_basic: TokenModel = Security(get_token_basic),
 ):
     client = client_for_basic_auth(token_basic)
@@ -146,7 +148,7 @@ async def judgment_uri_lock_delete(
 async def judgment_uri_patch(
     request: Request,
     response: Response,
-    judgmentUri: str,
+    judgmentUri: DocumentURIString,
     if_match: str = Header(
         None, description="The last known version number of the document"
     ),
