@@ -25,6 +25,8 @@ from openapi_server.security_api import get_token_basic
 
 from .utils import error_handling
 
+SECURITY_TOKEN_MODEL = Security(get_token_basic)
+
 router = APIRouter()
 
 
@@ -57,7 +59,7 @@ def unpack_list(xpath_list):
 async def get_document_by_uri(
     response: Response,
     judgmentUri: DocumentURIString,
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ):
     with error_handling():
         client = client_for_basic_auth(token_basic)
@@ -83,7 +85,7 @@ async def get_document_by_uri(
 async def list_unpublished_get_get(
     request: Request,
     response: Response,
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
     page: int = 1,  # should not be 0
 ) -> Any:
     """Unless the client has `read_unpublished_documents` permission,

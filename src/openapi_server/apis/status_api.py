@@ -23,6 +23,8 @@ from openapi_server.security_api import get_token_basic
 
 from .utils import error_handling
 
+SECURITY_TOKEN_MODEL = Security(get_token_basic)
+
 router = APIRouter()
 
 
@@ -63,7 +65,7 @@ async def healthcheck_get() -> dict[str, str]:
 )
 async def status_get(
     response: Response,
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ) -> dict[str, str]:
     """A test endpoint that can be used by clients to verify service availability,
     and to verify valid authentication credentials. Authentication is not required,

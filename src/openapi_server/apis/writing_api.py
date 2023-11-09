@@ -23,6 +23,8 @@ from openapi_server.security_api import get_token_basic
 
 from .utils import error_handling
 
+SECURITY_TOKEN_MODEL = Security(get_token_basic)
+
 router = APIRouter()
 
 
@@ -51,7 +53,7 @@ router = APIRouter()
 async def judgment_uri_lock_get(
     response: Response,
     judgmentUri: DocumentURIString,
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ):
     client = client_for_basic_auth(token_basic)
     with error_handling():
@@ -83,7 +85,7 @@ async def judgment_uri_lock_get(
 async def judgment_uri_lock_put(
     response: Response,
     judgmentUri: DocumentURIString,
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
     expires="0",
 ):
     """Locks edit access for a document for the current client. Returns the latest
@@ -116,7 +118,7 @@ async def judgment_uri_lock_put(
 async def judgment_uri_lock_delete(
     response: Response,
     judgmentUri: DocumentURIString,
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ):
     client = client_for_basic_auth(token_basic)
 
@@ -155,7 +157,7 @@ async def judgment_uri_patch(
         None,
         description="The last known version number of the document",
     ),
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
     unlock: bool = False,
 ) -> dict[str, str]:
     """Write a complete new version of the document to the database,
