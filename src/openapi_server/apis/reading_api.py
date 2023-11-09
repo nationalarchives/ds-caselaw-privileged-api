@@ -109,7 +109,7 @@ async def list_unpublished_get_get(
     if "application/xml" in content_type:
         return Response(status_code=200, content=xml, media_type="application/xml")
 
-    root = lxml.etree.fromstring(xml)
+    root = lxml.etree.fromstring(xml)  # noqa: S320
     namespaces = {
         "search": "http://marklogic.com/appservices/search",
         "uk": "https://caselaw.nationalarchives.gov.uk/akn",
