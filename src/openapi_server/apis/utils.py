@@ -11,7 +11,7 @@ def error_handling():
     try:
         yield
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         print(f"EXCEPTION {e}")  # noqa: T201
         return error_response(e)
 
