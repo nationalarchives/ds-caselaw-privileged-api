@@ -19,7 +19,7 @@ from fastapi import (  # noqa: F401
 )
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.security_api import get_token_basic
-
+from caselawclient.search_parameters import SearchParameters
 from openapi_server.connect import client_for_basic_auth
 
 from requests_toolbelt.multipart import decoder
@@ -95,9 +95,11 @@ async def list_unpublished_get_get(
         return {"status": "Not allowed to see unpublished documents"}
 
     response = client.advanced_search(
-        page=page,
-        show_unpublished=True,
-        only_unpublished=True,
+        SearchParameters(
+            page=page,
+            show_unpublished=True,
+            only_unpublished=True,
+        )
     )
 
     xml = decode_multipart_response(response)

@@ -1,8 +1,7 @@
 # coding: utf-8
-
 from fastapi.testclient import TestClient
 from openapi_server.main import app
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, ANY
 from caselawclient.Client import (
     MarklogicUnauthorizedError,
     MarklogicResourceLockedError,
@@ -157,10 +156,18 @@ def test_update_judgment_annotation_ok(mocked_client):
         "/judgment/is-a-judgment/uri",
         auth=("user", "pass"),
         data="<judgment></judgment>",
-        params={"annotation": "hey"},
+        params={"annotation": "Test annotation message"},
     )
-    mocked_client.return_value.save_locked_judgment_xml.assert_called_with(
-        "is-a-judgment/uri", b"<judgment></judgment>", "hey"
+    mocked_client.return_value.save_locked_judgment_xml.assert_called_once_with(
+        judgment_uri="is-a-judgment/uri",
+        judgment_xml=b"<judgment></judgment>",
+        annotation=ANY,
+    )
+    assert (
+        mocked_client.return_value.save_locked_judgment_xml.mock_calls[0]
+        .kwargs["annotation"]
+        .message
+        == "Test annotation message"
     )
     assert response.status_code == 200
     assert "not unlocked" in response.text
@@ -177,8 +184,16 @@ def test_update_judgment_unlock_ok(mocked_client):
         data="<judgment></judgment>",
         params={"unlock": "1"},
     )
-    mocked_client.return_value.save_locked_judgment_xml.assert_called_with(
-        "is-a-judgment/uri", b"<judgment></judgment>", ""
+    mocked_client.return_value.save_locked_judgment_xml.assert_called_once_with(
+        judgment_uri="is-a-judgment/uri",
+        judgment_xml=b"<judgment></judgment>",
+        annotation=ANY,
+    )
+    assert (
+        mocked_client.return_value.save_locked_judgment_xml.mock_calls[0]
+        .kwargs["annotation"]
+        .message
+        is None
     )
     assert response.status_code == 200
     assert "Uploaded and unlocked" in response.text
@@ -203,8 +218,16 @@ def test_default_message_in_api_response(mocked_client):
         auth=("user", "pass"),
         data="<judgment></judgment>",
     )
-    mocked_client.return_value.save_locked_judgment_xml.assert_called_with(
-        "is-a-judgment/uri", b"<judgment></judgment>", ""
+    mocked_client.return_value.save_locked_judgment_xml.assert_called_once_with(
+        judgment_uri="is-a-judgment/uri",
+        judgment_xml=b"<judgment></judgment>",
+        annotation=ANY,
+    )
+    assert (
+        mocked_client.return_value.save_locked_judgment_xml.mock_calls[0]
+        .kwargs["annotation"]
+        .message
+        is None
     )
     assert response.status_code == 409
     assert (
@@ -233,8 +256,16 @@ def test_validation_error_message_in_api_response(mocked_client):
         auth=("user", "pass"),
         data="<judgment></judgment>",
     )
-    mocked_client.return_value.save_locked_judgment_xml.assert_called_with(
-        "is-a-judgment/uri", b"<judgment></judgment>", ""
+    mocked_client.return_value.save_locked_judgment_xml.assert_called_once_with(
+        judgment_uri="is-a-judgment/uri",
+        judgment_xml=b"<judgment></judgment>",
+        annotation=ANY,
+    )
+    assert (
+        mocked_client.return_value.save_locked_judgment_xml.mock_calls[0]
+        .kwargs["annotation"]
+        .message
+        is None
     )
 
     assert response.status_code == 422
