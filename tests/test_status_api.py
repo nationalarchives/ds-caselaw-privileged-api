@@ -24,7 +24,6 @@ def test_get_status_no_such_user(mocked_client=None):
     mocked_client.return_value.user_can_view_unpublished_judgments.assert_called_with(
         "user",
     )
-    # TODO: This will break when only_published becomes silently false.
 
 
 @patch("openapi_server.apis.status_api.client_for_basic_auth")
