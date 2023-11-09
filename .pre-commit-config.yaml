@@ -25,7 +25,12 @@ repos:
     rev: v1.6.1 # Use the sha / tag you want to point at
     hooks:
       - id: mypy
-        additional_dependencies: ["types-requests", "types-ujson"]
+        additional_dependencies:
+          [
+            "types-requests",
+            "types-ujson",
+            "ds-caselaw-marklogic-api-client==17.2.0",
+          ]
         files: ^src/
 
 # sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
