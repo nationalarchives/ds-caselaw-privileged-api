@@ -1,5 +1,3 @@
-
-
 [tool.black]
 line-length = 88
 exclude = '''
@@ -19,13 +17,12 @@ exclude = '''
 )
 '''
 
-[tool.isort]
-profile = "black"
-skip = [
-    '.eggs', '.git', '.hg', '.mypy_cache', '.nox', '.pants.d', '.tox',
-    '.venv', '_build', 'buck-out', 'build', 'dist', 'node_modules', 'venv',
-]
-skip_gitignore = true
+[tool.ruff]
+ignore = ["S101", "E501", "G004", "PLR2004", "RUF005", "RUF012"]
+extend-select = ["W", "B", "Q", "C90", "I", "UP", "YTT", "ASYNC", "S", "BLE", "A", "COM", "C4", "DTZ", "T10", "DJ", "EM", "EXE", "FA",
+                 "ISC", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q", "RSE", "RET", "SLF", "SLOT", "SIM", "TID", "TCH", "INT", "PTH",
+                 "FIX", "PGH", "PL", "TRY", "FLY", "PERF", "RUF"]
+unfixable = ["ERA"]
 
 [tool.poetry]
 name = "ds-caselaw-privileged-api"
