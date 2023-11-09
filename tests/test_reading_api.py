@@ -1,6 +1,6 @@
-from unittest import TestCase
 from unittest.mock import Mock, patch
 
+import pytest
 from caselawclient.Client import MarklogicResourceNotFoundError
 from caselawclient.search_parameters import SearchParameters
 from fastapi.testclient import TestClient
@@ -11,7 +11,7 @@ from openapi_server.main import app
 def test_unpack_list():
     assert unpack_list([1]) == 1
     assert unpack_list([]) is None
-    with TestCase().assertRaises(AssertionError):
+    with pytest.raises(AssertionError):
         unpack_list([1, 1])
 
 
