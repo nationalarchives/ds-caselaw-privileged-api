@@ -1,5 +1,3 @@
-from typing import Dict, List  # noqa: F401
-
 from caselawclient.Client import MarklogicUnauthorizedError
 from fastapi import (  # noqa: F401
     APIRouter,

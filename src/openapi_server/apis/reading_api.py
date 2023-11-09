@@ -1,4 +1,4 @@
-from typing import Any, Dict, List  # noqa: F401
+from typing import Any
 
 import lxml.etree
 from caselawclient.models.documents import DocumentURIString

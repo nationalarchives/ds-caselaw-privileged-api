@@ -1,5 +1,3 @@
-from typing import Dict, List, Optional  # noqa: F401
-
 from caselawclient.client_helpers import VersionAnnotation, VersionType
 from caselawclient.models.documents import DocumentURIString
 from fastapi import (  # noqa: F401
