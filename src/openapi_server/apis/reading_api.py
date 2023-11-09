@@ -41,8 +41,7 @@ def unpack_list(xpath_list):
     ), f"There should only be one response, but there were {len(xpath_list)}: \n {xpath_list}"
     if xpath_list:
         return xpath_list[0]
-    else:
-        return None
+    return None
 
 
 @router.get(
