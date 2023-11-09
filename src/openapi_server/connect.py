@@ -1,18 +1,19 @@
 import os
 
 import environ
-from caselawclient.Client import MarklogicApiClient, DEFAULT_USER_AGENT
-
+from caselawclient.Client import DEFAULT_USER_AGENT, MarklogicApiClient
 from fastapi import Security
-from openapi_server.models.extra_models import TokenModel  # noqa: F401
+
+from openapi_server.models.extra_models import TokenModel
 from openapi_server.security_api import get_token_basic
 
-environ.Env.read_env("../.env")  # TODO this is hideous
+environ.Env.read_env("../.env")
 MARKLOGIC_HOST = os.environ["MARKLOGIC_API_CLIENT_HOST"]
+SECURITY_TOKEN_MODEL = Security(get_token_basic)
 
 
 def client_for_basic_auth(
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ) -> MarklogicApiClient:
     return MarklogicApiClient(
         host=MARKLOGIC_HOST,

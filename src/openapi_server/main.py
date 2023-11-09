@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     Case Law Privileged API
 
@@ -11,6 +9,7 @@
 
 
 from fastapi import FastAPI, Request
+
 from openapi_server.apis.reading_api import router as ReadingApiRouter
 from openapi_server.apis.status_api import router as StatusApiRouter
 from openapi_server.apis.writing_api import router as WritingApiRouter

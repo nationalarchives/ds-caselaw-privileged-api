@@ -1,8 +1,8 @@
-# coding: utf-8
+from typing import Any
 
 import lxml.etree
-from typing import Dict, List, Any  # noqa: F401
 from caselawclient.models.documents import DocumentURIString
+from caselawclient.search_parameters import SearchParameters
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -12,19 +12,20 @@ from fastapi import (  # noqa: F401
     Header,
     Path,
     Query,
-    Response,
     Request,
+    Response,
     Security,
     status,
 )
-from openapi_server.models.extra_models import TokenModel  # noqa: F401
-from openapi_server.security_api import get_token_basic
-from caselawclient.search_parameters import SearchParameters
-from openapi_server.connect import client_for_basic_auth
-
 from requests_toolbelt.multipart import decoder
 
+from openapi_server.connect import client_for_basic_auth
+from openapi_server.models.extra_models import TokenModel
+from openapi_server.security_api import get_token_basic
+
 from .utils import error_handling
+
+SECURITY_TOKEN_MODEL = Security(get_token_basic)
 
 router = APIRouter()
 
@@ -42,8 +43,7 @@ def unpack_list(xpath_list):
     ), f"There should only be one response, but there were {len(xpath_list)}: \n {xpath_list}"
     if xpath_list:
         return xpath_list[0]
-    else:
-        return None
+    return None
 
 
 @router.get(
@@ -59,15 +59,16 @@ def unpack_list(xpath_list):
 async def get_document_by_uri(
     response: Response,
     judgmentUri: DocumentURIString,
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ):
     with error_handling():
         client = client_for_basic_auth(token_basic)
         can_view_unpublished = client.user_can_view_unpublished_judgments(
-            token_basic.username
+            token_basic.username,
         )
         judgment = client.get_judgment_xml(
-            judgmentUri, show_unpublished=can_view_unpublished
+            judgmentUri,
+            show_unpublished=can_view_unpublished,
         )
     return Response(status_code=200, content=judgment, media_type="application/xml")
 
@@ -84,7 +85,7 @@ async def get_document_by_uri(
 async def list_unpublished_get_get(
     request: Request,
     response: Response,
-    token_basic: TokenModel = Security(get_token_basic),
+    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
     page: int = 1,  # should not be 0
 ) -> Any:
     """Unless the client has `read_unpublished_documents` permission,
@@ -99,7 +100,7 @@ async def list_unpublished_get_get(
             page=page,
             show_unpublished=True,
             only_unpublished=True,
-        )
+        ),
     )
 
     xml = decode_multipart_response(response)
@@ -108,7 +109,7 @@ async def list_unpublished_get_get(
     if "application/xml" in content_type:
         return Response(status_code=200, content=xml, media_type="application/xml")
 
-    root = lxml.etree.fromstring(xml)
+    root = lxml.etree.fromstring(xml)  # noqa: S320
     namespaces = {
         "search": "http://marklogic.com/appservices/search",
         "uk": "https://caselaw.nationalarchives.gov.uk/akn",
@@ -123,14 +124,15 @@ async def list_unpublished_get_get(
         data["uri"] = data["raw_uri"].partition(".xml")[0]
         data["date"] = unpack_list(
             result.xpath(
-                ".//akn:FRBRdate[@name='judgment']/@date", namespaces=namespaces
-            )
+                ".//akn:FRBRdate[@name='judgment']/@date",
+                namespaces=namespaces,
+            ),
         )
         data["name"] = unpack_list(
-            result.xpath(".//akn:FRBRname/@value", namespaces=namespaces)
+            result.xpath(".//akn:FRBRname/@value", namespaces=namespaces),
         )
         data["neutral"] = unpack_list(
-            result.xpath(".//uk:cite/text()", namespaces=namespaces)
+            result.xpath(".//uk:cite/text()", namespaces=namespaces),
         )
         results.append(data)
 
