@@ -136,11 +136,6 @@ async def judgment_uri_lock_delete(
         400: {
             "description": "The request was malformed, and the document was not modified",
         },
-        412: {
-            "description": """Not yet implemented: The document was not updated, as it has changed since
-            the version number specified If-Match. To avoid this, the client should
-            lock the document before making any changes to it.""",
-        },
     },
     tags=["Writing"],
     summary="Update a judgment",
@@ -151,10 +146,6 @@ async def judgment_uri_patch(
     response: Response,
     judgmentUri: DocumentURIString,
     annotation: str = "",
-    if_match: str = Header(
-        None,
-        description="The last known version number of the document",
-    ),
     token_basic: TokenModel = SECURITY_TOKEN_MODEL,
     unlock: bool = False,
 ) -> dict[str, str]:
