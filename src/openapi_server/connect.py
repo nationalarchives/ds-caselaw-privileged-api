@@ -1,7 +1,7 @@
 import os
 
 import environ
-from caselawclient.Client import MarklogicApiClient
+from caselawclient.Client import MarklogicApiClient, DEFAULT_USER_AGENT
 
 from fastapi import Security
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
@@ -19,4 +19,5 @@ def client_for_basic_auth(
         username=token_basic.username,
         password=token_basic.password,
         use_https=False,
+        user_agent=f"ds-caselaw-privileged-api/unknown {DEFAULT_USER_AGENT}",
     )
