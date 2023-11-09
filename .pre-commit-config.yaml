@@ -29,7 +29,6 @@ repos:
           [
             "types-requests",
             "types-ujson",
-            "fastapi",
             "ds-caselaw-marklogic-api-client==17.2.0",
           ]
         files: ^src/
