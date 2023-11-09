@@ -12,7 +12,7 @@ def error_handling():
         yield
 
     except Exception as e:
-        print(f"EXCEPTION {e}")
+        print(f"EXCEPTION {e}")  # noqa: T201
         return error_response(e)
 
 
