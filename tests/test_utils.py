@@ -1,11 +1,12 @@
-from openapi_server.apis.utils import error_handling
-from fastapi.exceptions import HTTPException
+from unittest.mock import Mock
+
+import pytest
 from caselawclient.Client import (
     MarklogicUnauthorizedError,
     MarklogicValidationFailedError,
 )
-from unittest.mock import Mock
-import pytest
+from fastapi.exceptions import HTTPException
+from openapi_server.apis.utils import error_handling
 
 
 def test_error_handling_no_exception():
@@ -52,7 +53,7 @@ def test_validation_error(caplog):
     def example():
         e = MarklogicValidationFailedError("error_msg")
         e.response = Mock()
-        e.response.content = b'<error-response xmlns="http://marklogic.com/xdmp/error"><message>a message from marklogic</message></error-response>'  # noqa:E501
+        e.response.content = b'<error-response xmlns="http://marklogic.com/xdmp/error"><message>a message from marklogic</message></error-response>'
 
         with error_handling():
             raise e
@@ -79,7 +80,7 @@ def test_non_validation_error(caplog):
     def example():
         e = MarklogicUnauthorizedError("error_msg")
         e.response = Mock()
-        e.response.content = b'<error-response xmlns="http://marklogic.com/xdmp/error"><message>a message from marklogic</message></error-response>'  # noqa:E501
+        e.response.content = b'<error-response xmlns="http://marklogic.com/xdmp/error"><message>a message from marklogic</message></error-response>'
 
         with error_handling():
             raise e

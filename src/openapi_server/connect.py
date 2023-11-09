@@ -1,10 +1,10 @@
 import os
 
 import environ
-from caselawclient.Client import MarklogicApiClient, DEFAULT_USER_AGENT
-
+from caselawclient.Client import DEFAULT_USER_AGENT, MarklogicApiClient
 from fastapi import Security
-from openapi_server.models.extra_models import TokenModel  # noqa: F401
+
+from openapi_server.models.extra_models import TokenModel
 from openapi_server.security_api import get_token_basic
 
 environ.Env.read_env("../.env")  # TODO this is hideous

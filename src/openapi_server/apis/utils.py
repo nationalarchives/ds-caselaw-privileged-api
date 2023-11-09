@@ -1,8 +1,9 @@
-from fastapi import HTTPException
-from contextlib import contextmanager
-from caselawclient.Client import MarklogicValidationFailedError, MarklogicAPIError
-import lxml.etree
 import logging
+from contextlib import contextmanager
+
+import lxml.etree
+from caselawclient.Client import MarklogicAPIError, MarklogicValidationFailedError
+from fastapi import HTTPException
 
 
 @contextmanager
@@ -30,8 +31,9 @@ def error_response(e):
     else:
         # presumably a Python error, not a Marklogic one
         logging.exception(
-            "A Python error in the privileged API occurred whilst making a request to Marklogic"
+            "A Python error in the privileged API occurred whilst making a request to Marklogic",
         )
         raise HTTPException(
-            status_code=500, detail="An unknown error occurred outside of Marklogic."
+            status_code=500,
+            detail="An unknown error occurred outside of Marklogic.",
         )

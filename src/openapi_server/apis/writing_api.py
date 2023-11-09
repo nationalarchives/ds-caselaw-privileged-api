@@ -1,9 +1,7 @@
-# coding: utf-8
-
 from typing import Dict, List, Optional  # noqa: F401
 
-from caselawclient.models.documents import DocumentURIString
 from caselawclient.client_helpers import VersionAnnotation, VersionType
+from caselawclient.models.documents import DocumentURIString
 from fastapi import (  # noqa: F401
     APIRouter,
     Body,
@@ -11,13 +9,14 @@ from fastapi import (  # noqa: F401
     Depends,
     Form,
     Header,
-    Request,
     Path,
     Query,
+    Request,
     Response,
     Security,
     status,
 )
+
 from openapi_server.connect import client_for_basic_auth
 from openapi_server.models.extra_models import TokenModel
 from openapi_server.security_api import get_token_basic
@@ -92,11 +91,13 @@ async def judgment_uri_lock_put(
     client = client_for_basic_auth(token_basic)
     annotation = f"Judgment locked for editing by {token_basic.username}"
     expires = bool(
-        int(expires)
+        int(expires),
     )  # If expires is True then the lock will expire at midnight, otherwise the lock is permanent
     with error_handling():
-        _ml_response = client.checkout_judgment(  # noqa: F841
-            judgmentUri, annotation, expires
+        _ml_response = client.checkout_judgment(
+            judgmentUri,
+            annotation,
+            expires,
         )
         judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
     return Response(status_code=201, content=judgment, media_type="application/xml")
@@ -130,15 +131,15 @@ async def judgment_uri_lock_delete(
     "/judgment/{judgmentUri:path}",
     responses={
         200: {
-            "description": "The document was updated successfully and the lock released if `unlock` is true"
+            "description": "The document was updated successfully and the lock released if `unlock` is true",
         },
         400: {
-            "description": "The request was malformed, and the document was not modified"
+            "description": "The request was malformed, and the document was not modified",
         },
         412: {
             "description": """Not yet implemented: The document was not updated, as it has changed since
             the version number specified If-Match. To avoid this, the client should
-            lock the document before making any changes to it."""
+            lock the document before making any changes to it.""",
         },
     },
     tags=["Writing"],
@@ -151,11 +152,12 @@ async def judgment_uri_patch(
     judgmentUri: DocumentURIString,
     annotation: str = "",
     if_match: str = Header(
-        None, description="The last known version number of the document"
+        None,
+        description="The last known version number of the document",
     ),
     token_basic: TokenModel = Security(get_token_basic),
     unlock: bool = False,
-) -> Dict[str, str]:
+) -> dict[str, str]:
     """Write a complete new version of the document to the database,
     and release any client lock."""
 
@@ -180,7 +182,7 @@ async def judgment_uri_patch(
         return {"status": "Uploaded (not unlocked)."}
 
     with error_handling():
-        _ml_response = client.checkin_judgment(judgment_uri=judgmentUri)  # noqa: F841
+        _ml_response = client.checkin_judgment(judgment_uri=judgmentUri)
 
     response.status_code = 200
     return {"status": "Uploaded and unlocked."}

@@ -1,14 +1,14 @@
-# coding: utf-8
-from fastapi.testclient import TestClient
-from openapi_server.main import app
-from unittest.mock import patch, Mock, ANY
+from unittest.mock import ANY, Mock, patch
+
 from caselawclient.Client import (
-    MarklogicUnauthorizedError,
-    MarklogicResourceLockedError,
     MarklogicCheckoutConflictError,
+    MarklogicResourceLockedError,
     MarklogicResourceNotCheckedOutError,
+    MarklogicUnauthorizedError,
     MarklogicValidationFailedError,
 )
+from fastapi.testclient import TestClient
+from openapi_server.main import app
 
 # Read Lock Status (GET /lock/...)
 
@@ -17,10 +17,12 @@ from caselawclient.Client import (
 def test_get_lock_no_response(mocked_client):
     mocked_client.return_value.get_judgment_checkout_status_message.return_value = None
     response = TestClient(app).request(
-        "GET", "/lock/judgment/uri", auth=("user", "pass")
+        "GET",
+        "/lock/judgment/uri",
+        auth=("user", "pass"),
     )
     mocked_client.return_value.get_judgment_checkout_status_message.assert_called_with(
-        "judgment/uri"
+        "judgment/uri",
     )
     assert response.status_code == 200
     assert response.headers["X-Locked"] == "0"
@@ -33,11 +35,13 @@ def test_get_lock_locked(mocked_client):
         "kitten"
     )
     response = TestClient(app).request(
-        "GET", "/lock/judgment/uri", auth=("user", "pass")
+        "GET",
+        "/lock/judgment/uri",
+        auth=("user", "pass"),
     )
 
     mocked_client.return_value.get_judgment_checkout_status_message.assert_called_with(
-        "judgment/uri"
+        "judgment/uri",
     )
     assert response.status_code == 200
     assert response.headers["X-Locked"] == "1"
@@ -49,13 +53,15 @@ def test_get_lock_locked(mocked_client):
 def test_get_lock_unauthorised(mocked_client):
     # More generally testing errors are passed through from the client
     mocked_client.return_value.get_judgment_checkout_status_message.side_effect = Mock(
-        side_effect=MarklogicUnauthorizedError()
+        side_effect=MarklogicUnauthorizedError(),
     )
     response = TestClient(app).request(
-        "GET", "/lock/judgment/uri", auth=("user", "pass")
+        "GET",
+        "/lock/judgment/uri",
+        auth=("user", "pass"),
     )
     mocked_client.return_value.get_judgment_checkout_status_message.assert_called_with(
-        "judgment/uri"
+        "judgment/uri",
     )
     assert response.status_code == 401
     assert "credentials are not valid" in response.text
@@ -70,10 +76,14 @@ def test_put_lock_success(mocked_client):
     mocked_client.return_value.checkout_judgment.return_value = None
     mocked_client.return_value.get_judgment_xml.return_value = b"<judgment></judgment>"
     response = TestClient(app).request(
-        "PUT", "/lock/judgment/uri", auth=("user", "pass")
+        "PUT",
+        "/lock/judgment/uri",
+        auth=("user", "pass"),
     )
     mocked_client.return_value.checkout_judgment.assert_called_with(
-        "judgment/uri", "Judgment locked for editing by user", False
+        "judgment/uri",
+        "Judgment locked for editing by user",
+        False,
     )
     assert response.status_code == 201
     assert "<judgment>" in response.text
@@ -85,10 +95,15 @@ def test_put_lock_success_temporary(mocked_client):
     mocked_client.return_value.checkout_judgment.return_value = None
     mocked_client.return_value.get_judgment_xml.return_value = b"<judgment></judgment>"
     response = TestClient(app).request(
-        "PUT", "/lock/judgment/uri", auth=("user", "pass"), params={"expires": "1"}
+        "PUT",
+        "/lock/judgment/uri",
+        auth=("user", "pass"),
+        params={"expires": "1"},
     )
     mocked_client.return_value.checkout_judgment.assert_called_with(
-        "judgment/uri", "Judgment locked for editing by user", True
+        "judgment/uri",
+        "Judgment locked for editing by user",
+        True,
     )
     assert response.status_code == 201
     assert "<judgment>" in response.text
@@ -98,14 +113,18 @@ def test_put_lock_success_temporary(mocked_client):
 def test_put_lock_failure(mocked_client):
     # Checkout Judgment fails with an error or returns None
     mocked_client.return_value.checkout_judgment.side_effect = Mock(
-        side_effect=MarklogicResourceLockedError()
+        side_effect=MarklogicResourceLockedError(),
     )
     # mocked_client.return_value.get_judgment_xml.return_value = b'<judgment></judgment>'
     response = TestClient(app).request(
-        "PUT", "/lock/judgment/uri", auth=("user", "pass")
+        "PUT",
+        "/lock/judgment/uri",
+        auth=("user", "pass"),
     )
     mocked_client.return_value.checkout_judgment.assert_called_with(
-        "judgment/uri", "Judgment locked for editing by user", False
+        "judgment/uri",
+        "Judgment locked for editing by user",
+        False,
     )
     assert response.status_code == 409
     assert "resource is locked by another user" in response.text
@@ -119,10 +138,12 @@ def test_delete_lock_success(mocked_client):
     # Checkout Judgment fails with an error or returns None
     mocked_client.return_value.checkin_judgment.return_value = None
     response = TestClient(app).request(
-        "DELETE", "/lock/judgment/uri", auth=("user", "pass")
+        "DELETE",
+        "/lock/judgment/uri",
+        auth=("user", "pass"),
     )
     mocked_client.return_value.checkin_judgment.assert_called_with(
-        judgment_uri="judgment/uri"
+        judgment_uri="judgment/uri",
     )
     assert response.status_code == 200
     assert "unlocked" in response.text
@@ -132,13 +153,15 @@ def test_delete_lock_success(mocked_client):
 def test_delete_lock_failure(mocked_client):
     # Checkout Judgment fails with an error or returns None
     mocked_client.return_value.checkin_judgment.side_effect = Mock(
-        side_effect=MarklogicCheckoutConflictError()
+        side_effect=MarklogicCheckoutConflictError(),
     )
     response = TestClient(app).request(
-        "DELETE", "/lock/judgment/uri", auth=("user", "pass")
+        "DELETE",
+        "/lock/judgment/uri",
+        auth=("user", "pass"),
     )
     mocked_client.return_value.checkin_judgment.assert_called_with(
-        judgment_uri="judgment/uri"
+        judgment_uri="judgment/uri",
     )
     assert response.status_code == 409
     assert "checked out by another user" in response.text
@@ -210,7 +233,7 @@ def test_default_message_in_api_response(mocked_client):
     """
 
     mocked_client.return_value.save_locked_judgment_xml.side_effect = Mock(
-        side_effect=MarklogicResourceNotCheckedOutError()
+        side_effect=MarklogicResourceNotCheckedOutError(),
     )
     response = TestClient(app).request(
         "PATCH",
@@ -246,9 +269,9 @@ def test_validation_error_message_in_api_response(mocked_client):
     """
     error = MarklogicValidationFailedError()
     error.response = Mock()
-    error.response.content = b'<error-response xmlns="http://marklogic.com/xdmp/error"><message>a message</message></error-response>'  # noqa:E501
+    error.response.content = b'<error-response xmlns="http://marklogic.com/xdmp/error"><message>a message</message></error-response>'
     mocked_client.return_value.save_locked_judgment_xml.side_effect = Mock(
-        side_effect=error
+        side_effect=error,
     )
     response = TestClient(app).request(
         "PATCH",
