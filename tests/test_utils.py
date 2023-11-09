@@ -29,7 +29,7 @@ def test_error_handling_python_error(caplog):
 
     def example():
         with error_handling():
-            1 / 0
+            1 / 0  # noqa: B018
 
     with pytest.raises(HTTPException) as ex:
         example()
