@@ -13,7 +13,7 @@ MARKLOGIC_HOST = os.environ["MARKLOGIC_API_CLIENT_HOST"]
 
 def client_for_basic_auth(
     token_basic: TokenModel = Security(get_token_basic),
-):
+) -> MarklogicApiClient:
     return MarklogicApiClient(
         host=MARKLOGIC_HOST,
         username=token_basic.username,
