@@ -29,9 +29,11 @@ repos:
           [
             "types-requests",
             "types-ujson",
-            "ds-caselaw-marklogic-api-client==17.2.0",
+            "fastapi",
+            "ds-caselaw-marklogic-api-client",
           ]
         files: ^src/
+        args: ["--strict"]
 
 # sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
 ci:
