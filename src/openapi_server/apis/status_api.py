@@ -1,3 +1,5 @@
+import contextlib
+
 from caselawclient.Client import MarklogicUnauthorizedError
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -38,11 +40,9 @@ router = APIRouter()
 async def healthcheck_get() -> dict[str, str]:
     """A test endpoint that checks Marklogic is present"""
     client = client_for_basic_auth(HTTPBasicCredentials(username="", password=""))
-    with error_handling():
-        try:
-            client.user_can_view_unpublished_judgments("")
-        except MarklogicUnauthorizedError:  # expected error
-            pass
+    with error_handling(), contextlib.suppress(MarklogicUnauthorizedError):
+        # MarklogicUnauthorizedError is an expected error
+        client.user_can_view_unpublished_judgments("")
     return {"status": "/healthcheck: Marklogic OK"}
 
 
