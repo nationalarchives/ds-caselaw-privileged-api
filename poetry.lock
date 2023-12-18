@@ -33,32 +33,32 @@ trio = ["trio (<0.22)"]
 
 [[package]]
 name = "boto3"
-version = "1.33.11"
+version = "1.34.2"
 description = "The AWS SDK for Python"
 optional = false
-python-versions = ">= 3.7"
+python-versions = ">= 3.8"
 files = [
-    {file = "boto3-1.33.11-py3-none-any.whl", hash = "sha256:8d54fa3a9290020f9a7f488f9cbe821029de0af05a677751b12973a5f726a5e2"},
-    {file = "boto3-1.33.11.tar.gz", hash = "sha256:620f1eb3e18e780be58383b4a4e10db003d2314131190514153996032c8d932d"},
+    {file = "boto3-1.34.2-py3-none-any.whl", hash = "sha256:aad3f305fe3cd4f2bba545c9580cd460c366af56a8aabb6094528dd32317f8d2"},
+    {file = "boto3-1.34.2.tar.gz", hash = "sha256:970fd9f9f522eb48f3cd5574e927b369279ebf5bcf0f2fae5ed9cc6306e58558"},
 ]
 
 [package.dependencies]
-botocore = ">=1.33.11,<1.34.0"
+botocore = ">=1.34.2,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
-s3transfer = ">=0.8.2,<0.9.0"
+s3transfer = ">=0.9.0,<0.10.0"
 
 [package.extras]
 crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.33.11"
+version = "1.34.2"
 description = "Low-level, data-driven core of boto 3."
 optional = false
-python-versions = ">= 3.7"
+python-versions = ">= 3.8"
 files = [
-    {file = "botocore-1.33.11-py3-none-any.whl", hash = "sha256:b46227eb3fa9cfdc8f5a83920ef347e67adea8095830ed265a3373b13b54421f"},
-    {file = "botocore-1.33.11.tar.gz", hash = "sha256:b14b328f902d120de0a09eaa657a9a701c0ceeb711197c2f01ef0523f855086c"},
+    {file = "botocore-1.34.2-py3-none-any.whl", hash = "sha256:655b1ea2a5d7b989a0eb6006c16137f785bc7334f31378115668c4be5d4b00eb"},
+    {file = "botocore-1.34.2.tar.gz", hash = "sha256:8a9f4ad438ba814b9b7a22b24de3004f8aa232e7ae86e0087aea4d7792dc3a2a"},
 ]
 
 [package.dependencies]
@@ -274,13 +274,13 @@ files = [
 
 [[package]]
 name = "fastapi"
-version = "0.104.1"
+version = "0.105.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "fastapi-0.104.1-py3-none-any.whl", hash = "sha256:752dc31160cdbd0436bb93bad51560b57e525cbb1d4bbf6f4904ceee75548241"},
-    {file = "fastapi-0.104.1.tar.gz", hash = "sha256:e5e4540a7c5e1dcfbbcf5b903c234feddcdcd881f191977a1c5dfd917487e7ae"},
+    {file = "fastapi-0.105.0-py3-none-any.whl", hash = "sha256:f19ebf6fdc82a3281d10f2cb4774bdfa90238e3b40af3525a0c09fd08ad1c480"},
+    {file = "fastapi-0.105.0.tar.gz", hash = "sha256:4d12838819aa52af244580675825e750ad67c9df4614f557a769606af902cf22"},
 ]
 
 [package.dependencies]
@@ -500,24 +500,24 @@ files = [
 
 [[package]]
 name = "mypy-boto3-s3"
-version = "1.33.2"
-description = "Type annotations for boto3.S3 1.33.2 service generated with mypy-boto3-builder 7.20.3"
+version = "1.34.0"
+description = "Type annotations for boto3.S3 1.34.0 service generated with mypy-boto3-builder 7.21.0"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mypy-boto3-s3-1.33.2.tar.gz", hash = "sha256:f54a3ad3288f4e4719ebada3dde68c320507b0fc451d59bc68af7e6ab15cbdad"},
-    {file = "mypy_boto3_s3-1.33.2-py3-none-any.whl", hash = "sha256:9d463df6def30de31a467d49ab92ff7795d46709d56eff6f52216a08bac27918"},
+    {file = "mypy-boto3-s3-1.34.0.tar.gz", hash = "sha256:7644a00e096ebb1c3292551059f64ff8329625dacd40827ced9481b14d64c733"},
+    {file = "mypy_boto3_s3-1.34.0-py3-none-any.whl", hash = "sha256:633876d2a96dbb924f9667084316c1759bff40c19a9a38313d5a4e825c5fc641"},
 ]
 
 [[package]]
 name = "mypy-boto3-sns"
-version = "1.33.0"
-description = "Type annotations for boto3.SNS 1.33.0 service generated with mypy-boto3-builder 7.20.3"
+version = "1.34.0"
+description = "Type annotations for boto3.SNS 1.34.0 service generated with mypy-boto3-builder 7.21.0"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "mypy-boto3-sns-1.33.0.tar.gz", hash = "sha256:e4f7a0a49d67789fd1d735d58f5ef35ba4b82aaf04225b3419818452bf9d402e"},
-    {file = "mypy_boto3_sns-1.33.0-py3-none-any.whl", hash = "sha256:85e10fb6a1257256040c9557b09a9d2c632bd482e9de678285ac45ebf0a60966"},
+    {file = "mypy-boto3-sns-1.34.0.tar.gz", hash = "sha256:aba3feb8f7721e3b596339c1c2d5a68d26c17708f7e50c7691d0c7df95e00132"},
+    {file = "mypy_boto3_sns-1.34.0-py3-none-any.whl", hash = "sha256:9a10f3d77a9ac03abab5401e8b8dcd0b0364cea4801546b8cdc309853940d745"},
 ]
 
 [[package]]
@@ -845,13 +845,13 @@ files = [
 
 [[package]]
 name = "s3transfer"
-version = "0.8.2"
+version = "0.9.0"
 description = "An Amazon S3 Transfer Manager"
 optional = false
-python-versions = ">= 3.7"
+python-versions = ">= 3.8"
 files = [
-    {file = "s3transfer-0.8.2-py3-none-any.whl", hash = "sha256:c9e56cbe88b28d8e197cf841f1f0c130f246595e77ae5b5a05b69fe7cb83de76"},
-    {file = "s3transfer-0.8.2.tar.gz", hash = "sha256:368ac6876a9e9ed91f6bc86581e319be08188dc60d50e0d56308ed5765446283"},
+    {file = "s3transfer-0.9.0-py3-none-any.whl", hash = "sha256:01d4d2c35a016db8cb14f9a4d5e84c1f8c96e7ffc211422555eed45c11fa7eb1"},
+    {file = "s3transfer-0.9.0.tar.gz", hash = "sha256:9e1b186ec8bb5907a1e82b51237091889a9973a2bb799a924bcd9f301ff79d3d"},
 ]
 
 [package.dependencies]
