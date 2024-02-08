@@ -293,3 +293,25 @@ def test_validation_error_message_in_api_response(mocked_client):
 
     assert response.status_code == 422
     assert response.json()["detail"] == "a message"
+
+
+@patch("openapi_server.apis.writing_api.client_for_basic_auth")
+def test_unlock_on_fail(mocked_client):
+    # More generally testing errors are passed through from the client
+    mocked_client.return_value.save_locked_judgment_xml.side_effect = Mock(
+        side_effect=MarklogicResourceLockedError(),
+    )
+
+    response = TestClient(app).request(
+        "PATCH",
+        "/judgment/uri/path",
+        auth=("user", "pass"),
+        data="<judgment></judgment>",
+        params={"unlock": "1"},
+    )
+
+    mocked_client.return_value.save_locked_judgment_xml.assert_called()
+    mocked_client.return_value.checkin_judgment.assert_called_with(
+        judgment_uri="uri/path",
+    )
+    assert response.status_code == 409
