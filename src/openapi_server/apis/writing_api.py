@@ -161,12 +161,18 @@ async def judgment_uri_patch(  # noqa: PLR0913
         message=annotation if annotation else None,
     )
 
-    with error_handling():
-        client.save_locked_judgment_xml(
-            judgment_uri=judgmentUri,
-            judgment_xml=bytes_body,
-            annotation=rich_annotation,
-        )
+    try:
+        with error_handling():
+            client.save_locked_judgment_xml(
+                judgment_uri=judgmentUri,
+                judgment_xml=bytes_body,
+                annotation=rich_annotation,
+            )
+    except Exception:
+        if unlock:
+            with error_handling():
+                _ml_response = client.checkin_judgment(judgment_uri=judgmentUri)
+        raise
 
     if not unlock:
         response.status_code = 200
