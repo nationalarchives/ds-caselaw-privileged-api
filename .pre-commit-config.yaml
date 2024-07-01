@@ -1,13 +1,18 @@
-exclude: "^docs/|/migrations/"
-default_stages: [commit]
-
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-xml
       - id: check-yaml
+      - id: end-of-file-fixer
+      - id: forbid-submodules
+      - id: mixed-line-ending
+      - id: no-commit-to-branch
+      - id: trailing-whitespace
 
   - repo: https://github.com/psf/black
     rev: 24.4.2
@@ -31,9 +36,3 @@ repos:
             "ds-caselaw-marklogic-api-client==17.2.0",
           ]
         files: ^src/
-
-# sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
-ci:
-  autoupdate_schedule: weekly
-  skip: []
-  submodules: false
