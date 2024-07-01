@@ -30,6 +30,10 @@ SECURITY_TOKEN_MODEL = Security(get_token_basic)
 router = APIRouter()
 
 
+class TooManyValuesInXPathListException(Exception):
+    pass
+
+
 def decode_multipart_response(response):
     multipart_data = decoder.MultipartDecoder.from_response(response)
     return multipart_data.parts[0].text
@@ -38,9 +42,9 @@ def decode_multipart_response(response):
 def unpack_list(xpath_list):
     # XPath expressions are often lists; often they should only have one value, or none.
     # Break if there are multiple values, or unpack the list.
-    assert (
-        len(xpath_list) <= 1
-    ), f"There should only be one response, but there were {len(xpath_list)}: \n {xpath_list}"
+    if len(xpath_list) > 1:
+        exception_message = f"There should only be one response, but there were {len(xpath_list)}: \n {xpath_list}"
+        raise TooManyValuesInXPathListException(exception_message)
     if xpath_list:
         return xpath_list[0]
     return None

@@ -4,14 +4,17 @@ import pytest
 from caselawclient.Client import MarklogicResourceNotFoundError
 from caselawclient.search_parameters import SearchParameters
 from fastapi.testclient import TestClient
-from openapi_server.apis.reading_api import unpack_list
+from openapi_server.apis.reading_api import (
+    TooManyValuesInXPathListException,
+    unpack_list,
+)
 from openapi_server.main import app
 
 
 def test_unpack_list():
     assert unpack_list([1]) == 1
     assert unpack_list([]) is None
-    with pytest.raises(AssertionError):
+    with pytest.raises(TooManyValuesInXPathListException):
         unpack_list([1, 1])
 
 
