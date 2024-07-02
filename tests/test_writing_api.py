@@ -31,9 +31,7 @@ def test_get_lock_no_response(mocked_client):
 
 @patch("openapi_server.apis.writing_api.client_for_basic_auth")
 def test_get_lock_locked(mocked_client):
-    mocked_client.return_value.get_judgment_checkout_status_message.return_value = (
-        "kitten"
-    )
+    mocked_client.return_value.get_judgment_checkout_status_message.return_value = "kitten"
     response = TestClient(app).request(
         "GET",
         "/lock/judgment/uri",
@@ -187,9 +185,7 @@ def test_update_judgment_annotation_ok(mocked_client):
         annotation=ANY,
     )
     assert (
-        mocked_client.return_value.save_locked_judgment_xml.mock_calls[0]
-        .kwargs["annotation"]
-        .message
+        mocked_client.return_value.save_locked_judgment_xml.mock_calls[0].kwargs["annotation"].message
         == "Test annotation message"
     )
     assert response.status_code == 200
@@ -212,12 +208,7 @@ def test_update_judgment_unlock_ok(mocked_client):
         judgment_xml=b"<judgment></judgment>",
         annotation=ANY,
     )
-    assert (
-        mocked_client.return_value.save_locked_judgment_xml.mock_calls[0]
-        .kwargs["annotation"]
-        .message
-        is None
-    )
+    assert mocked_client.return_value.save_locked_judgment_xml.mock_calls[0].kwargs["annotation"].message is None
     assert response.status_code == 200
     assert "Uploaded and unlocked" in response.text
 
@@ -246,12 +237,7 @@ def test_default_message_in_api_response(mocked_client):
         judgment_xml=b"<judgment></judgment>",
         annotation=ANY,
     )
-    assert (
-        mocked_client.return_value.save_locked_judgment_xml.mock_calls[0]
-        .kwargs["annotation"]
-        .message
-        is None
-    )
+    assert mocked_client.return_value.save_locked_judgment_xml.mock_calls[0].kwargs["annotation"].message is None
     assert response.status_code == 409
     assert (
         response.text
@@ -269,7 +255,9 @@ def test_validation_error_message_in_api_response(mocked_client):
     """
     error = MarklogicValidationFailedError()
     error.response = Mock()
-    error.response.content = b'<error-response xmlns="http://marklogic.com/xdmp/error"><message>a message</message></error-response>'
+    error.response.content = (
+        b'<error-response xmlns="http://marklogic.com/xdmp/error"><message>a message</message></error-response>'
+    )
     mocked_client.return_value.save_locked_judgment_xml.side_effect = Mock(
         side_effect=error,
     )
@@ -284,12 +272,7 @@ def test_validation_error_message_in_api_response(mocked_client):
         judgment_xml=b"<judgment></judgment>",
         annotation=ANY,
     )
-    assert (
-        mocked_client.return_value.save_locked_judgment_xml.mock_calls[0]
-        .kwargs["annotation"]
-        .message
-        is None
-    )
+    assert mocked_client.return_value.save_locked_judgment_xml.mock_calls[0].kwargs["annotation"].message is None
 
     assert response.status_code == 422
     assert response.json()["detail"] == "a message"
