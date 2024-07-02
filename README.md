@@ -1,6 +1,7 @@
 # The National Archives: Find Case Law
 
 This repository is part of the [Find Case Law](https://caselaw.nationalarchives.gov.uk/) project at [The National Archives](https://www.nationalarchives.gov.uk/). For more information on the project, check [the documentation](https://github.com/nationalarchives/ds-find-caselaw-docs).
+
 # API Server
 
 Exposing an API to archived case law.
