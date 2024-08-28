@@ -4,6 +4,7 @@ import pytest
 from caselawclient.Client import MarklogicResourceNotFoundError
 from caselawclient.search_parameters import SearchParameters
 from fastapi.testclient import TestClient
+
 from openapi_server.apis.reading_api import (
     TooManyValuesInXPathListException,
     unpack_list,

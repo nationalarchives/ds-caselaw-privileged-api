@@ -6,6 +6,7 @@ from caselawclient.Client import (
     MarklogicValidationFailedError,
 )
 from fastapi.exceptions import HTTPException
+
 from openapi_server.apis.utils import error_handling
 
 

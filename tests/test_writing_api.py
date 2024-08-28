@@ -8,6 +8,7 @@ from caselawclient.Client import (
     MarklogicValidationFailedError,
 )
 from fastapi.testclient import TestClient
+
 from openapi_server.main import app
 
 # Read Lock Status (GET /lock/...)
