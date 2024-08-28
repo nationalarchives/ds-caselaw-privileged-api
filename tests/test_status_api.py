@@ -2,6 +2,7 @@ from unittest.mock import Mock, patch
 
 from caselawclient.Client import MarklogicUnauthorizedError
 from fastapi.testclient import TestClient
+
 from openapi_server.main import app
 
 
