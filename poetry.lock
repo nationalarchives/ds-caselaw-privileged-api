@@ -33,17 +33,17 @@ trio = ["trio (>=0.26.1)"]
 
 [[package]]
 name = "boto3"
-version = "1.35.29"
+version = "1.35.34"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.35.29-py3-none-any.whl", hash = "sha256:2244044cdfa8ac345d7400536dc15a4824835e7ec5c55bc267e118af66bb27db"},
-    {file = "boto3-1.35.29.tar.gz", hash = "sha256:7bbb1ee649e09e956952285782cfdebd7e81fc78384f48dfab3d66c6eaf3f63f"},
+    {file = "boto3-1.35.34-py3-none-any.whl", hash = "sha256:291e7b97a34967ed93297e6171f1bebb8529e64633dd48426760e3fdef1cdea8"},
+    {file = "boto3-1.35.34.tar.gz", hash = "sha256:57e6ee8504e7929bc094bb2afc879943906064179a1e88c23b4812e2c6f61532"},
 ]
 
 [package.dependencies]
-botocore = ">=1.35.29,<1.36.0"
+botocore = ">=1.35.34,<1.36.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -52,13 +52,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.35.29"
+version = "1.35.34"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.35.29-py3-none-any.whl", hash = "sha256:f8e3ae0d84214eff3fb69cb4dc51cea6c43d3bde82027a94d00c52b941d6c3d5"},
-    {file = "botocore-1.35.29.tar.gz", hash = "sha256:4ed28ab03675bb008a290c452c5ddd7aaa5d4e3fa1912aadbdf93057ee84362b"},
+    {file = "botocore-1.35.34-py3-none-any.whl", hash = "sha256:ccb0fe397b11b81c9abc0c87029d17298e17bf658d8db5c0c5a551a12a207e7a"},
+    {file = "botocore-1.35.34.tar.gz", hash = "sha256:789b6501a3bb4a9591c1fe10da200cc315c1fa5df5ada19c720d8ef06439b3e3"},
 ]
 
 [package.dependencies]
@@ -67,7 +67,7 @@ python-dateutil = ">=2.1,<3.0.0"
 urllib3 = {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""}
 
 [package.extras]
-crt = ["awscrt (==0.21.5)"]
+crt = ["awscrt (==0.22.0)"]
 
 [[package]]
 name = "certifi"
@@ -261,17 +261,18 @@ typing-extensions = ">=4.7.1,<5.0.0"
 
 [[package]]
 name = "ds-caselaw-utils"
-version = "1.6.0"
+version = "1.7.0"
 description = "Utilities for the National Archives Caselaw project"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "ds_caselaw_utils-1.6.0-py3-none-any.whl", hash = "sha256:34840a03980d633ffe95d148315b0f8f9834179964e7d760299694e2e3aa5027"},
-    {file = "ds_caselaw_utils-1.6.0.tar.gz", hash = "sha256:04870b820722a344240b72f379d4152f40a845f7373eaa6ab670f2acddc5dbf5"},
+    {file = "ds_caselaw_utils-1.7.0-py3-none-any.whl", hash = "sha256:c5df9c94164972149279bd75316d857c095dd9ee2fafcc907a0a59ae415ba0e4"},
+    {file = "ds_caselaw_utils-1.7.0.tar.gz", hash = "sha256:d97e307dd09bcb48d94cc346a4e8de64c7ad67fc92868f7cdae0e2835107a338"},
 ]
 
 [package.dependencies]
 "ruamel.yaml" = ">=0.18.0,<0.19.0"
+typing-extensions = ">=4.12.2,<5.0.0"
 
 [[package]]
 name = "fastapi"
@@ -306,13 +307,13 @@ files = [
 
 [[package]]
 name = "httpcore"
-version = "1.0.5"
+version = "1.0.6"
 description = "A minimal low-level HTTP client."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "httpcore-1.0.5-py3-none-any.whl", hash = "sha256:421f18bac248b25d310f3cacd198d55b8e6125c107797b609ff9b7a6ba7991b5"},
-    {file = "httpcore-1.0.5.tar.gz", hash = "sha256:34a38e2f9291467ee3b44e89dd52615370e152954ba21721378a87b2960f7a61"},
+    {file = "httpcore-1.0.6-py3-none-any.whl", hash = "sha256:27b59625743b85577a8c0e10e55b50b5368a4f2cfe8cc7bcfa9cf00829c2682f"},
+    {file = "httpcore-1.0.6.tar.gz", hash = "sha256:73f6dbd6eb8c21bbf7ef8efad555481853f5f6acdeaff1edb0694289269ee17f"},
 ]
 
 [package.dependencies]
@@ -323,7 +324,7 @@ h11 = ">=0.13,<0.15"
 asyncio = ["anyio (>=4.0,<5.0)"]
 http2 = ["h2 (>=3,<5)"]
 socks = ["socksio (==1.*)"]
-trio = ["trio (>=0.22.0,<0.26.0)"]
+trio = ["trio (>=0.22.0,<1.0)"]
 
 [[package]]
 name = "httpx"
@@ -552,13 +553,13 @@ files = [
 
 [[package]]
 name = "mypy-boto3-s3"
-version = "1.35.22"
-description = "Type annotations for boto3.S3 1.35.22 service generated with mypy-boto3-builder 8.1.1"
+version = "1.35.32"
+description = "Type annotations for boto3.S3 1.35.32 service generated with mypy-boto3-builder 8.1.2"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "mypy_boto3_s3-1.35.22-py3-none-any.whl", hash = "sha256:5b5aec56e16ef48766ae81b1807263127eebc4e6bfbeeef3f2f2cb7c30c06d03"},
-    {file = "mypy_boto3_s3-1.35.22.tar.gz", hash = "sha256:9f64e1196ffecc2c6ab7bee95e848692b5f464a1df14211361ea6bbbc2038387"},
+    {file = "mypy_boto3_s3-1.35.32-py3-none-any.whl", hash = "sha256:ad77a637c71295a693c616d0dcfadca9ee0a5426083fe40a4eb19e84453dd9fa"},
+    {file = "mypy_boto3_s3-1.35.32.tar.gz", hash = "sha256:fceeb10ea70991a516b34d11c1fde0f7f3fe7508df4e436ffe066d27d04db0e4"},
 ]
 
 [[package]]
