@@ -82,7 +82,7 @@ def test_put_lock_success(mocked_client):
     mocked_client.return_value.checkout_judgment.assert_called_with(
         "judgment/uri",
         "Judgment locked for editing by user",
-        False,
+        timeout_seconds=900,
     )
     assert response.status_code == 201
     assert "<judgment>" in response.text
@@ -90,19 +90,19 @@ def test_put_lock_success(mocked_client):
 
 @patch("openapi_server.apis.writing_api.client_for_basic_auth")
 def test_put_lock_success_temporary(mocked_client):
-    """If expires is passed, the lock will expire"""
+    """If timeout is passed, the lock will expire"""
     mocked_client.return_value.checkout_judgment.return_value = None
     mocked_client.return_value.get_judgment_xml.return_value = b"<judgment></judgment>"
     response = TestClient(app).request(
         "PUT",
         "/lock/judgment/uri",
         auth=("user", "pass"),
-        params={"expires": "1"},
+        params={"timeout": "123"},
     )
     mocked_client.return_value.checkout_judgment.assert_called_with(
         "judgment/uri",
         "Judgment locked for editing by user",
-        True,
+        timeout_seconds=123,
     )
     assert response.status_code == 201
     assert "<judgment>" in response.text
@@ -123,7 +123,7 @@ def test_put_lock_failure(mocked_client):
     mocked_client.return_value.checkout_judgment.assert_called_with(
         "judgment/uri",
         "Judgment locked for editing by user",
-        False,
+        timeout_seconds=900,
     )
     assert response.status_code == 409
     assert "resource is locked by another user" in response.text

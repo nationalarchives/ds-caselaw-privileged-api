@@ -3,7 +3,7 @@ requires-python = ">=3.12, <4"
 
 [tool.poetry]
 name = "ds-caselaw-privileged-api"
-version = "0.3.0"
+version = "0.4.0"
 description = ""
 authors = ["David McKee <david.mckee@dxw.com>"]
 license = "MIT"

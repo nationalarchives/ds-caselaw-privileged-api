@@ -84,20 +84,18 @@ async def judgment_uri_lock_put(
     response: Response,
     judgmentUri: DocumentURIString,
     token_basic: TokenModel = SECURITY_TOKEN_MODEL,
-    expires="0",
+    timeout: str = "900",  # noqa: ASYNC109
 ):
     """Locks edit access for a document for the current client. Returns the latest
     version of the locked document, along with the new lock state."""
     client = client_for_basic_auth(token_basic)
     annotation = f"Judgment locked for editing by {token_basic.username}"
-    expires = bool(
-        int(expires),
-    )  # If expires is True then the lock will expire at midnight, otherwise the lock is permanent
+    timeout_seconds = int(timeout)
     with error_handling():
         _ml_response = client.checkout_judgment(
             judgmentUri,
             annotation,
-            expires,
+            timeout_seconds=timeout_seconds,
         )
         judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
     return Response(status_code=201, content=judgment, media_type="application/xml")

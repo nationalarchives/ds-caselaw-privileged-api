@@ -159,6 +159,12 @@ paths:
           schema:
             type: string
           style: simple
+        - name: timeout
+          schema:
+            type: int
+          required: false
+          in: query
+          description: After this many seconds, the judgment will be unlocked. Defaults to 900 (15 minutes).
       responses:
         "201":
           description: "A single judgment document, in Akoma Ntoso XML"
