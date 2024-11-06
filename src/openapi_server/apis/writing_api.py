@@ -1,3 +1,5 @@
+import datetime
+
 from caselawclient.client_helpers import VersionAnnotation, VersionType
 from caselawclient.models.documents import DocumentURIString
 from fastapi import (  # noqa: F401
@@ -89,8 +91,9 @@ async def judgment_uri_lock_put(
     """Locks edit access for a document for the current client. Returns the latest
     version of the locked document, along with the new lock state."""
     client = client_for_basic_auth(token_basic)
-    annotation = f"Judgment locked for editing by {token_basic.username}"
+    now = datetime.datetime.now(tz=datetime.UTC).isoformat()
     timeout_seconds = int(timeout)
+    annotation = f"Judgment locked for editing by {token_basic.username} at {now} for {timeout_seconds} seconds"
     with error_handling():
         _ml_response = client.checkout_judgment(
             judgmentUri,
