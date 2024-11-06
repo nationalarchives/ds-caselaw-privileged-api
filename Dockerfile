@@ -1,4 +1,4 @@
-FROM python:3.12 as service
+FROM python:3.12 AS service
 
 RUN pip install poetry==1.6.1
 
