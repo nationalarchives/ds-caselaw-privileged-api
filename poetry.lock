@@ -72,13 +72,13 @@ crt = ["awscrt (==0.23.8)"]
 
 [[package]]
 name = "certifi"
-version = "2024.8.30"
+version = "2024.12.14"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "certifi-2024.8.30-py3-none-any.whl", hash = "sha256:922820b53db7a7257ffbda3f597266d435245903d80737e34f8a45ff3e3230d8"},
-    {file = "certifi-2024.8.30.tar.gz", hash = "sha256:bec941d2aa8195e248a60b31ff9f0558284cf01a52591ceda73ea9afffd69fd9"},
+    {file = "certifi-2024.12.14-py3-none-any.whl", hash = "sha256:1275f7a45be9464efc1173084eaa30f866fe2e47d389406136d332ed4967ec56"},
+    {file = "certifi-2024.12.14.tar.gz", hash = "sha256:b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db"},
 ]
 
 [[package]]
@@ -220,36 +220,36 @@ files = [
 
 [[package]]
 name = "django-environ"
-version = "0.11.2"
+version = "0.12.0"
 description = "A package that allows you to utilize 12factor inspired environment variables to configure your Django application."
 optional = false
-python-versions = ">=3.6,<4"
+python-versions = "<4,>=3.9"
 files = [
-    {file = "django-environ-0.11.2.tar.gz", hash = "sha256:f32a87aa0899894c27d4e1776fa6b477e8164ed7f6b3e410a62a6d72caaf64be"},
-    {file = "django_environ-0.11.2-py2.py3-none-any.whl", hash = "sha256:0ff95ab4344bfeff693836aa978e6840abef2e2f1145adff7735892711590c05"},
+    {file = "django_environ-0.12.0-py2.py3-none-any.whl", hash = "sha256:92fb346a158abda07ffe6eb23135ce92843af06ecf8753f43adf9d2366dcc0ca"},
+    {file = "django_environ-0.12.0.tar.gz", hash = "sha256:227dc891453dd5bde769c3449cf4a74b6f2ee8f7ab2361c93a07068f4179041a"},
 ]
 
 [package.extras]
-develop = ["coverage[toml] (>=5.0a4)", "furo (>=2021.8.17b43,<2021.9.dev0)", "pytest (>=4.6.11)", "sphinx (>=3.5.0)", "sphinx-notfound-page"]
-docs = ["furo (>=2021.8.17b43,<2021.9.dev0)", "sphinx (>=3.5.0)", "sphinx-notfound-page"]
-testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)"]
+develop = ["coverage[toml] (>=5.0a4)", "furo (>=2024.8.6)", "pytest (>=4.6.11)", "setuptools (>=71.0.0)", "sphinx (>=5.0)", "sphinx-notfound-page"]
+docs = ["furo (>=2024.8.6)", "sphinx (>=5.0)", "sphinx-notfound-page"]
+testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)", "setuptools (>=71.0.0)"]
 
 [[package]]
 name = "ds-caselaw-marklogic-api-client"
-version = "27.4.0"
+version = "30.0.0"
 description = "An API client for interacting with the underlying data in Find Caselaw."
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "ds_caselaw_marklogic_api_client-27.4.0-py3-none-any.whl", hash = "sha256:988c0da84956c7c8db1d4b7af69d5c651b9bff8b45831460fb770de84fdbb453"},
-    {file = "ds_caselaw_marklogic_api_client-27.4.0.tar.gz", hash = "sha256:ef660a145292a3e67641e28fd3e341d5122b2cc3c16451ad6cd47a841bf908a7"},
+    {file = "ds_caselaw_marklogic_api_client-30.0.0-py3-none-any.whl", hash = "sha256:ba3f3f0dfd5fcd51956582a623905333e729eb5591fd2e507c574e41a3f26415"},
+    {file = "ds_caselaw_marklogic_api_client-30.0.0.tar.gz", hash = "sha256:f5bec7050e3027d9df297a7d144c8013546f5a5b8527db95fdf36e3240b39467"},
 ]
 
 [package.dependencies]
 boto3 = ">=1.26.112,<2.0.0"
-certifi = ">=2024.8.30,<2024.9.0"
+certifi = ">=2024.12.14,<2024.13.0"
 charset-normalizer = ">=3.0.0,<4.0.0"
-django-environ = ">=0.11.0,<0.12.0"
+django-environ = ">=0.12.0"
 ds-caselaw-utils = ">=2.0.0,<3.0.0"
 idna = ">=3.4,<4.0"
 lxml = ">=5.0.0,<6.0.0"
@@ -261,6 +261,7 @@ pytz = ">=2024.1,<2025.0"
 requests = ">=2.28.2,<3.0.0"
 requests-toolbelt = ">=0.10.1,<1.1.0"
 saxonche = ">=12.5.0,<13.0.0"
+sqids = ">=0.5.0,<0.6.0"
 typing-extensions = ">=4.7.1,<5.0.0"
 
 [[package]]
@@ -1032,6 +1033,17 @@ files = [
 ]
 
 [[package]]
+name = "sqids"
+version = "0.5.1"
+description = "Generate YouTube-like ids from numbers."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "sqids-0.5.1-py3-none-any.whl", hash = "sha256:2e93a35ce25d417f83135fa591c7ea8befbca148a783eb22806e763443e81388"},
+    {file = "sqids-0.5.1.tar.gz", hash = "sha256:d69d06b504e5be6fe9523c8bb56104cdd071c39ea96008312f3db1038b1f08be"},
+]
+
+[[package]]
 name = "starlette"
 version = "0.45.3"
 description = "The little ASGI library that shines."
@@ -1097,4 +1109,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.6.3)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12, <4"
-content-hash = "c1fcbe760c7e34b9ffc8e08f25ff10eb7bcd3fbb870564edbe4d541a5252c890"
+content-hash = "b5df298e8690f8a90fc5dffd78a481268c7295c1388b0eff78e16dc640a44488"
