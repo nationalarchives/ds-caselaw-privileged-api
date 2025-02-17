@@ -34,17 +34,17 @@ trio = ["trio (>=0.26.1)"]
 
 [[package]]
 name = "boto3"
-version = "1.36.16"
+version = "1.36.21"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.36.16-py3-none-any.whl", hash = "sha256:b10583bf8bd35be1b4027ee7e26b7cdf2078c79eab18357fd602cecb6d39400b"},
-    {file = "boto3-1.36.16.tar.gz", hash = "sha256:0cf92ca0538ab115447e1c58050d43e1273e88c58ddfea2b6f133fdc508b400a"},
+    {file = "boto3-1.36.21-py3-none-any.whl", hash = "sha256:f94faa7cf932d781f474d87f8b4c14a033af95ac1460136b40d75e7a30086ef0"},
+    {file = "boto3-1.36.21.tar.gz", hash = "sha256:41eb2b73eb612d300e629e3328b83f1ffea0fc6633e75c241a72a76746c1db26"},
 ]
 
 [package.dependencies]
-botocore = ">=1.36.16,<1.37.0"
+botocore = ">=1.36.21,<1.37.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.11.0,<0.12.0"
 
@@ -53,13 +53,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.36.16"
+version = "1.36.21"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.36.16-py3-none-any.whl", hash = "sha256:aca0348ccd730332082489b6817fdf89e1526049adcf6e9c8c11c96dd9f42c03"},
-    {file = "botocore-1.36.16.tar.gz", hash = "sha256:10c6aa386ba1a9a0faef6bb5dbfc58fc2563a3c6b95352e86a583cd5f14b11f3"},
+    {file = "botocore-1.36.21-py3-none-any.whl", hash = "sha256:24a7052e792639dc2726001bd474cd0aaa959c1e18ddd92c17f3adc6efa1b132"},
+    {file = "botocore-1.36.21.tar.gz", hash = "sha256:da746240e2ad64fd4997f7f3664a0a8e303d18075fc1d473727cb6375080ea16"},
 ]
 
 [package.dependencies]
@@ -612,13 +612,13 @@ files = [
 
 [[package]]
 name = "mypy-boto3-s3"
-version = "1.36.15"
-description = "Type annotations for boto3 S3 1.36.15 service generated with mypy-boto3-builder 8.9.0"
+version = "1.36.21"
+description = "Type annotations for boto3 S3 1.36.21 service generated with mypy-boto3-builder 8.9.1"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "mypy_boto3_s3-1.36.15-py3-none-any.whl", hash = "sha256:a48031b4c84898756f03787baf711cf14cb219b5cb2e433a369c018544bfbffa"},
-    {file = "mypy_boto3_s3-1.36.15.tar.gz", hash = "sha256:e5400f6a008f746c42bbbe767eb492cec96a211ceb34b6032673aedcd87b3d62"},
+    {file = "mypy_boto3_s3-1.36.21-py3-none-any.whl", hash = "sha256:bfda17f51efafc2cdcefad7a13f5ac35bd721291476d8558c2d3a21758442be5"},
+    {file = "mypy_boto3_s3-1.36.21.tar.gz", hash = "sha256:9c6143c0dabfbd98e6c741e7cc65a33c7f87b8c28eeb373a2bc3e2c923af8283"},
 ]
 
 [[package]]
