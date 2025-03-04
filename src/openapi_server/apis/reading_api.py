@@ -62,7 +62,7 @@ def unpack_list(xpath_list):
 )
 async def get_document_by_uri(
     response: Response,
-    judgmentUri: DocumentURIString,
+    judgmentUri: str,
     token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ):
     with error_handling():
@@ -71,7 +71,7 @@ async def get_document_by_uri(
             token_basic.username,
         )
         judgment = client.get_judgment_xml(
-            judgmentUri,
+            DocumentURIString(judgmentUri),
             show_unpublished=can_view_unpublished,
         )
     return Response(status_code=200, content=judgment, media_type="application/xml")

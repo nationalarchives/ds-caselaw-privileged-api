@@ -50,12 +50,12 @@ router = APIRouter()
 )
 async def judgment_uri_lock_get(
     response: Response,
-    judgmentUri: DocumentURIString,
+    judgmentUri: str,
     token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ):
     client = client_for_basic_auth(token_basic)
     with error_handling():
-        message = client.get_judgment_checkout_status_message(judgmentUri)
+        message = client.get_judgment_checkout_status_message(DocumentURIString(judgmentUri))
         if message is None:
             response.status_code = 200
             response.headers["X-Locked"] = "0"
@@ -82,7 +82,7 @@ async def judgment_uri_lock_get(
 )
 async def judgment_uri_lock_put(
     response: Response,
-    judgmentUri: DocumentURIString,
+    judgmentUri: str,
     token_basic: TokenModel = SECURITY_TOKEN_MODEL,
     expires="0",
 ):
@@ -95,11 +95,11 @@ async def judgment_uri_lock_put(
     )  # If expires is True then the lock will expire at midnight, otherwise the lock is permanent
     with error_handling():
         _ml_response = client.checkout_judgment(
-            judgmentUri,
+            DocumentURIString(judgmentUri),
             annotation,
             expires,
         )
-        judgment = client.get_judgment_xml(judgmentUri, show_unpublished=True)
+        judgment = client.get_judgment_xml(DocumentURIString(judgmentUri), show_unpublished=True)
     return Response(status_code=201, content=judgment, media_type="application/xml")
 
 
@@ -115,13 +115,13 @@ async def judgment_uri_lock_put(
 )
 async def judgment_uri_lock_delete(
     response: Response,
-    judgmentUri: DocumentURIString,
+    judgmentUri: str,
     token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ):
     client = client_for_basic_auth(token_basic)
 
     with error_handling():
-        client.checkin_judgment(judgment_uri=judgmentUri)
+        client.checkin_judgment(judgment_uri=DocumentURIString(judgmentUri))
 
     response.status_code = 200
     return {"status": "unlocked"}
@@ -144,7 +144,7 @@ async def judgment_uri_lock_delete(
 async def judgment_uri_patch(  # noqa: PLR0913
     request: Request,
     response: Response,
-    judgmentUri: DocumentURIString,
+    judgmentUri: str,
     annotation: str = "",
     token_basic: TokenModel = SECURITY_TOKEN_MODEL,
     unlock: bool = False,
@@ -164,14 +164,14 @@ async def judgment_uri_patch(  # noqa: PLR0913
     try:
         with error_handling():
             client.save_locked_judgment_xml(
-                judgment_uri=judgmentUri,
+                judgment_uri=DocumentURIString(judgmentUri),
                 judgment_xml=bytes_body,
                 annotation=rich_annotation,
             )
     except Exception:
         if unlock:
             with error_handling():
-                _ml_response = client.checkin_judgment(judgment_uri=judgmentUri)
+                _ml_response = client.checkin_judgment(judgment_uri=DocumentURIString(judgmentUri))
         raise
 
     if not unlock:
@@ -179,7 +179,7 @@ async def judgment_uri_patch(  # noqa: PLR0913
         return {"status": "Uploaded (not unlocked)."}
 
     with error_handling():
-        _ml_response = client.checkin_judgment(judgment_uri=judgmentUri)
+        _ml_response = client.checkin_judgment(judgment_uri=DocumentURIString(judgmentUri))
 
     response.status_code = 200
     return {"status": "Uploaded and unlocked."}
