@@ -1,5 +1,7 @@
 [project]
 requires-python = ">=3.12, <4"
+name = "ds-caselaw-privileged-api"
+
 
 [tool.poetry]
 name = "ds-caselaw-privileged-api"
