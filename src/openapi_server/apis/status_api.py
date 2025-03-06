@@ -1,19 +1,10 @@
 import contextlib
 
 from caselawclient.Client import MarklogicUnauthorizedError
-from fastapi import (  # noqa: F401
+from fastapi import (
     APIRouter,
-    Body,
-    Cookie,
-    Depends,
-    Form,
-    Header,
-    HTTPException,
-    Path,
-    Query,
     Response,
     Security,
-    status,
 )
 from fastapi.security import HTTPBasicCredentials
 

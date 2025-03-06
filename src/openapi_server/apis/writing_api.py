@@ -1,18 +1,10 @@
 from caselawclient.client_helpers import VersionAnnotation, VersionType
 from caselawclient.models.documents import DocumentURIString
-from fastapi import (  # noqa: F401
+from fastapi import (
     APIRouter,
-    Body,
-    Cookie,
-    Depends,
-    Form,
-    Header,
-    Path,
-    Query,
     Request,
     Response,
     Security,
-    status,
 )
 
 from openapi_server.connect import client_for_basic_auth

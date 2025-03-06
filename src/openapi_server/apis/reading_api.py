@@ -3,19 +3,11 @@ from typing import Any
 import lxml.etree
 from caselawclient.models.documents import DocumentURIString
 from caselawclient.search_parameters import SearchParameters
-from fastapi import (  # noqa: F401
+from fastapi import (
     APIRouter,
-    Body,
-    Cookie,
-    Depends,
-    Form,
-    Header,
-    Path,
-    Query,
     Request,
     Response,
     Security,
-    status,
 )
 from requests_toolbelt.multipart import decoder
 
