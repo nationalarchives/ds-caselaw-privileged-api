@@ -3,19 +3,11 @@ from typing import Any
 import lxml.etree
 from caselawclient.models.documents import DocumentURIString
 from caselawclient.search_parameters import SearchParameters
-from fastapi import (  # noqa: F401
+from fastapi import (
     APIRouter,
-    Body,
-    Cookie,
-    Depends,
-    Form,
-    Header,
-    Path,
-    Query,
     Request,
     Response,
     Security,
-    status,
 )
 from requests_toolbelt.multipart import decoder
 
@@ -62,7 +54,7 @@ def unpack_list(xpath_list):
 )
 async def get_document_by_uri(
     response: Response,
-    judgmentUri: DocumentURIString,
+    judgmentUri: str,
     token_basic: TokenModel = SECURITY_TOKEN_MODEL,
 ):
     with error_handling():
@@ -71,7 +63,7 @@ async def get_document_by_uri(
             token_basic.username,
         )
         judgment = client.get_judgment_xml(
-            judgmentUri,
+            DocumentURIString(judgmentUri),
             show_unpublished=can_view_unpublished,
         )
     return Response(status_code=200, content=judgment, media_type="application/xml")
