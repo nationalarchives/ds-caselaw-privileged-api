@@ -34,17 +34,17 @@ trio = ["trio (>=0.26.1)"]
 
 [[package]]
 name = "boto3"
-version = "1.38.32"
+version = "1.38.36"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "boto3-1.38.32-py3-none-any.whl", hash = "sha256:b998edac72f6740bd5d9d585cf3880f2dfeb4842e626b34430fd0e9623378011"},
-    {file = "boto3-1.38.32.tar.gz", hash = "sha256:3faa2c328a61745f3215a63039606a6fcf55d9afe1cc76e3a5e27b9db58cdbf6"},
+    {file = "boto3-1.38.36-py3-none-any.whl", hash = "sha256:34c27d7317cadb62c0e9856e5d5aa0271ef47202d340584831048bc7ac904136"},
+    {file = "boto3-1.38.36.tar.gz", hash = "sha256:efe0aaa060f8fedd76e5c942055f051aee0432fc722d79d8830a9fd9db83593e"},
 ]
 
 [package.dependencies]
-botocore = ">=1.38.32,<1.39.0"
+botocore = ">=1.38.36,<1.39.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.13.0,<0.14.0"
 
@@ -53,13 +53,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.38.32"
+version = "1.38.36"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "botocore-1.38.32-py3-none-any.whl", hash = "sha256:64ab919a5d8b74dd73eaac1f978d0e674d11ff3bbe8815c3d2982477be9a082c"},
-    {file = "botocore-1.38.32.tar.gz", hash = "sha256:0899a090e352cb5eeaae2c7bb52a987b469d23912c7ece86664dfb5c2e074978"},
+    {file = "botocore-1.38.36-py3-none-any.whl", hash = "sha256:b6a50b853f6d23af9edfed89a59800c6bc1687a947cdd3492879f7d64e002d30"},
+    {file = "botocore-1.38.36.tar.gz", hash = "sha256:4a1ced1a4218bdff0ed5b46abb54570d473154ddefafa5d121a8d96e4b76ebc1"},
 ]
 
 [package.dependencies]
@@ -266,13 +266,13 @@ typing-extensions = ">=4.7.1,<5.0.0"
 
 [[package]]
 name = "ds-caselaw-utils"
-version = "2.4.6"
+version = "2.4.7"
 description = "Utilities for the National Archives Caselaw project"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "ds_caselaw_utils-2.4.6-py3-none-any.whl", hash = "sha256:46a831b2c703115e497b197d36a81e5bf2105b20b377ed6ab3c2df735e8726ab"},
-    {file = "ds_caselaw_utils-2.4.6.tar.gz", hash = "sha256:133710f062de4580d5b90938d8279ea23935991ac37a968944a62682e0bf454c"},
+    {file = "ds_caselaw_utils-2.4.7-py3-none-any.whl", hash = "sha256:5213ac8e84527bac05b0527b2a12ee96597b57ecdc44efe4d463002c052344fd"},
+    {file = "ds_caselaw_utils-2.4.7.tar.gz", hash = "sha256:7f35c597e8ac8e656f574cedf946791a893f6b498a1d5e44a0d31d14540ae81e"},
 ]
 
 [package.dependencies]
@@ -655,13 +655,13 @@ testing = ["coverage", "pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pydantic"
-version = "2.11.5"
+version = "2.11.7"
 description = "Data validation using Python type hints"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "pydantic-2.11.5-py3-none-any.whl", hash = "sha256:f9c26ba06f9747749ca1e5c94d6a85cb84254577553c8785576fd38fa64dc0f7"},
-    {file = "pydantic-2.11.5.tar.gz", hash = "sha256:7f853db3d0ce78ce8bbb148c401c2cdd6431b3473c0cdff2755c7690952a7b7a"},
+    {file = "pydantic-2.11.7-py3-none-any.whl", hash = "sha256:dde5df002701f6de26248661f6835bbe296a47bf73990135c7d07ce741b9623b"},
+    {file = "pydantic-2.11.7.tar.gz", hash = "sha256:d989c3c6cb79469287b1569f7447a17848c998458d49ebe294e975b9baf0f0db"},
 ]
 
 [package.dependencies]
@@ -897,13 +897,13 @@ requests = ">=2.0.1,<3.0.0"
 
 [[package]]
 name = "ruamel-yaml"
-version = "0.18.13"
+version = "0.18.14"
 description = "ruamel.yaml is a YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "ruamel.yaml-0.18.13-py3-none-any.whl", hash = "sha256:cf9628cfdfe9d88b78429cd093aa766e9a4c69242f9f3c86ac1d9e56437e5572"},
-    {file = "ruamel.yaml-0.18.13.tar.gz", hash = "sha256:b0d5ac0a2b0b4e39d87aed00ddff26e795de6750b064da364a8d009b97ce5f26"},
+    {file = "ruamel.yaml-0.18.14-py3-none-any.whl", hash = "sha256:710ff198bb53da66718c7db27eec4fbcc9aa6ca7204e4c1df2f282b6fe5eb6b2"},
+    {file = "ruamel.yaml-0.18.14.tar.gz", hash = "sha256:7227b76aaec364df15936730efbf7d72b30c0b79b1d578bbb8e3dcb2d81f52b7"},
 ]
 
 [package.dependencies]
