@@ -22,7 +22,7 @@ httpx = ">= 0.25.0"
 uvicorn = ">= 0.23.2"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "8.4.0"
+pytest = "8.4.1"
 
 [build-system]
 requires = ["poetry-core"]
