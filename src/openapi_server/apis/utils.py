@@ -20,7 +20,7 @@ def error_response(e):
     """provide a uniform error Response"""
     logging.warning(e)
     if isinstance(e, MarklogicValidationFailedError):
-        root = lxml.etree.fromstring(e.response.content)  # noqa: S320
+        root = lxml.etree.fromstring(e.response.content)
         error_message = root.xpath(
             "//mlerror:message/text()",
             namespaces={"mlerror": "http://marklogic.com/xdmp/error"},

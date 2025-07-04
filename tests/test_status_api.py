@@ -12,7 +12,7 @@ def test_get_status_no_auth():
 
 
 @patch("openapi_server.apis.status_api.client_for_basic_auth")
-def test_get_status_no_such_user(mocked_client=None):
+def test_get_status_no_such_user(mocked_client):
     mocked_client.return_value.user_can_view_unpublished_judgments.side_effect = Mock(
         side_effect=MarklogicUnauthorizedError(),
     )
