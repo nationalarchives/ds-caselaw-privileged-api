@@ -34,17 +34,17 @@ trio = ["trio (>=0.26.1)"]
 
 [[package]]
 name = "boto3"
-version = "1.38.46"
+version = "1.39.3"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "boto3-1.38.46-py3-none-any.whl", hash = "sha256:9c8e88a32a6465e5905308708cff5b17547117f06982908bdfdb0108b4a65079"},
-    {file = "boto3-1.38.46.tar.gz", hash = "sha256:d1ca2b53138afd0341e1962bd52be6071ab7a63c5b4f89228c5ef8942c40c852"},
+    {file = "boto3-1.39.3-py3-none-any.whl", hash = "sha256:056cfa2440fe1a157a7c2be897c749c83e1a322144aa4dad889f2fca66571019"},
+    {file = "boto3-1.39.3.tar.gz", hash = "sha256:0a367106497649ae3d8a7b571b8c3be01b7b935a0fe303d4cc2574ed03aecbb4"},
 ]
 
 [package.dependencies]
-botocore = ">=1.38.46,<1.39.0"
+botocore = ">=1.39.3,<1.40.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.13.0,<0.14.0"
 
@@ -53,13 +53,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.38.46"
+version = "1.39.3"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "botocore-1.38.46-py3-none-any.whl", hash = "sha256:89ca782ffbf2e8769ca9c89234cfa5ca577f1987d07d913ee3c68c4776b1eb5b"},
-    {file = "botocore-1.38.46.tar.gz", hash = "sha256:8798e5a418c27cf93195b077153644aea44cb171fcd56edc1ecebaa1e49e226e"},
+    {file = "botocore-1.39.3-py3-none-any.whl", hash = "sha256:66a81cfac18ad5e9f47696c73fdf44cdbd8f8ca51ab3fca1effca0aabf61f02f"},
+    {file = "botocore-1.39.3.tar.gz", hash = "sha256:da8f477e119f9f8a3aaa8b3c99d9c6856ed0a243680aa3a3fbbfc15a8d4093fb"},
 ]
 
 [package.dependencies]
@@ -607,24 +607,24 @@ files = [
 
 [[package]]
 name = "mypy-boto3-s3"
-version = "1.38.44"
-description = "Type annotations for boto3 S3 1.38.44 service generated with mypy-boto3-builder 8.11.0"
+version = "1.39.2"
+description = "Type annotations for boto3 S3 1.39.2 service generated with mypy-boto3-builder 8.11.0"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "mypy_boto3_s3-1.38.44-py3-none-any.whl", hash = "sha256:9a9d305af1eebf246b6d6195bf88902ff553fe5aa0a78e5f517817875339f5e4"},
-    {file = "mypy_boto3_s3-1.38.44.tar.gz", hash = "sha256:eacf15c9164e56ecb86a76152adb414cf8f7f22b46cd80a843f6b7ef41a1cd8f"},
+    {file = "mypy_boto3_s3-1.39.2-py3-none-any.whl", hash = "sha256:aa110de8944cc533babe5ae2dfae89a8fa13b961a7affa6a1c43c383228060e9"},
+    {file = "mypy_boto3_s3-1.39.2.tar.gz", hash = "sha256:e1977ee93ad57a2d9533a397e6255a41ca1b206018762c1cf4614271e6fede89"},
 ]
 
 [[package]]
 name = "mypy-boto3-sns"
-version = "1.38.0"
-description = "Type annotations for boto3 SNS 1.38.0 service generated with mypy-boto3-builder 8.10.1"
+version = "1.39.0"
+description = "Type annotations for boto3 SNS 1.39.0 service generated with mypy-boto3-builder 8.11.0"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "mypy_boto3_sns-1.38.0-py3-none-any.whl", hash = "sha256:e9da0864fe8463a390a0b83c3731830c7aabe98baac61091f06442fcb796186d"},
-    {file = "mypy_boto3_sns-1.38.0.tar.gz", hash = "sha256:0e7cbec9c591db0e3c5acbe3ad3c47dfb0e58ef96c13aad49c27c9fdea3d4628"},
+    {file = "mypy_boto3_sns-1.39.0-py3-none-any.whl", hash = "sha256:cb0294f1c08ad4ff50d8bd0d35be07467f93a71ea1ad4ccd499cbf3a31e4db8e"},
+    {file = "mypy_boto3_sns-1.39.0.tar.gz", hash = "sha256:a56e933d437d0646b058951eecc92ffc60af82ecc46f5e50fa1ae9db6a227381"},
 ]
 
 [[package]]
@@ -987,36 +987,36 @@ crt = ["botocore[crt] (>=1.37.4,<2.0a.0)"]
 
 [[package]]
 name = "saxonche"
-version = "12.7.0"
-description = "Official Saxonica python package for the SaxonC-HE 12.7.0 processor: for XSLT 3.0, XQuery 3.1, XPath 3.1 and XML Schema processing."
+version = "12.8.0"
+description = "Official Saxonica python package for the SaxonC-HE 12.8.0 processor: for XSLT 3.0, XQuery 3.1, XPath 3.1 and XML Schema processing."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "saxonche-12.7.0-cp310-cp310-macosx_10_11_x86_64.whl", hash = "sha256:f12ac3911f26b93c18dbdc7db5f5eaf449f698c444f8dbe26da771815148a701"},
-    {file = "saxonche-12.7.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:ed179e0e866510f62856abab982b457562228e4ca4d3651183e0d97af9a7dc38"},
-    {file = "saxonche-12.7.0-cp310-cp310-manylinux_2_24_aarch64.whl", hash = "sha256:e754206e7d29f7f9ac6a0483ea5274324bc67d8e6b7c31b91864ed321af998aa"},
-    {file = "saxonche-12.7.0-cp310-cp310-manylinux_2_24_x86_64.whl", hash = "sha256:714216ad9150632dd12cf0747824773d97c66f9b00634cbeacfa34228938007f"},
-    {file = "saxonche-12.7.0-cp310-cp310-win_amd64.whl", hash = "sha256:995ddeb8f8b7df62cc0f965f15469095b2205c5642a3b5fecbfd819f6a8a92f6"},
-    {file = "saxonche-12.7.0-cp311-cp311-macosx_10_11_x86_64.whl", hash = "sha256:373c86dea41fed4455158e40ced27e0988caf5cf5c0529fc341dee446f580c37"},
-    {file = "saxonche-12.7.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:62d1315a2bf71d187da54d45046dbf37c6b84940aae63a700dc877287cfd9771"},
-    {file = "saxonche-12.7.0-cp311-cp311-manylinux_2_24_aarch64.whl", hash = "sha256:45abcb429647fd32758a3f572a0dbbcc6ec5d38d36868796b1f83a6e168630d6"},
-    {file = "saxonche-12.7.0-cp311-cp311-manylinux_2_24_x86_64.whl", hash = "sha256:262c284f772cad3a18dc06b0d55d4032849083c00049fe24c1e7e67a0c625bff"},
-    {file = "saxonche-12.7.0-cp311-cp311-win_amd64.whl", hash = "sha256:36444ebf37f825f92c7844d0adb7c98c950b60072dbd305771c0df473c469003"},
-    {file = "saxonche-12.7.0-cp312-cp312-macosx_10_11_x86_64.whl", hash = "sha256:e8d255498a49055a950ee999a84dee003e74dc4338f25806b1e274fb63f2a4ba"},
-    {file = "saxonche-12.7.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:285a09e39f0bae143b304da55254d18cc5206fd8ef938822cec5947be299adb5"},
-    {file = "saxonche-12.7.0-cp312-cp312-manylinux_2_24_aarch64.whl", hash = "sha256:e861dc5eee567a28aafe0a1054585f3e8e9d1bdc9fe72dbddd756e34462c4251"},
-    {file = "saxonche-12.7.0-cp312-cp312-manylinux_2_24_x86_64.whl", hash = "sha256:fa55ba65344534652498ee6a1de86f32c2a40d273ec48eb996e62be45b9594c2"},
-    {file = "saxonche-12.7.0-cp312-cp312-win_amd64.whl", hash = "sha256:b2729d254cf023b08aea5bd693c052b2e67dc8112ec009429ccae6eec0114002"},
-    {file = "saxonche-12.7.0-cp313-cp313-macosx_10_11_x86_64.whl", hash = "sha256:5244ed00c59528539a7635ae7321f3b5b1b9866660621e7a0bc7036c31a79e4e"},
-    {file = "saxonche-12.7.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:d6cf1c7d2ead0241e6305b8a2c63098bd9e1060960b9ba687bd9daf12ebc1e9d"},
-    {file = "saxonche-12.7.0-cp313-cp313-manylinux_2_24_aarch64.whl", hash = "sha256:12dc57c1ea8df7565d0e304f59edb7ea30cec808305259e7e866c633ef151400"},
-    {file = "saxonche-12.7.0-cp313-cp313-manylinux_2_24_x86_64.whl", hash = "sha256:b0493b4360ce2d0a2b0d4a493f0027650dd183bd504e837d3848c084a30e59be"},
-    {file = "saxonche-12.7.0-cp313-cp313-win_amd64.whl", hash = "sha256:679a21212cc7a9027783121253c7039ae335c21cbc851dddff9f57778abbfc4d"},
-    {file = "saxonche-12.7.0-cp39-cp39-macosx_10_11_x86_64.whl", hash = "sha256:530023a8ccbff328a51de4161b95d5aa40cb7521fa66a7f4ec8d51c390917898"},
-    {file = "saxonche-12.7.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:ce2a0d88764c86c87625f6ecfb859c5db87b7ac737b74ca29e0d2728779ee005"},
-    {file = "saxonche-12.7.0-cp39-cp39-manylinux_2_24_aarch64.whl", hash = "sha256:80692d09d3045e495018a6329c72ab18435d2ec02ea060d0c70e8fe00bf4c201"},
-    {file = "saxonche-12.7.0-cp39-cp39-manylinux_2_24_x86_64.whl", hash = "sha256:249fe2b161db88f03ffc28c4ae9f927d777eb8815050e90cf0554772d1db913e"},
-    {file = "saxonche-12.7.0-cp39-cp39-win_amd64.whl", hash = "sha256:369cc6f67a31c836846dce9d5aaa0cafc1dd3ee4f6bc0eab47e578cf9f7e8904"},
+    {file = "saxonche-12.8.0-cp310-cp310-macosx_10_11_x86_64.whl", hash = "sha256:bb95913551f261836b95130680b72a76d8d8584a3e6a063acebd7b4e3f257140"},
+    {file = "saxonche-12.8.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:0c74d3da2f63ec9eb31133bd74038396c4ae9a006c959c4f914a6424dc3d676b"},
+    {file = "saxonche-12.8.0-cp310-cp310-manylinux_2_24_aarch64.whl", hash = "sha256:0475a0e740d4c6600f3b949a2f2fd556717c9a8c9d117cd6179cd6227aeaa3ab"},
+    {file = "saxonche-12.8.0-cp310-cp310-manylinux_2_24_x86_64.whl", hash = "sha256:fb90fad2c6c0253a75da5bbf300542cc9107b87b7db3e4e4aac8b2e15b5c5b50"},
+    {file = "saxonche-12.8.0-cp310-cp310-win_amd64.whl", hash = "sha256:9cd5ffdc9872b16de30ea57322f8aa9c3a2f34ea9ee4426118ca2582e58a3e9e"},
+    {file = "saxonche-12.8.0-cp311-cp311-macosx_10_11_x86_64.whl", hash = "sha256:b606e2dea3c8dd380720dcc78b5812721b987dafb095f1630f113710f34b3bbf"},
+    {file = "saxonche-12.8.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:20af0fd9e89e2c1aaafb60eb94a2ea2fb61ab3fb23dc0fa98ccc3b43a5a35670"},
+    {file = "saxonche-12.8.0-cp311-cp311-manylinux_2_24_aarch64.whl", hash = "sha256:5124d6ace5598420b7201b58aa68322880cf1a3f9844feae3bf074517f2f18bf"},
+    {file = "saxonche-12.8.0-cp311-cp311-manylinux_2_24_x86_64.whl", hash = "sha256:e9b2b21a2d88520fc283ab557b73f67dbfeec53a27814843ff08e8499e255c4b"},
+    {file = "saxonche-12.8.0-cp311-cp311-win_amd64.whl", hash = "sha256:db862f3a6fd0138f976424fa957ee160393594ecfe5a120c8e4e42f7ba82d4ba"},
+    {file = "saxonche-12.8.0-cp312-cp312-macosx_10_11_x86_64.whl", hash = "sha256:1a060ec08afb9ebd84e58f93e5d3750ea9ae3304b79a63fe2d989a9b213c6908"},
+    {file = "saxonche-12.8.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:dccaef9c1d60521154c21b8d77729a4fdf8149fefac00bbe0c2c6a9a5fb6edc6"},
+    {file = "saxonche-12.8.0-cp312-cp312-manylinux_2_24_aarch64.whl", hash = "sha256:b42abaaeb2abaac510a1f1c4780e1a3f6b0e2b8941d3bcce1ffdee210f15b7a9"},
+    {file = "saxonche-12.8.0-cp312-cp312-manylinux_2_24_x86_64.whl", hash = "sha256:ba13a6ec1d6d7e73ee48175110fd1dde95e28c5242009c262a6efd6ee5b70e26"},
+    {file = "saxonche-12.8.0-cp312-cp312-win_amd64.whl", hash = "sha256:261501c311d61d0c7c4da0e1fa0414b0083a2bb437b20f458183146ae671638b"},
+    {file = "saxonche-12.8.0-cp313-cp313-macosx_10_11_x86_64.whl", hash = "sha256:2e124275ca62fab8889c7b303e3d43c7aebb96de383d453ecaef5784aa6a9bf0"},
+    {file = "saxonche-12.8.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:9e83818c8808d6328154f83349b5c2db2547b90fe51398ba6576d99665de3dd0"},
+    {file = "saxonche-12.8.0-cp313-cp313-manylinux_2_24_aarch64.whl", hash = "sha256:ad7b0ce57aa5f7c022460553272c1c291cd8ebbd7bc0381e97391d49ccc3fc3c"},
+    {file = "saxonche-12.8.0-cp313-cp313-manylinux_2_24_x86_64.whl", hash = "sha256:59ba7e4f10766557b33136bb0feb0627614740fc55434bc5b7f0e31944518027"},
+    {file = "saxonche-12.8.0-cp313-cp313-win_amd64.whl", hash = "sha256:c9a13a378e6fd49d62271270655c2be04c108f06deafc3e4d6a212d8eea63a4a"},
+    {file = "saxonche-12.8.0-cp39-cp39-macosx_10_11_x86_64.whl", hash = "sha256:792648cd847638d8116ccef3d21284194cefab0c4035b1ce86ee1712d5bbe9f2"},
+    {file = "saxonche-12.8.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:053c3f7ab6fc843287014944c1148f0e0665207faaab90acf23d4473819d7f73"},
+    {file = "saxonche-12.8.0-cp39-cp39-manylinux_2_24_aarch64.whl", hash = "sha256:e5baef68db72a69c2872a002597e2dc3c65f1c6296f5e2603f3730687befba4a"},
+    {file = "saxonche-12.8.0-cp39-cp39-manylinux_2_24_x86_64.whl", hash = "sha256:40b369fcb28c93a63d39b3a8b409ae1db71a629cc8bdaba997af399652071b1f"},
+    {file = "saxonche-12.8.0-cp39-cp39-win_amd64.whl", hash = "sha256:59da390a62e11196f0eed308f39e32420a83a5ce439f4fcfeb9eccf2063ce73a"},
 ]
 
 [[package]]
@@ -1071,13 +1071,13 @@ full = ["httpx (>=0.27.0,<0.29.0)", "itsdangerous", "jinja2", "python-multipart 
 
 [[package]]
 name = "typing-extensions"
-version = "4.14.0"
+version = "4.14.1"
 description = "Backported and Experimental Type Hints for Python 3.9+"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "typing_extensions-4.14.0-py3-none-any.whl", hash = "sha256:a1514509136dd0b477638fc68d6a91497af5076466ad0fa6c338e44e359944af"},
-    {file = "typing_extensions-4.14.0.tar.gz", hash = "sha256:8676b788e32f02ab42d9e7c61324048ae4c6d844a399eebace3d4979d75ceef4"},
+    {file = "typing_extensions-4.14.1-py3-none-any.whl", hash = "sha256:d1e1e3b58374dc93031d6eda2420a48ea44a36c2b4766a4fdeb3710755731d76"},
+    {file = "typing_extensions-4.14.1.tar.gz", hash = "sha256:38b39f4aeeab64884ce9f74c94263ef78f3c22467c8724005483154c26648d36"},
 ]
 
 [[package]]
