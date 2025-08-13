@@ -1,8 +1,9 @@
 [project]
+name="ds-caselaw-privileged-api"
 requires-python = ">=3.12, <4"
 
 [tool.poetry]
-name = "ds-caselaw-privileged-api"
+name="ds-caselaw-privileged-api"
 version = "0.3.0"
 description = ""
 authors = ["David McKee <david.mckee@dxw.com>"]
@@ -20,6 +21,7 @@ requests-toolbelt = ">=1.0.0"
 lxml = ">= 4.9.3"
 httpx = ">= 0.25.0"
 uvicorn = ">= 0.23.2"
+rollbar = "^1.3.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.4.1"
