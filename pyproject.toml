@@ -14,7 +14,7 @@ readme = "README.md"
 python = ">=3.12, <4"
 fastapi = ">=0.103.2"
 python-dotenv = ">=1.0.0"
-ds-caselaw-marklogic-api-client = "39.2.1"
+ds-caselaw-marklogic-api-client = "40.0.0"
 django-environ = ">=0.11.2"
 requests = {extras = ["use-chardet-on-py3"], version = ">=2.31.0"}
 requests-toolbelt = ">=1.0.0"
