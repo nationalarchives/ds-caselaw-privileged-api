@@ -34,18 +34,18 @@ trio = ["trio (>=0.31.0)"]
 
 [[package]]
 name = "boto3"
-version = "1.40.40"
+version = "1.40.45"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "boto3-1.40.40-py3-none-any.whl", hash = "sha256:385904de68623e1c341bdc095d94a30006843032c912adeb1e0752a343632ec6"},
-    {file = "boto3-1.40.40.tar.gz", hash = "sha256:f384d3a0410d0f1a4d4ae7aa69c41d0549c6ca5a76667dc25fc97d50ad6db740"},
+    {file = "boto3-1.40.45-py3-none-any.whl", hash = "sha256:5b145752d20f29908e3cb8c823bee31c77e6bcf18787e570f36bbc545cc779ed"},
+    {file = "boto3-1.40.45.tar.gz", hash = "sha256:e8d794dc1f01729d93dc188c90cf63cd0d32df8818a82ac46e641f6ffcea615e"},
 ]
 
 [package.dependencies]
-botocore = ">=1.40.40,<1.41.0"
+botocore = ">=1.40.45,<1.41.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.14.0,<0.15.0"
 
@@ -54,14 +54,14 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.40.40"
+version = "1.40.45"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "botocore-1.40.40-py3-none-any.whl", hash = "sha256:68506142b3cde93145ef3ee0268f2444f2b68ada225a151f714092bbd3d6516a"},
-    {file = "botocore-1.40.40.tar.gz", hash = "sha256:78eb121a16a6481ed0f6e1aebe53a4f23aa121f34466846c13a5ca48fa980e31"},
+    {file = "botocore-1.40.45-py3-none-any.whl", hash = "sha256:9abf473d8372ade8442c0d4634a9decb89c854d7862ffd5500574eb63ab8f240"},
+    {file = "botocore-1.40.45.tar.gz", hash = "sha256:cf8b743527a2a7e108702d24d2f617e93c6dc7ae5eb09aadbe866f15481059df"},
 ]
 
 [package.dependencies]
@@ -689,14 +689,14 @@ testing = ["coverage", "pytest", "pytest-benchmark"]
 
 [[package]]
 name = "pydantic"
-version = "2.11.9"
+version = "2.11.10"
 description = "Data validation using Python type hints"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "pydantic-2.11.9-py3-none-any.whl", hash = "sha256:c42dd626f5cfc1c6950ce6205ea58c93efa406da65f479dcb4029d5934857da2"},
-    {file = "pydantic-2.11.9.tar.gz", hash = "sha256:6b8ffda597a14812a7975c90b82a8a2e777d9257aba3453f973acd3c032a18e2"},
+    {file = "pydantic-2.11.10-py3-none-any.whl", hash = "sha256:802a655709d49bd004c31e865ef37da30b540786a46bfce02333e0e24b5fe29a"},
+    {file = "pydantic-2.11.10.tar.gz", hash = "sha256:dc280f0982fbda6c38fada4e476dc0a4f3aeaf9c6ad4c28df68a666ec3c61423"},
 ]
 
 [package.dependencies]
@@ -1165,14 +1165,14 @@ files = [
 
 [[package]]
 name = "typing-inspection"
-version = "0.4.1"
+version = "0.4.2"
 description = "Runtime typing introspection tools"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "typing_inspection-0.4.1-py3-none-any.whl", hash = "sha256:389055682238f53b04f7badcb49b989835495a96700ced5dab2d8feae4b26f51"},
-    {file = "typing_inspection-0.4.1.tar.gz", hash = "sha256:6ae134cc0203c33377d43188d4064e9b357dba58cff3185f22924610e70a9d28"},
+    {file = "typing_inspection-0.4.2-py3-none-any.whl", hash = "sha256:4ed1cacbdc298c220f1bd249ed5287caa16f34d44ef4e9c3d0cbad5b521545e7"},
+    {file = "typing_inspection-0.4.2.tar.gz", hash = "sha256:ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464"},
 ]
 
 [package.dependencies]
