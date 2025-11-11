@@ -9,12 +9,11 @@ from fastapi import (
 from fastapi.security import HTTPBasicCredentials
 
 from openapi_server.connect import client_for_basic_auth
-from openapi_server.models.extra_models import TokenModel
-from openapi_server.security_api import get_token_basic
+from openapi_server.security_api import get_basic_credentials
 
 from .utils import error_handling
 
-SECURITY_TOKEN_MODEL = Security(get_token_basic)
+SECURITY_BASIC_CREDENTIALS = Security(get_basic_credentials)
 
 router = APIRouter()
 
@@ -54,16 +53,16 @@ async def healthcheck_get() -> dict[str, str]:
 )
 async def status_get(
     response: Response,
-    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
+    basic_credentials: HTTPBasicCredentials = SECURITY_BASIC_CREDENTIALS,
 ) -> dict[str, str]:
     """A test endpoint that can be used by clients to verify service availability,
     and to verify valid authentication credentials. Authentication is not required,
     but if it is provided, it will be checked for validity."""
-    username = token_basic.username
+    username = basic_credentials.username
 
     if not username:
         return {"status": "/status: no username"}
-    client = client_for_basic_auth(token_basic)
+    client = client_for_basic_auth(basic_credentials)
     with error_handling():
         view_unpublished = client.user_can_view_unpublished_judgments(username)
 

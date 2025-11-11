@@ -16,20 +16,18 @@ from fastapi.security.api_key import (  # noqa: F401
     APIKeyQuery,
 )
 
-from openapi_server.models.extra_models import TokenModel
-
 basic_credentials_auth = Depends(HTTPBasic())
 
 
-def get_token_basic(
+def get_basic_credentials(
     credentials: HTTPBasicCredentials = basic_credentials_auth,
-) -> TokenModel:
+) -> HTTPBasicCredentials:
     """
     Check and retrieve authentication information from basic auth.
 
     :param credentials Credentials provided by Authorization header
     :type credentials: HTTPBasicCredentials
-    :rtype: TokenModel | None
+    :rtype: HTTPBasicCredentials | None
     """
     # we pass the problem upstream -- auth is a MarkLogic problem
     return credentials
