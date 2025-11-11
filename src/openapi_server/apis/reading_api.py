@@ -9,15 +9,15 @@ from fastapi import (
     Response,
     Security,
 )
+from fastapi.security import HTTPBasicCredentials
 from requests_toolbelt.multipart import decoder
 
 from openapi_server.connect import client_for_basic_auth
-from openapi_server.models.extra_models import TokenModel
-from openapi_server.security_api import get_token_basic
+from openapi_server.security_api import get_basic_credentials
 
 from .utils import error_handling
 
-SECURITY_TOKEN_MODEL = Security(get_token_basic)
+SECURITY_BASIC_CREDENTIALS = Security(get_basic_credentials)
 
 router = APIRouter()
 
@@ -55,7 +55,7 @@ def unpack_list(xpath_list):
 async def get_document_by_uri(
     response: Response,
     judgmentUri: str,
-    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
+    token_basic: HTTPBasicCredentials = SECURITY_BASIC_CREDENTIALS,
 ):
     with error_handling():
         client = client_for_basic_auth(token_basic)
@@ -81,13 +81,13 @@ async def get_document_by_uri(
 async def list_unpublished_get_get(
     request: Request,
     response: Response,
-    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
+    basic_credentials: HTTPBasicCredentials = SECURITY_BASIC_CREDENTIALS,
     page: int = 1,  # should not be 0
 ) -> Any:
     """Unless the client has `read_unpublished_documents` permission,
     then only metadata for published documents are accessible."""
-    client = client_for_basic_auth(token_basic)
-    if not client.user_can_view_unpublished_judgments(token_basic.username):
+    client = client_for_basic_auth(basic_credentials)
+    if not client.user_can_view_unpublished_judgments(basic_credentials.username):
         response.status_code = 403
         return {"status": "Not allowed to see unpublished documents"}
 

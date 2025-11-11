@@ -6,14 +6,15 @@ from fastapi import (
     Response,
     Security,
 )
+from fastapi.security import HTTPBasicCredentials
 
 from openapi_server.connect import client_for_basic_auth
 from openapi_server.models.extra_models import TokenModel
-from openapi_server.security_api import get_token_basic
+from openapi_server.security_api import get_basic_credentials
 
 from .utils import error_handling
 
-SECURITY_TOKEN_MODEL = Security(get_token_basic)
+SECURITY_BASIC_CREDENTIALS = Security(get_basic_credentials)
 
 router = APIRouter()
 
@@ -43,7 +44,7 @@ router = APIRouter()
 async def judgment_uri_lock_get(
     response: Response,
     judgmentUri: str,
-    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
+    token_basic: HTTPBasicCredentials = SECURITY_BASIC_CREDENTIALS,
 ):
     client = client_for_basic_auth(token_basic)
     with error_handling():
@@ -75,13 +76,13 @@ async def judgment_uri_lock_get(
 async def judgment_uri_lock_put(
     response: Response,
     judgmentUri: str,
-    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
+    basic_credentials: HTTPBasicCredentials = SECURITY_BASIC_CREDENTIALS,
     expires="0",
 ):
     """Locks edit access for a document for the current client. Returns the latest
     version of the locked document, along with the new lock state."""
-    client = client_for_basic_auth(token_basic)
-    annotation = f"Judgment locked for editing by {token_basic.username}"
+    client = client_for_basic_auth(basic_credentials)
+    annotation = f"Judgment locked for editing by {basic_credentials.username}"
     expires = bool(
         int(expires),
     )  # If expires is True then the lock will expire at midnight, otherwise the lock is permanent
@@ -108,7 +109,7 @@ async def judgment_uri_lock_put(
 async def judgment_uri_lock_delete(
     response: Response,
     judgmentUri: str,
-    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
+    token_basic: TokenModel = SECURITY_BASIC_CREDENTIALS,
 ):
     client = client_for_basic_auth(token_basic)
 
@@ -138,13 +139,13 @@ async def judgment_uri_patch(  # noqa: PLR0913
     response: Response,
     judgmentUri: str,
     annotation: str = "",
-    token_basic: TokenModel = SECURITY_TOKEN_MODEL,
+    basic_credentials: TokenModel = SECURITY_BASIC_CREDENTIALS,
     unlock: bool = False,
 ) -> dict[str, str]:
     """Write a complete new version of the document to the database,
     and release any client lock."""
 
-    client = client_for_basic_auth(token_basic)
+    client = client_for_basic_auth(basic_credentials)
     bytes_body = await request.body()
 
     rich_annotation = VersionAnnotation(
