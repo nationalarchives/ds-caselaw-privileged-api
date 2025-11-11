@@ -1,5 +1,5 @@
-from caselawclient.client_helpers import VersionAnnotation, VersionType
 from caselawclient.models.documents import DocumentURIString
+from caselawclient.models.documents.versions import VersionAnnotation, VersionType
 from fastapi import (
     APIRouter,
     Request,
