@@ -85,14 +85,14 @@ crt = ["awscrt (==0.29.2)"]
 
 [[package]]
 name = "certifi"
-version = "2025.10.5"
+version = "2025.11.12"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.7"
 groups = ["main"]
 files = [
-    {file = "certifi-2025.10.5-py3-none-any.whl", hash = "sha256:0f212c2744a9bb6de0c56639a6f68afe01ecd92d91f14ae897c4fe7bbeeef0de"},
-    {file = "certifi-2025.10.5.tar.gz", hash = "sha256:47c09d31ccf2acf0be3f701ea53595ee7e0b8fa08801c6624be771df09ae7b43"},
+    {file = "certifi-2025.11.12-py3-none-any.whl", hash = "sha256:97de8790030bbd5c2d96b7ec782fc2f7820ef8dba6db909ccf95449f2d062d4b"},
+    {file = "certifi-2025.11.12.tar.gz", hash = "sha256:d8ab5478f2ecd78af242878415affce761ca6bc54a22a27e026d7c25357c3316"},
 ]
 
 [[package]]
@@ -289,19 +289,19 @@ testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)", "setuptools (>=71.0.
 
 [[package]]
 name = "ds-caselaw-marklogic-api-client"
-version = "43.1.0"
+version = "44.2.1"
 description = "An API client for interacting with the underlying data in Find Caselaw."
 optional = false
 python-versions = "<4.0.0,>=3.12.0"
 groups = ["main"]
 files = [
-    {file = "ds_caselaw_marklogic_api_client-43.1.0-py3-none-any.whl", hash = "sha256:64e166313e37750eda12715c8b1b3626fd9cb938202e25b357673253226f5d93"},
-    {file = "ds_caselaw_marklogic_api_client-43.1.0.tar.gz", hash = "sha256:947fc8aa0f39e5096e9b9cb41866fb5a9f8a7e685aa399655a1208ba6f671b1e"},
+    {file = "ds_caselaw_marklogic_api_client-44.2.1-py3-none-any.whl", hash = "sha256:17e5d566fb8c6c119a09fb5c185a1879394eff78cbaa5f96c473697345e3bd77"},
+    {file = "ds_caselaw_marklogic_api_client-44.2.1.tar.gz", hash = "sha256:80865ac86e9751bfcf5b54c0def21d61a3f1028f3141a71f25179a1d3ca37ddc"},
 ]
 
 [package.dependencies]
 boto3 = ">=1.26.112,<2.0.0"
-certifi = ">=2025.10.5,<2025.11.0"
+certifi = ">=2025.11.12,<2025.12.0"
 charset-normalizer = ">=3.0.0,<4.0.0"
 defusedxml = ">=0.7.1,<0.8.0"
 django-environ = ">=0.12.0"
@@ -1281,4 +1281,4 @@ standard = ["colorama (>=0.4) ; sys_platform == \"win32\"", "httptools (>=0.6.3)
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12, <4"
-content-hash = "56debab0c91713c75eabd70a2b87f17708eeddb9dbdbf97579e98f6da3b6412a"
+content-hash = "662c4bff408246d32247da8f3fc6250fd6b1892d4f2b2014577c2a77e2663f33"
