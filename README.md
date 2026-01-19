@@ -49,10 +49,11 @@ The `main` branch is automatically deployed with each commit. The deployed API S
 
 To deploy to production:
 
-1. Create a [new release](https://github.com/nationalarchives/ds-caselaw-privileged-api/releases).
-2. Set the tag and release name to `vX.Y.Z`, following semantic versioning.
-3. Publish the release.
-4. Automated workflow will then force-push that release to the `production` branch, which will then be deployed to the
+1. Update pyproject.toml to reflect the new version (not enforced by anything)
+2. Create a [new release](https://github.com/nationalarchives/ds-caselaw-privileged-api/releases).
+3. Set the tag and release name to `vX.Y.Z`, following semantic versioning.
+4. Publish the release.
+5. Automated workflow will then force-push that release to the `production` branch, which will then be deployed to the
    production environment.
 
 The production Swagger API docs are at
