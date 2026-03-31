@@ -27,6 +27,7 @@ repos:
     rev: v1.19.1 # Use the sha / tag you want to point at
     hooks:
       - id: mypy
+        language: python
         additional_dependencies:
           [
             "types-requests",
