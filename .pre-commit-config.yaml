@@ -30,8 +30,8 @@ repos:
         language: python
         additional_dependencies:
           [
-            "types-requests",
-            "types-ujson",
+            "types-requests==2.33.0.20260402",
+            "types-ujson==5.10.0.20250822",
             "ds-caselaw-marklogic-api-client==44.4.5",
           ]
         files: ^src/
@@ -41,6 +41,13 @@ repos:
     hooks:
       - id: prettier
         types_or: [yaml, json, xml, markdown, scss, javascript]
+
+  - repo: https://github.com/renovatebot/pre-commit-hooks
+    rev: 43.100.0
+    hooks:
+      - id: renovate-config-validator
+        args: [--strict]
+        files: renovate.json
 
   - repo: https://github.com/woodruffw/zizmor-pre-commit
     rev: v1.23.1
