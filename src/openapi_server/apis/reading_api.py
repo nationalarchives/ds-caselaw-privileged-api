@@ -26,9 +26,9 @@ class TooManyValuesInXPathListException(Exception):
     pass
 
 
-def decode_multipart_response(response):
+def decode_multipart_response(response) -> bytes:
     multipart_data = decoder.MultipartDecoder.from_response(response)
-    return multipart_data.parts[0].text
+    return multipart_data.parts[0].content
 
 
 def unpack_list(xpath_list):
@@ -99,7 +99,7 @@ async def list_unpublished_get_get(
         ),
     )
 
-    xml = decode_multipart_response(response)
+    xml: bytes = decode_multipart_response(response)
 
     content_type = request.headers.get("Content-Type") or ""
     if "application/xml" in content_type:
