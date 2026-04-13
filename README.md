@@ -40,6 +40,8 @@ Run `pre-commit install` to set up linting, and/or copy the `pre-push.sample` fi
 
 ## Deployment
 
+<!-- last_review: 2026-04-13 -->
+
 ### Staging
 
 The `main` branch is automatically deployed with each commit. The deployed API Swagger docs can be viewed at
