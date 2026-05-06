@@ -44,54 +44,54 @@ trio = ["trio (>=0.32.0)"]
 
 [[package]]
 name = "boto3"
-version = "1.43.2"
+version = "1.42.96"
 description = "The AWS SDK for Python"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "boto3-1.43.2-py3-none-any.whl", hash = "sha256:796e859cfb5e93c55276ce746f8020f691eda6b68a0ec4ce4f6fd07a1cca6859"},
-    {file = "boto3-1.43.2.tar.gz", hash = "sha256:be951cc22769fbcda73fac523b031ee38db45c3ae2b0d828c76b8f6e8e683073"},
+    {file = "boto3-1.42.96-py3-none-any.whl", hash = "sha256:2f4566da2c209a98bdbfc874d813ef231c84ad24e4f815e9bc91de5f63351a24"},
+    {file = "boto3-1.42.96.tar.gz", hash = "sha256:b38a9e4a3fbbee9017252576f1379780d0a5814768676c08df2f539d31fcdd68"},
 ]
 
 [package.dependencies]
-botocore = ">=1.43.2,<1.44.0"
+botocore = ">=1.42.96,<1.43.0"
 jmespath = ">=0.7.1,<2.0.0"
-s3transfer = ">=0.17.0,<0.18.0"
+s3transfer = ">=0.16.0,<0.17.0"
 
 [package.extras]
 crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.43.2"
+version = "1.42.97"
 description = "Low-level, data-driven core of boto 3."
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "botocore-1.43.2-py3-none-any.whl", hash = "sha256:b823454d751a1c24bb403b5b07ab65007689654abb21787df923684e0743976c"},
-    {file = "botocore-1.43.2.tar.gz", hash = "sha256:7b2ec87b6d0720bff920451ce930e71c2a99cdea48d0eaa66ccf0b21ea747e03"},
+    {file = "botocore-1.42.97-py3-none-any.whl", hash = "sha256:77d2c8ce1bc592d3fbd7c01c35836f4a5b0cac2ca03ccdf6ffc60faa16b5fadc"},
+    {file = "botocore-1.42.97.tar.gz", hash = "sha256:5c0bb00e32d16ff6d278cc8c9e10dc3672d9c1d569031635ac3c908a60de8310"},
 ]
 
 [package.dependencies]
 jmespath = ">=0.7.1,<2.0.0"
 python-dateutil = ">=2.1,<3.0.0"
-urllib3 = ">=1.25.4,<2.2.0 || >2.2.0,<3"
+urllib3 = {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""}
 
 [package.extras]
-crt = ["awscrt (==0.32.2)"]
+crt = ["awscrt (==0.31.2)"]
 
 [[package]]
 name = "certifi"
-version = "2026.2.25"
+version = "2026.4.22"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.7"
 groups = ["main"]
 files = [
-    {file = "certifi-2026.2.25-py3-none-any.whl", hash = "sha256:027692e4402ad994f1c42e52a4997a9763c646b73e4096e4d5d6db8af1d6f0fa"},
-    {file = "certifi-2026.2.25.tar.gz", hash = "sha256:e887ab5cee78ea814d3472169153c2d12cd43b14bd03329a39a9c6e2e80bfba7"},
+    {file = "certifi-2026.4.22-py3-none-any.whl", hash = "sha256:3cb2210c8f88ba2318d29b0388d1023c8492ff72ecdde4ebdaddbb13a31b1c4a"},
+    {file = "certifi-2026.4.22.tar.gz", hash = "sha256:8d455352a37b71bf76a79caa83a3d6c25afee4a385d632127b6afb3963f1c580"},
 ]
 
 [[package]]
@@ -338,19 +338,19 @@ testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)", "setuptools (>=71.0.
 
 [[package]]
 name = "ds-caselaw-marklogic-api-client"
-version = "45.0.0"
+version = "45.0.1"
 description = "An API client for interacting with the underlying data in Find Caselaw."
 optional = false
 python-versions = "<4.0.0,>=3.12.0"
 groups = ["main"]
 files = [
-    {file = "ds_caselaw_marklogic_api_client-45.0.0-py3-none-any.whl", hash = "sha256:1a372fae3521a9ba51d52f9156eb5c23db561bbad5fd95a81a93b604f3cb7534"},
-    {file = "ds_caselaw_marklogic_api_client-45.0.0.tar.gz", hash = "sha256:8be378625e3cc86fa7253ccd4a5ca3ebb231847c442c56e2e96f9732691eba6f"},
+    {file = "ds_caselaw_marklogic_api_client-45.0.1-py3-none-any.whl", hash = "sha256:66e2a90190092a03f7e1b232ecca5bc024e5699609e9af253b1cc49e06ce1676"},
+    {file = "ds_caselaw_marklogic_api_client-45.0.1.tar.gz", hash = "sha256:8ea96919db49e0e18af9446065b5e25b9e88e0688247c2e86d99040f9456ec13"},
 ]
 
 [package.dependencies]
-boto3 = ">=1.26.112,<2.0.0"
-certifi = ">=2026.2.25,<2026.3.0"
+boto3 = "1.42.96"
+certifi = ">=2026.4.22,<2026.5.0"
 charset-normalizer = ">=3.0.0,<4.0.0"
 defusedxml = ">=0.7.1,<0.8.0"
 django-environ = ">=0.12.0"
@@ -358,8 +358,8 @@ ds-caselaw-utils = ">=4.0.0,<5.0.0"
 idna = ">=3.4,<4.0"
 lxml = ">=6.0.0,<7.0.0"
 memoization = ">=0.4.0,<0.5.0"
-mypy-boto3-s3 = ">=1.26.104,<2.0.0"
-mypy-boto3-sns = ">=1.26.69,<2.0.0"
+mypy-boto3-s3 = "1.42.94"
+mypy-boto3-sns = "1.42.3"
 pydantic = ">=2.12.3,<3.0.0"
 python-dateutil = ">=2.9.0-post.0,<3.0.0"
 pytz = ">2024"
@@ -728,26 +728,26 @@ files = [
 
 [[package]]
 name = "mypy-boto3-s3"
-version = "1.43.0"
-description = "Type annotations for boto3 S3 1.43.0 service generated with mypy-boto3-builder 8.12.0"
+version = "1.42.94"
+description = "Type annotations for boto3 S3 1.42.94 service generated with mypy-boto3-builder 8.12.0"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "mypy_boto3_s3-1.43.0-py3-none-any.whl", hash = "sha256:aaa7991e7ffafcf8ff4fb23c5fb4cc4554ef5724c889ff016b87e60f27405b5b"},
-    {file = "mypy_boto3_s3-1.43.0.tar.gz", hash = "sha256:3bfb027b1f3df9316ff72ff29f4b2dc0d7d65ed5032d8bcf4892222994228588"},
+    {file = "mypy_boto3_s3-1.42.94-py3-none-any.whl", hash = "sha256:d7c2111396d7ae344b241958b7df8ed33d478d746721202715f5c197f9cd0c83"},
+    {file = "mypy_boto3_s3-1.42.94.tar.gz", hash = "sha256:1d92d722cf00573b8111e98493ab386e0c1b59a1530b7fee4af77f2d9a1c477d"},
 ]
 
 [[package]]
 name = "mypy-boto3-sns"
-version = "1.43.0"
-description = "Type annotations for boto3 SNS 1.43.0 service generated with mypy-boto3-builder 8.12.0"
+version = "1.42.3"
+description = "Type annotations for boto3 SNS 1.42.3 service generated with mypy-boto3-builder 8.12.0"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "mypy_boto3_sns-1.43.0-py3-none-any.whl", hash = "sha256:a77ba63525f7b2a16ea8f93bf6be84693fdde81cf9937ab6cf37e1b6525caaa8"},
-    {file = "mypy_boto3_sns-1.43.0.tar.gz", hash = "sha256:2ad60f8e6c662e91b4c6f45439cbeb53f04ed2a764f0a611d75e4fa0fdfe4c41"},
+    {file = "mypy_boto3_sns-1.42.3-py3-none-any.whl", hash = "sha256:97d1ee3b4a3a31b51939a20b1f31c5e87b6842d2086397f64a9b25133aea378a"},
+    {file = "mypy_boto3_sns-1.42.3.tar.gz", hash = "sha256:1edfe88bf30eb191dc499378e75e78001ccf0c29e372ac49a8cfcc86005d8a7e"},
 ]
 
 [[package]]
@@ -1085,14 +1085,14 @@ oldlibyaml = ["ruamel.yaml.clib ; platform_python_implementation == \"CPython\""
 
 [[package]]
 name = "s3transfer"
-version = "0.17.0"
+version = "0.16.1"
 description = "An Amazon S3 Transfer Manager"
 optional = false
-python-versions = ">=3.10"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "s3transfer-0.17.0-py3-none-any.whl", hash = "sha256:ce3801712acf4ad3e89fb9990df97b4972e93f4b3b0004d214be5bce12814c20"},
-    {file = "s3transfer-0.17.0.tar.gz", hash = "sha256:9edeb6d1c3c2f89d6050348548834ad8289610d886e5bf7b7207728bd43ce33a"},
+    {file = "s3transfer-0.16.1-py3-none-any.whl", hash = "sha256:61bcd00ccb83b21a0fe7e91a553fff9729d46c83b4e0106e7c314a733891f7c2"},
+    {file = "s3transfer-0.16.1.tar.gz", hash = "sha256:8e424355754b9ccb32467bdc568edf55be82692ef2002d934b1311dbb3b9e524"},
 ]
 
 [package.dependencies]
@@ -1250,4 +1250,4 @@ standard = ["colorama (>=0.4) ; sys_platform == \"win32\"", "httptools (>=0.6.3)
 [metadata]
 lock-version = "2.1"
 python-versions = "==3.14.4"
-content-hash = "53ba1e6f7b6f69a112fd40124a67575c3562a082496d3c375636282c8e4adf11"
+content-hash = "8377fb44f93873af283b83d454c9294fd71ffcf9558ef8c005e676c4ade3a64c"
