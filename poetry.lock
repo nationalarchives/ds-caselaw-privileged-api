@@ -389,14 +389,14 @@ typing-extensions = ">=4.15.0"
 
 [[package]]
 name = "fastapi"
-version = "0.140.12"
+version = "0.140.13"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "fastapi-0.140.12-py3-none-any.whl", hash = "sha256:2b84a1745e81c158fd44cc37e60c0bbe6685449484f5e4de56c531b4d4bd0455"},
-    {file = "fastapi-0.140.12.tar.gz", hash = "sha256:0f47004002992e833e73414db7df7b75fab2302f9d0fff5483db944fb38dbb0c"},
+    {file = "fastapi-0.140.13-py3-none-any.whl", hash = "sha256:8b017110e1e9f30a95e8bdb8f71fbe2f0fe3af5717109e5b14f9e069df54f6d4"},
+    {file = "fastapi-0.140.13.tar.gz", hash = "sha256:500172a08cf1459901f90b05c37d93060dada3b573fec8f0862445db52ba6b4b"},
 ]
 
 [package.dependencies]
@@ -1255,4 +1255,4 @@ standard = ["httptools (>=0.8.0)", "python-dotenv (>=0.13)", "pyyaml (>=5.1)", "
 [metadata]
 lock-version = "2.1"
 python-versions = "==3.14.6"
-content-hash = "9cc74e93a56aeb15d8150a391d1eed1b08507709debeaf2303186a9c240492d2"
+content-hash = "055fdc17cb21844e326a57b7fdbb9a39aab1230d38860e7b6d5662c021b1f3ca"
