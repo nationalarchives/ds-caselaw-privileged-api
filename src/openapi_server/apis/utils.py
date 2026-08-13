@@ -5,6 +5,8 @@ import lxml.etree
 from caselawclient.Client import MarklogicAPIError, MarklogicValidationFailedError
 from fastapi import HTTPException
 
+logger = logging.getLogger(__name__)
+
 
 @contextmanager
 def error_handling():
@@ -18,7 +20,7 @@ def error_handling():
 
 def error_response(e):
     """provide a uniform error Response"""
-    logging.warning(e)
+    logger.warning(e)
     if isinstance(e, MarklogicValidationFailedError):
         root = lxml.etree.fromstring(e.response.content)
         error_message = root.xpath(
@@ -30,7 +32,7 @@ def error_response(e):
     if isinstance(e, MarklogicAPIError):
         raise HTTPException(status_code=e.status_code, detail=e.default_message)
 
-    logging.exception(
+    logger.exception(
         "A Python error in the privileged API occurred whilst making a request to Marklogic",
     )
     raise HTTPException(

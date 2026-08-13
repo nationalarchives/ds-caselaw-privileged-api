@@ -134,7 +134,7 @@ async def judgment_uri_lock_delete(
     summary="Update a judgment",
     response_model_by_alias=True,
 )
-async def judgment_uri_patch(  # noqa: PLR0913
+async def judgment_uri_patch(  # noqa: PLR0913, PLR0917
     request: Request,
     response: Response,
     judgmentUri: str,
