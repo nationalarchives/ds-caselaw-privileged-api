@@ -302,14 +302,14 @@ testing = ["coverage[toml] (>=5.0a4)", "pytest (>=4.6.11)", "setuptools (>=71.0.
 
 [[package]]
 name = "ds-caselaw-marklogic-api-client"
-version = "49.0.1"
+version = "49.1.1"
 description = "An API client for interacting with the underlying data in Find Caselaw."
 optional = false
 python-versions = "<4.0.0,>=3.12.0"
 groups = ["main"]
 files = [
-    {file = "ds_caselaw_marklogic_api_client-49.0.1-py3-none-any.whl", hash = "sha256:3336dcefae48ded655d232c9d5b6684bcf6fa14101ac0c2f3eaf3a2e21b312d3"},
-    {file = "ds_caselaw_marklogic_api_client-49.0.1.tar.gz", hash = "sha256:04a11047e041b15ed52dba3b1a7f5a641917b7f8268ed95cd24d9bb2336823ba"},
+    {file = "ds_caselaw_marklogic_api_client-49.1.1-py3-none-any.whl", hash = "sha256:b19a6deb058c504981f2ba1f9a556bf054dc1b2e02a0c764ad8dd50d4a037fa3"},
+    {file = "ds_caselaw_marklogic_api_client-49.1.1.tar.gz", hash = "sha256:f0b17bd49191accafd8eb44fa1cdf78560767523b5d73b4430f9af9d7a8d627f"},
 ]
 
 [package.dependencies]
@@ -1219,4 +1219,4 @@ standard = ["httptools (>=0.8.0)", "python-dotenv (>=0.13)", "pyyaml (>=5.1)", "
 [metadata]
 lock-version = "2.1"
 python-versions = "==3.14.6"
-content-hash = "580a2bdbd6e692021e36121dc89fb1d9ec287454db23eb7ca5fd2bfc5b0fc3a5"
+content-hash = "fd8cf554c32f0f5ef72d693dd2696afe06e21dce04ebfc50913317a3362b3992"
