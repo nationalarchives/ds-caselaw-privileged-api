@@ -45,18 +45,18 @@ trio = ["trio (>=0.32.0)"]
 
 [[package]]
 name = "boto3"
-version = "1.43.89"
+version = "1.43.93"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "boto3-1.43.89-py3-none-any.whl", hash = "sha256:fe4190afe63eb562b6ba6a3911cf4427473b35fa047adde093bf696d3ae09fc0"},
-    {file = "boto3-1.43.89.tar.gz", hash = "sha256:c28abbe472e9b7cad08807356311aeec51bde5218c18489da827045d2267bfd9"},
+    {file = "boto3-1.43.93-py3-none-any.whl", hash = "sha256:3c948fe231490d446bf90bf3322d1452632107329d3683b37d88b7399bf481a0"},
+    {file = "boto3-1.43.93.tar.gz", hash = "sha256:196bfc8b4c9cd5505f9f7b963e30956db3a00fd47e20dd0ee3574a243c1fb212"},
 ]
 
 [package.dependencies]
-botocore = ">=1.43.89,<1.44.0"
+botocore = ">=1.43.93,<1.44.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.19.0,<0.20.0"
 
@@ -65,14 +65,14 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.43.89"
+version = "1.43.93"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "botocore-1.43.89-py3-none-any.whl", hash = "sha256:d7211220c815427fe71225acc6909e4ab5dfab3b03770e72fd16cf9eb86b3d1a"},
-    {file = "botocore-1.43.89.tar.gz", hash = "sha256:f0574942970742657b0e0716cf08c2dfe6bef8e6de5fbb7081c3424e262b4cca"},
+    {file = "botocore-1.43.93-py3-none-any.whl", hash = "sha256:3ca57bb5d26d88b554a74de708a5c991f45306436c91aacca931252d1d4d54ff"},
+    {file = "botocore-1.43.93.tar.gz", hash = "sha256:82da355d18a7f784347b00444be33942834651f31b6c5ffef49999cd47364c5e"},
 ]
 
 [package.dependencies]
@@ -422,14 +422,14 @@ tzdata = ">=2025.1"
 
 [[package]]
 name = "ds-caselaw-utils"
-version = "4.9.0"
+version = "4.10.0"
 description = "Utilities for the National Archives Caselaw project"
 optional = false
 python-versions = "<4.0,>=3.12"
 groups = ["main"]
 files = [
-    {file = "ds_caselaw_utils-4.9.0-py3-none-any.whl", hash = "sha256:a6ce0ad9e34fc322a6cc1e51d6bac2715fb8eb134750e74c070429180679f251"},
-    {file = "ds_caselaw_utils-4.9.0.tar.gz", hash = "sha256:fe940415b312da722996e06359c6c1580c924418b337875fe957eaaf6fa85a15"},
+    {file = "ds_caselaw_utils-4.10.0-py3-none-any.whl", hash = "sha256:dead1f9418a6a9c92e8fb8efbfa96843ac064ed545059df4038a4d69f33dc332"},
+    {file = "ds_caselaw_utils-4.10.0.tar.gz", hash = "sha256:dd0b009eccbf7705f291bcc78c20392f319e1892aa2e2b62e7ccb6b06ea994e1"},
 ]
 
 [package.dependencies]
@@ -821,14 +821,14 @@ files = [
 
 [[package]]
 name = "mypy-boto3-s3"
-version = "1.43.66"
-description = "Type annotations for boto3 S3 1.43.66 service generated with mypy-boto3-builder 8.12.0"
+version = "1.43.93"
+description = "Type annotations for boto3 S3 1.43.93 service generated with mypy-boto3-builder 8.12.0"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "mypy_boto3_s3-1.43.66-py3-none-any.whl", hash = "sha256:f9385e190d423690dbc161260dac02439e3b6c9841e992ba6a92d15c1050b3af"},
-    {file = "mypy_boto3_s3-1.43.66.tar.gz", hash = "sha256:b2f74763e373b3f3d64cfcd2f00cdb1c10c8a4cefe6d4cdbc1ed4a6ade085c07"},
+    {file = "mypy_boto3_s3-1.43.93-py3-none-any.whl", hash = "sha256:52be1672a8b65ff3a1f779b46f7ed4fab85e78f15b353ce7eb5e20a9f15e7b9b"},
+    {file = "mypy_boto3_s3-1.43.93.tar.gz", hash = "sha256:858e1ffe738ece3fa83ebc2b50f19aa53d0d69c1084739b37ec671b060713192"},
 ]
 
 [[package]]
@@ -1298,14 +1298,14 @@ typing-extensions = ">=4.15.0"
 
 [[package]]
 name = "tzdata"
-version = "2026.3"
+version = "2026.4"
 description = "Provider of IANA time zone data"
 optional = false
 python-versions = ">=2"
 groups = ["main"]
 files = [
-    {file = "tzdata-2026.3-py2.py3-none-any.whl", hash = "sha256:dc096730c87af6cab1b171c9d532be840741ff5d459015e7f6947bd7d7e54931"},
-    {file = "tzdata-2026.3.tar.gz", hash = "sha256:4a1518b8993086a7982523e071643f3c0e5f213e75b21318e78bcabfff9d1415"},
+    {file = "tzdata-2026.4-py2.py3-none-any.whl", hash = "sha256:c2169a8b0a7a5e9674da5a135ccdfb2b3e671b333ed9fed17b41f73c34476e81"},
+    {file = "tzdata-2026.4.tar.gz", hash = "sha256:f1b8bd365d8d210c55353f4d7f8d6d8561c0ba50d704b700d195a9424bba0d79"},
 ]
 
 [[package]]
