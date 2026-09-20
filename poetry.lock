@@ -1133,18 +1133,18 @@ requests = ">=2.0.1,<3.0.0"
 
 [[package]]
 name = "rollbar"
-version = "1.4.0"
+version = "1.5.0"
 description = "Easy and powerful exception tracking with Rollbar. Send messages and exceptions with arbitrary context, get back aggregates, and debug production issues quickly."
 optional = false
 python-versions = ">=3.10"
 groups = ["main"]
 files = [
-    {file = "rollbar-1.4.0-py3-none-any.whl", hash = "sha256:4f5c183ce1cdc6316a2a675f887a6ccead3f9b5da35b8d6c4ad7a7c2904c602d"},
-    {file = "rollbar-1.4.0.tar.gz", hash = "sha256:98ad7f90012c791d0b40eac51b6fe688b1cadcc4aadff772fc0a23efe75fb5fc"},
+    {file = "rollbar-1.5.0-py3-none-any.whl", hash = "sha256:26b5988642c5bd99ebde86fa03c629559c4bbed9ae0fa69601f17824d1b4a113"},
+    {file = "rollbar-1.5.0.tar.gz", hash = "sha256:1940a2e007901d7023014be782a09828e2822b842a4b0f9034806cdb81e07f0c"},
 ]
 
 [package.dependencies]
-requests = ">=0.12.1"
+requests = ">=2.0.0"
 
 [[package]]
 name = "ruamel-yaml"
@@ -1348,4 +1348,4 @@ standard = ["httptools (>=0.8.0)", "python-dotenv (>=0.13)", "pyyaml (>=5.1)", "
 [metadata]
 lock-version = "2.1"
 python-versions = "==3.14.7"
-content-hash = "7a010c53a5b0d12bb0f9c40270f62825fe21099d257fc59ce235e26a848d57a5"
+content-hash = "e77e4f52893f1d44055abeefa791c57985cf57520efebfd3222fc8436ee8e8a6"
