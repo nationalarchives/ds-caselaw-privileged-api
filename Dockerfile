@@ -1,4 +1,4 @@
-FROM python:3.14@sha256:e06cc1111ed84189e91866447f562b89faadbfbbb9937cd67e6bf4172cdb45df as service
+FROM python:3.14@sha256:be8ccd085666c34273c9dc5607c9842f8b2e3116128aae45148ce164c07ce09d as service
 
 RUN pip install poetry==2.2.1
 
