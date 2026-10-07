@@ -12,7 +12,7 @@ readme = "README.md"
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "==3.14.7"
+python = "==3.14.8"
 fastapi = "==0.142.2"
 python-dotenv = "==1.2.4"
 ds-caselaw-marklogic-api-client = "50.0.1"
