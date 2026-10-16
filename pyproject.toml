@@ -15,7 +15,7 @@ package-mode = false
 python = "==3.14.8"
 fastapi = "==0.143.1"
 python-dotenv = "==1.2.4"
-ds-caselaw-marklogic-api-client = "50.0.1"
+ds-caselaw-marklogic-api-client = "51.0.0"
 django-environ = "==0.14.0"
 requests = {extras = ["use-chardet-on-py3"], version = "==2.34.2"}
 requests-toolbelt = "==1.0.0"
