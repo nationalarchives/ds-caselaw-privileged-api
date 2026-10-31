@@ -38,7 +38,6 @@ files = [
 
 [package.dependencies]
 idna = ">=2.8"
-typing_extensions = {version = ">=4.16.0", markers = "python_version < \"3.15\""}
 
 [package.extras]
 trio = ["trio (>=0.32.0)"]
@@ -1377,5 +1376,5 @@ standard = ["httptools (>=0.8.0)", "python-dotenv (>=0.13)", "pyyaml (>=5.1)", "
 
 [metadata]
 lock-version = "2.1"
-python-versions = "==3.14.8"
-content-hash = "d9fa046e2bdb1f571536b3e0a698d09bb9e97910b5601bbd40610031b264c713"
+python-versions = "==3.15.2"
+content-hash = "fbbe4d3a7324a573fce3c8cbd3447835c876f04c855e5951425582c720990a9e"
